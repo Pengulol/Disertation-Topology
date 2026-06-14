@@ -119,18 +119,17 @@ def topology():
     s8 = net.addSwitch("s8", failMode="standalone")
 
     info("\n\n\n Adding access zones\n")
-    ap2 = net.addAccessPoint("ap2", ssid="zone2-responder", mode="g", channel="6",
+
+    ap2 = net.addAccessPoint("ap2", ssid="zone2-responder", mode="g", channel="1",
                              position="20,50,0",  range=50, failMode="standalone")
     ap3 = net.addAccessPoint("ap3", ssid="zone3-users",    mode="g", channel="6",
                              position="50,50,0",  range=50, failMode="standalone")
-    ap4 = net.addAccessPoint("ap4", ssid="zone4-iot",      mode="g", channel="6",
+    ap4 = net.addAccessPoint("ap4", ssid="zone4-iot",      mode="g", channel="11",
                              position="80,50,0",  range=50, failMode="standalone")
-    ap5 = net.addAccessPoint("ap5", ssid="zone5-other",    mode="g", channel="6",
+    ap5 = net.addAccessPoint("ap5", ssid="zone5-other",    mode="g", channel="1",
                              position="110,50,0", range=50, failMode="standalone")
-
-    ap6 = net.addAccessPoint("ap6",ssid="zone6-second-island",mode="g",channel="6",
-                             position="155,50,0",range=45,failMode="standalone")
-
+    ap6 = net.addAccessPoint("ap6", ssid="zone6-second-island", mode="g", channel="6",
+                             position="155,50,0", range=45, failMode="standalone")
 
     info("\n\n\n Adding stations")
     resp = net.addStation(
@@ -198,8 +197,8 @@ def topology():
     )
 
     info("\n\n\n Adding central services")
-    cidp  = net.addHost("cidp",  ip="10.0.0.10/24")
-    cp    = net.addHost("cp",    ip="10.0.0.11/24")
+    cidp = net.addHost("cidp", ip="10.0.0.10/24")
+    cp   = net.addHost("cp",   ip="10.0.0.11/24")
 
     info("\n\n\n Adding edge services")
     crit = net.addDocker(
@@ -410,7 +409,7 @@ def topology():
     net.addLink(inet,  s6)
 
     info("\n\n\n Configuring Wi-Fi nodes")
-    net.setPropagationModel(model="logDistance", exp=4)
+    # net.setPropagationModel(model="logDistance", exp=4)
     net.configureWifiNodes()
 
     info("\n\n\n Building network")
@@ -442,17 +441,7 @@ def topology():
     configure_container_intf(audit, "audit-eth0", "10.0.0.60/24")
     configure_container_intf(alert, "alert-eth0", "10.0.0.31/24")
 
-
-    info("\n\n\n Adding AP wireless interfaces to OVS bridges")
-    for ap in [ap2, ap3, ap4, ap5, ap6]:
-        ap.cmd(f"ovs-vsctl --may-exist add-port {ap.name} {ap.name}-wlan1")
-
-    info("\n\n\n Installing default L2 forwarding rules")
-    for br in [s1, s6, s2, s3, s4, s5, s7, s8, ap2, ap3, ap4, ap5, ap6]:
-        br.cmd(f"ovs-ofctl del-flows {br.name}")
-        br.cmd(f'ovs-ofctl add-flow {br.name} "priority=100,actions=NORMAL"')
-
-    info("\n\n\n Disabling AP-level MANET/mesh fallback links by default")
+    info("\n\n\n Disabling AP-level MANET/mesh fallback links by default (loop-break FIRST)")
     ap2.cmd("ip link set ap2-ap3 down")
     ap3.cmd("ip link set ap3-ap2 down")
 
@@ -469,8 +458,16 @@ def topology():
     s6.cmd("ip link set s6-s7 down")
     s7.cmd("ip link set s7-s6 down")
 
-    info("\n\n\n Forcing wireless associations")
+    info("\n\n\n Adding AP wireless interfaces to OVS bridges")
+    for ap in [ap2, ap3, ap4, ap5, ap6]:
+        ap.cmd(f"ovs-vsctl --may-exist add-port {ap.name} {ap.name}-wlan1")
 
+    info("\n\n\n Installing default L2 forwarding rules")
+    for br in [s1, s6, s2, s3, s4, s5, s7, s8, ap2, ap3, ap4, ap5, ap6]:
+        br.cmd(f"ovs-ofctl del-flows {br.name}")
+        br.cmd(f'ovs-ofctl add-flow {br.name} "priority=100,actions=NORMAL"')
+
+    info("\n\n\n Forcing wireless associations")
     resp.setAssociation(ap2, intf="resp-wlan0")
     usr.setAssociation(ap3,  intf="usr-wlan0")
     sens.setAssociation(ap4, intf="sens-wlan0")
@@ -495,23 +492,19 @@ def topology():
 
 
     info("\n\n\n Starting simple HTTP services\n")
-    
-    start_http(cidp,  "central-identity-provider")
-    start_http(cp,    "central-policy-server")
-    
+    start_http(cidp, "central-identity-provider")
+    start_http(cp,   "central-policy-server")
     start_container_http("crit", "critical-container-service")
     start_container_http("ncrit", "non-critical-container-service")
     start_container_http("pdp", "local-pdp-mec-service")
     start_container_http("audit", "audit-buffer-mec-service")
     start_container_http("alert", "critical-alert-service")
-    
+
     for container_name in ["crit", "alert", "ncrit", "pdp", "audit"]:
         if not wait_container_http(container_name):
             raise RuntimeError(f"{container_name} container HTTP server failed")
 
-
-    start_http(inet,  "internet-data-network-placeholder")
-
+    start_http(inet, "internet-data-network-placeholder")
 
     info("\n\n\n City access topology:\n")
     info("s6 -> s2 -> ap2 -> resp\n")
@@ -522,8 +515,6 @@ def topology():
     info("inter-island fallback: s6 <-> s7 disabled by default\n\n")
 
     info("\n\n\n Topology started\n")
-    info("source /mnt/shared/test/test-manet/scenario_topology_baseline\n\n")
-
     CLI(net)
 
     info("\n\n\n Stopping network\n")
