@@ -1,0 +1,164 @@
+{
+  "generated_at": "2026-06-14T09:40:27Z",
+  "model": "LoTAF-inspired local trust assessment",
+  "scope": "edge-local Zero-Trust Island Mode assessment",
+  "source_files": {
+    "kpi": "/mnt/shared/results/integrated_kpi_summary.csv",
+    "audit": "/tmp/island_audit.log",
+    "mesh_trust": "/mnt/shared/island_mode/runtime/mesh_trust_state.json",
+    "outage_knowledge": "/mnt/shared/island_mode/runtime/outage_knowledge.json"
+  },
+  "input_kpis": {
+    "critical_service_continuity": {
+      "value": 61.15,
+      "n": 61,
+      "raw": {
+        "kpi": "critical_service_continuity",
+        "description": "Responder access to critical and alert services during degraded/islanded operation",
+        "requests": "139",
+        "metric_type": "success_rate_pct",
+        "value": "61.15"
+      }
+    },
+    "unauthorized_access_blocking": {
+      "value": 100.0,
+      "n": 100,
+      "raw": {
+        "kpi": "unauthorized_access_blocking",
+        "description": "Attacker and civilian requests to critical service must be blocked outside normal mode",
+        "requests": "98",
+        "metric_type": "block_rate_pct",
+        "value": "100.00"
+      }
+    },
+    "island_graceful_degradation": {
+      "value": 100.0,
+      "n": 100,
+      "raw": {
+        "kpi": "island_graceful_degradation",
+        "description": "Non-critical, external and central identity access should be restricted in island mode",
+        "requests": "84",
+        "metric_type": "block_rate_pct",
+        "value": "100.00"
+      }
+    },
+    "trust_aware_mesh_continuity": {
+      "value": 57.89,
+      "n": 57,
+      "raw": {
+        "kpi": "trust_aware_mesh_continuity",
+        "description": "Responder critical/alert access while quarantined mesh relay is avoided",
+        "requests": "19",
+        "metric_type": "success_rate_pct",
+        "value": "57.89"
+      }
+    },
+    "inter_island_fallback_continuity": {
+      "value": 68.18,
+      "n": 68,
+      "raw": {
+        "kpi": "inter_island_fallback_continuity",
+        "description": "Second-island responder access to critical/alert services through inter-island fallback",
+        "requests": "22",
+        "metric_type": "success_rate_pct",
+        "value": "68.18"
+      }
+    },
+    "normal_restore_availability": {
+      "value": 72.31,
+      "n": 72,
+      "raw": {
+        "kpi": "normal_restore_availability",
+        "description": "Service availability after reattach and restoration to normal forwarding",
+        "requests": "130",
+        "metric_type": "success_rate_pct",
+        "value": "72.31"
+      }
+    },
+    "overall_policy_correctness": {
+      "value": 78.24,
+      "n": 78,
+      "raw": {
+        "kpi": "overall_policy_correctness",
+        "description": "Requests matching expected policy outcome across all scored phases",
+        "requests": "602",
+        "metric_type": "pass_rate_pct",
+        "value": "78.24"
+      }
+    },
+    "critical_success_latency_avg": {
+      "value": 63.7,
+      "n": 63,
+      "raw": {
+        "kpi": "critical_success_latency_avg",
+        "description": "Average latency for successful responder critical/alert requests",
+        "requests": "196",
+        "metric_type": "avg_success_latency_ms",
+        "value": "63.70"
+      }
+    }
+  },
+  "evidence": {
+    "has_quarantine_event": true,
+    "has_trust_aware_route": true,
+    "has_inter_island_repair": true,
+    "has_policy_cache_event": true,
+    "has_degraded_state": true,
+    "has_islanded_state": true,
+    "current_quarantined_nodes": [],
+    "learned_paths": []
+  },
+  "scores": [
+    {
+      "category": "identity_and_access_control",
+      "score_pct": 100.0,
+      "status": "PASS",
+      "evidence": "unauthorized_access_blocking"
+    },
+    {
+      "category": "policy_enforcement",
+      "score_pct": 78.24,
+      "status": "DEGRADED",
+      "evidence": "overall_policy_correctness"
+    },
+    {
+      "category": "service_continuity_and_degradation",
+      "score_pct": 70.33,
+      "status": "FAIL",
+      "evidence": "critical_service_continuity + island_graceful_degradation + inter_island_fallback_continuity"
+    },
+    {
+      "category": "mesh_trust_assurance",
+      "score_pct": 57.89,
+      "status": "FAIL",
+      "evidence": "quarantine event + trust-aware route ap5->ap3 + trust_aware_mesh_continuity"
+    },
+    {
+      "category": "orchestration_and_recovery",
+      "score_pct": 70.15,
+      "status": "FAIL",
+      "evidence": "normal_restore_availability + continuity + policy correctness"
+    },
+    {
+      "category": "overall_local_trust_level",
+      "score_pct": 77.83,
+      "status": "DEGRADED",
+      "evidence": "weighted local trust assessment"
+    }
+  ],
+  "interpretation": {
+    "PASS": "local trust objective satisfied",
+    "ACCEPTABLE": "local trust objective mostly satisfied; minor transient effects observed",
+    "DEGRADED": "local trust objective partially satisfied",
+    "FAIL": "local trust objective not satisfied"
+  },
+  "out_of_scope_controls": [
+    "physical layer security and physical layer deception",
+    "post-quantum cryptography and QKD",
+    "JCAS sensing policy/control/transparency functions",
+    "federated learning, XAI, and AI model robustness",
+    "distributed ledger based topology management",
+    "DevPrivOps privacy manifest scoring",
+    "full network digital twin"
+  ]
+}

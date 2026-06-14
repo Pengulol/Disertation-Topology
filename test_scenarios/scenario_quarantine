@@ -1,0 +1,60 @@
+sh echo "=== Scenario: quarantine and risk-based access in island mode ==="
+
+sh echo ""
+sh echo "[0] Verify local PDP"
+sh curl -s http://127.0.0.1:8088/health
+
+sh echo ""
+sh echo "[1] Validate responder identity"
+sh curl -s -X POST http://127.0.0.1:8088/identity/validate -H "Content-Type: application/json" -d '{"actor":"resp"}'
+
+sh echo ""
+sh echo "[2] Apply ISLANDED policy with valid responder"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[3] Expected: valid responder can access critical service"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[4] Quarantine responder while identity status remains valid"
+sh curl -s -X POST http://127.0.0.1:8088/identity/quarantine -H "Content-Type: application/json" -d '{"actor":"resp"}'
+
+sh echo ""
+sh echo "[5] PDP decision after quarantine"
+sh curl -s -X POST http://127.0.0.1:8088/authorize -H "Content-Type: application/json" -d '{"mode":"ISLANDED","actor":"resp","service":"crit"}'
+
+sh echo ""
+sh echo "[6] Re-apply ISLANDED policy after quarantine"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+resp ip neigh flush all
+crit ip neigh flush all
+
+sh echo ""
+sh echo "[7] Expected: quarantined responder cannot access critical service"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[8] Remove responder from quarantine"
+sh curl -s -X POST http://127.0.0.1:8088/identity/unquarantine -H "Content-Type: application/json" -d '{"actor":"resp"}'
+
+sh echo ""
+sh echo "[9] PDP decision after unquarantine"
+sh curl -s -X POST http://127.0.0.1:8088/authorize -H "Content-Type: application/json" -d '{"mode":"ISLANDED","actor":"resp","service":"crit"}'
+
+sh echo ""
+sh echo "[10] Re-apply ISLANDED policy after unquarantine"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+resp ip neigh flush all
+crit ip neigh flush all
+
+sh echo ""
+sh echo "[11] Expected: responder can access critical service again"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[12] Final OVS status"
+sh /mnt/shared/island_mode/edge_mode_controller.py status
+
+sh echo ""
+sh echo "=== End scenario ==="

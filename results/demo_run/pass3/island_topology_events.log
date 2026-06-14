@@ -1,0 +1,16 @@
+2026-06-14T13:00:59,RESET,primary-up,fallback-down
+2026-06-14T13:00:59,TRUST,clear-quarantine
+2026-06-14T13:02:12,PLAN,source=ap5,selected=ap5->ap4->ap3,cost=28,candidate_count=2
+2026-06-14T13:02:12,REPAIR,source=ap5,path=ap5->ap4->ap3,cost=28,gateway=ap3
+2026-06-14T13:02:24,RESET,primary-up,fallback-down
+2026-06-14T13:02:24,TRUST,clear-quarantine
+2026-06-14T13:02:24,COST,set,ap4-ap5,10->10
+2026-06-14T13:02:24,COST,set,ap3-ap5,80->80
+2026-06-14T13:02:24,TRUST,quarantine-node=ap4
+2026-06-14T13:02:25,PLAN,source=ap5,selected=ap5->ap3,cost=80,candidate_count=1
+2026-06-14T13:02:25,REPAIR,source=ap5,path=ap5->ap3,cost=80,gateway=ap3
+2026-06-14T13:02:37,REPAIR,inter-island,s6-s7-up
+2026-06-14T13:02:49,TRUST,clear-quarantine
+2026-06-14T13:03:14,RESET,primary-up,fallback-down
+2026-06-14T13:03:36,TRUST,clear-quarantine
+2026-06-14T13:03:36,RESET,primary-up,fallback-down

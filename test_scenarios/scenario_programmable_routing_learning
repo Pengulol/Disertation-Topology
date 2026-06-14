@@ -1,0 +1,56 @@
+sh echo "=== Scenario: SDN programmable AP-mesh routing and learning ==="
+
+sh echo ""
+sh echo "[0] Clean previous mesh audit/history"
+sh rm -f /tmp/island_audit.log
+sh rm -f /tmp/island_topology_events.log
+sh rm -f /mnt/shared/island_mode/path_history.json
+sh rm -f /mnt/shared/island_mode/outage_knowledge.json
+
+sh echo ""
+sh echo "[1] Reset mesh topology"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo ""
+sh echo "[2] Case A: ap5 loses direct primary path; ap4 is still healthy"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py repair ap5
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo ""
+sh echo "[3] Reset before second case"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+
+sh echo ""
+sh echo "[4] Case B: ap5 loses direct path and ap4 is not a healthy gateway"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+sh ip link set s4-ap4 down
+sh ip link set ap4-s4 down
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py repair ap5
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo ""
+sh echo "[5] Mesh repair events"
+sh cat /tmp/island_audit.log
+
+sh echo ""
+sh echo "[6] Run outage learning agent"
+sh python3 /mnt/shared/island_mode/outage_learning_agent.py update --metrics /mnt/shared/results/integrated_metrics.csv
+
+sh echo ""
+sh echo "[7] Learned routing knowledge"
+sh cat /mnt/shared/island_mode/outage_knowledge.json
+
+sh echo ""
+sh echo "[8] Status after learning"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo ""
+sh echo "[9] Restore clean mesh state"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+
+sh echo ""
+sh echo "=== End scenario ==="

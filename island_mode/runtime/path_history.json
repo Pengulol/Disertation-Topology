@@ -1,0 +1,26 @@
+{
+  "ap5->ap4": {
+    "success_count": 1,
+    "last_cost": 10,
+    "last_gateway_ap": "ap4",
+    "last_used_at": "2026-06-14T12:39:04"
+  },
+  "ap5->ap3": {
+    "success_count": 4,
+    "last_cost": 80,
+    "last_gateway_ap": "ap3",
+    "last_used_at": "2026-06-14T13:02:25"
+  },
+  "ap5->ap4->ap3": {
+    "success_count": 2,
+    "last_cost": 28,
+    "last_gateway_ap": "ap3",
+    "last_used_at": "2026-06-14T13:02:12"
+  },
+  "ap4->ap5": {
+    "success_count": 1,
+    "last_cost": 10,
+    "last_gateway_ap": "ap5",
+    "last_used_at": "2026-06-14T12:59:32"
+  }
+}

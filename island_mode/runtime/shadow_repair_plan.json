@@ -1,0 +1,44 @@
+{
+  "generated_at": "2026-06-14T13:02:25",
+  "model": "twin-lite shadow mesh planner",
+  "source": "ap5",
+  "healthy_gateways": [
+    "ap2",
+    "ap3",
+    "ap6"
+  ],
+  "quarantined_nodes": [
+    "ap4"
+  ],
+  "quarantined_links": [],
+  "candidate_count": 1,
+  "selected": {
+    "source": "ap5",
+    "gateway_ap": "ap3",
+    "cost": 80,
+    "nodes": [
+      "ap5",
+      "ap3"
+    ],
+    "path": "ap5->ap3",
+    "links": [
+      "ap3-ap5"
+    ]
+  },
+  "candidates": [
+    {
+      "source": "ap5",
+      "gateway_ap": "ap3",
+      "cost": 80,
+      "nodes": [
+        "ap5",
+        "ap3"
+      ],
+      "path": "ap5->ap3",
+      "links": [
+        "ap3-ap5"
+      ]
+    }
+  ],
+  "note": "Candidate paths are evaluated without changing live interfaces. The executor applies only the selected path during repair."
+}

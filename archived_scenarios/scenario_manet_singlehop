@@ -1,0 +1,28 @@
+sh echo "=== Scenario: AP-level MANET single-hop fallback ==="
+
+sh echo "[1] Normal path: atk -> ap5 -> s5 -> s6 -> crit"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[2] Break direct AP-city link ap5-s5"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+
+atk ip neigh flush all
+crit ip neigh flush all
+
+sh echo "[3] Expected: atk loses access without fallback"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[4] Enable mesh fallback ap5 -> ap4"
+sh ip link set ap4-ap5 up
+sh ip link set ap5-ap4 up
+sh sleep 1
+
+atk ip neigh flush all
+crit ip neigh flush all
+
+sh echo "[5] Expected: atk reaches crit through ap5 -> ap4 -> s4 -> s6"
+atk ping -c 1 10.0.0.30
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "=== Expected result: timeout before fallback, reachable after fallback ==="

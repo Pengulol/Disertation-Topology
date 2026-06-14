@@ -1,0 +1,71 @@
+sh echo "=== Scenario: cached identity revocation in island mode ==="
+
+sh echo ""
+sh curl -s http://127.0.0.1:8088/health
+
+sh echo ""
+sh echo "[1] Validate responder identity"
+sh curl -s -X POST http://127.0.0.1:8088/identity/validate -H "Content-Type: application/json" -d '{"actor":"resp"}'
+
+sh echo ""
+sh echo "[2] Apply ISLANDED policy with valid responder"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[3] Expected: resp can access critical service"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[4] Expected: resp cannot access non-critical service"
+resp curl --connect-timeout 2 http://10.0.0.40:8000
+
+sh echo ""
+sh echo "[5] Revoke responder identity"
+sh curl -s -X POST http://127.0.0.1:8088/identity/revoke -H "Content-Type: application/json" -d '{"actor":"resp"}'
+
+sh echo ""
+sh echo "[6] PDP decision after revocation"
+sh curl -s -X POST http://127.0.0.1:8088/authorize -H "Content-Type: application/json" -d '{"mode":"ISLANDED","actor":"resp","service":"crit"}'
+
+sh echo ""
+sh echo "[7] Re-apply ISLANDED policy after revocation"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+ncrit ip neigh flush all
+
+sh echo ""
+sh echo "[8] Expected: revoked resp cannot access critical service"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[9] Validate responder again"
+sh curl -s -X POST http://127.0.0.1:8088/identity/validate -H "Content-Type: application/json" -d '{"actor":"resp"}'
+
+sh echo ""
+sh echo "[10] PDP decision after validation"
+sh curl -s -X POST http://127.0.0.1:8088/authorize -H "Content-Type: application/json" -d '{"mode":"ISLANDED","actor":"resp","service":"crit"}'
+
+sh echo ""
+sh echo "[11] Re-apply ISLANDED policy after validation"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+ncrit ip neigh flush all
+
+sh echo ""
+sh echo "[12] Expected: valid resp can access critical service again"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[13] Expected: attacker cannot access critical service"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[14] Final OVS status"
+sh /mnt/shared/island_mode/edge_mode_controller.py status
+
+sh echo ""
+sh echo "=== End scenario ==="

@@ -1,0 +1,347 @@
+{
+  "generated_at": "2026-06-14T09:40:27Z",
+  "model": "paper-faithful degeneracy assessment",
+  "scope": "Zero-Trust Island Mode for 6G Edge",
+  "delta": 0.5,
+  "implemented_metrics": [
+    "FSS",
+    "FSS_star with None node weighting, C_i=1, L_i=0, w_i=1",
+    "MLDI",
+    "MLDI_star",
+    "targeted removals"
+  ],
+  "out_of_scope": {
+    "ARQ": "not computed because the prototype does not evaluate multiple alternative algorithm implementations for the same task"
+  },
+  "source_files": {
+    "audit": "/tmp/island_audit.log",
+    "knowledge": "/mnt/shared/island_mode/runtime/outage_knowledge.json",
+    "kpi_argument_accepted_for_workflow_compatibility": "/mnt/shared/results/integrated_kpi_summary.csv"
+  },
+  "fss_by_function": [
+    {
+      "function": "critical_service_support",
+      "active_elements": 5,
+      "total_elements": 5,
+      "FSS": 1.0,
+      "FSS_percent": 100.0,
+      "FSS_star_none_weight": 0.86,
+      "FSS_star_none_weight_percent": 86.0
+    },
+    {
+      "function": "zero_trust_policy_support",
+      "active_elements": 4,
+      "total_elements": 4,
+      "FSS": 1.0,
+      "FSS_percent": 100.0,
+      "FSS_star_none_weight": 0.8,
+      "FSS_star_none_weight_percent": 80.0
+    },
+    {
+      "function": "recovery_orchestration_support",
+      "active_elements": 3,
+      "total_elements": 4,
+      "FSS": 1.0,
+      "FSS_percent": 100.0,
+      "FSS_star_none_weight": 0.8,
+      "FSS_star_none_weight_percent": 80.0
+    }
+  ],
+  "mldi_summary": [
+    {
+      "metric": "MLDI",
+      "value": 0.8,
+      "percent": 80.0,
+      "definition": "mean layer-wise degeneracy ratio tau_l = |D_l| / |E_l|"
+    },
+    {
+      "metric": "MLDI_star",
+      "value": 0.7111,
+      "percent": 71.11,
+      "definition": "mean normalized layer entropy H(l) / log(m)"
+    }
+  ],
+  "mldi_by_layer": [
+    {
+      "layer": "L1_connectivity",
+      "total_elements": 5,
+      "admissible_distinct_elements": 4,
+      "tau": 0.8,
+      "tau_percent": 80.0,
+      "entropy_normalized": 0.6847,
+      "entropy_percent": 68.47
+    },
+    {
+      "layer": "L2_control_security",
+      "total_elements": 5,
+      "admissible_distinct_elements": 5,
+      "tau": 1.0,
+      "tau_percent": 100.0,
+      "entropy_normalized": 0.8254,
+      "entropy_percent": 82.54
+    },
+    {
+      "layer": "L3_service_application",
+      "total_elements": 5,
+      "admissible_distinct_elements": 3,
+      "tau": 0.6,
+      "tau_percent": 60.0,
+      "entropy_normalized": 0.6231,
+      "entropy_percent": 62.31
+    }
+  ],
+  "targeted_removal_curve": [
+    {
+      "removal_fraction_q": 0.0,
+      "scope": "critical_service_support",
+      "removed_elements": "",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.86,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.0,
+      "scope": "zero_trust_policy_support",
+      "removed_elements": "",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.0,
+      "scope": "recovery_orchestration_support",
+      "removed_elements": "",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.0,
+      "scope": "cross_layer",
+      "removed_elements": "",
+      "FSS": "",
+      "FSS_star_none_weight": "",
+      "MLDI": 0.8,
+      "MLDI_star": 0.7111
+    },
+    {
+      "removal_fraction_q": 0.05,
+      "scope": "critical_service_support",
+      "removed_elements": "primary_edge_path",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8667,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.05,
+      "scope": "zero_trust_policy_support",
+      "removed_elements": "local_pdp",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.05,
+      "scope": "recovery_orchestration_support",
+      "removed_elements": "edge_mode_controller",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.05,
+      "scope": "cross_layer",
+      "removed_elements": "core_backhaul",
+      "FSS": "",
+      "FSS_star_none_weight": "",
+      "MLDI": 0.7333,
+      "MLDI_star": 0.6812
+    },
+    {
+      "removal_fraction_q": 0.1,
+      "scope": "critical_service_support",
+      "removed_elements": "primary_edge_path",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8667,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.1,
+      "scope": "zero_trust_policy_support",
+      "removed_elements": "local_pdp",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.1,
+      "scope": "recovery_orchestration_support",
+      "removed_elements": "edge_mode_controller",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.1,
+      "scope": "cross_layer",
+      "removed_elements": "core_backhaul;local_pdp",
+      "FSS": "",
+      "FSS_star_none_weight": "",
+      "MLDI": 0.6667,
+      "MLDI_star": 0.6473
+    },
+    {
+      "removal_fraction_q": 0.2,
+      "scope": "critical_service_support",
+      "removed_elements": "primary_edge_path",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8667,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.2,
+      "scope": "zero_trust_policy_support",
+      "removed_elements": "local_pdp",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.2,
+      "scope": "recovery_orchestration_support",
+      "removed_elements": "edge_mode_controller",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.2,
+      "scope": "cross_layer",
+      "removed_elements": "core_backhaul;critical_service;local_pdp",
+      "FSS": "",
+      "FSS_star_none_weight": "",
+      "MLDI": 0.6667,
+      "MLDI_star": 0.655
+    },
+    {
+      "removal_fraction_q": 0.3,
+      "scope": "critical_service_support",
+      "removed_elements": "local_mec_critical_service;primary_edge_path",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.7333,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.3,
+      "scope": "zero_trust_policy_support",
+      "removed_elements": "local_pdp;ovs_pep_rules",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.3,
+      "scope": "recovery_orchestration_support",
+      "removed_elements": "edge_mode_controller;watch_agent",
+      "FSS": 0.0,
+      "FSS_star_none_weight": 0.0,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.3,
+      "scope": "cross_layer",
+      "removed_elements": "alert_service;core_backhaul;critical_service;local_pdp;ovs_pep",
+      "FSS": "",
+      "FSS_star_none_weight": "",
+      "MLDI": 0.5333,
+      "MLDI_star": 0.6323
+    },
+    {
+      "removal_fraction_q": 0.4,
+      "scope": "critical_service_support",
+      "removed_elements": "local_mec_critical_service;primary_edge_path",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.7333,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.4,
+      "scope": "zero_trust_policy_support",
+      "removed_elements": "local_pdp;ovs_pep_rules",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.4,
+      "scope": "recovery_orchestration_support",
+      "removed_elements": "edge_mode_controller;watch_agent",
+      "FSS": 0.0,
+      "FSS_star_none_weight": 0.0,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.4,
+      "scope": "cross_layer",
+      "removed_elements": "alert_service;core_backhaul;critical_service;local_pdp;ovs_pep;primary_access_paths",
+      "FSS": "",
+      "FSS_star_none_weight": "",
+      "MLDI": 0.4667,
+      "MLDI_star": 0.6114
+    },
+    {
+      "removal_fraction_q": 0.5,
+      "scope": "critical_service_support",
+      "removed_elements": "ap_mesh_fallback;local_mec_critical_service;primary_edge_path",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.5,
+      "scope": "zero_trust_policy_support",
+      "removed_elements": "local_pdp;ovs_pep_rules",
+      "FSS": 1.0,
+      "FSS_star_none_weight": 0.8,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.5,
+      "scope": "recovery_orchestration_support",
+      "removed_elements": "edge_mode_controller;watch_agent",
+      "FSS": 0.0,
+      "FSS_star_none_weight": 0.0,
+      "MLDI": "",
+      "MLDI_star": ""
+    },
+    {
+      "removal_fraction_q": 0.5,
+      "scope": "cross_layer",
+      "removed_elements": "alert_service;ap_mesh_fallback;compiled_policy_cache;core_backhaul;critical_service;local_pdp;ovs_pep;primary_access_paths",
+      "FSS": "",
+      "FSS_star_none_weight": "",
+      "MLDI": 0.4,
+      "MLDI_star": 0.5949
+    }
+  ]
+}

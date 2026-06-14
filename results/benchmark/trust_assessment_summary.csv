@@ -1,0 +1,7 @@
+category,score_pct,status,evidence
+identity_and_access_control,100.0,PASS,unauthorized_access_blocking
+policy_enforcement,78.24,DEGRADED,overall_policy_correctness
+service_continuity_and_degradation,70.33,FAIL,critical_service_continuity + island_graceful_degradation + inter_island_fallback_continuity
+mesh_trust_assurance,57.89,FAIL,quarantine event + trust-aware route ap5->ap3 + trust_aware_mesh_continuity
+orchestration_and_recovery,70.15,FAIL,normal_restore_availability + continuity + policy correctness
+overall_local_trust_level,77.83,DEGRADED,weighted local trust assessment

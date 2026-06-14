@@ -1,0 +1,103 @@
+{
+  "DEGRADED": [
+    {
+      "role": "responder",
+      "service_class": "critical",
+      "action": "allow",
+      "reason": "authorized responder may access critical services during degraded operation"
+    },
+    {
+      "role": "unknown",
+      "service_class": "critical",
+      "action": "deny",
+      "reason": "unknown nodes cannot access critical services during degraded operation"
+    },
+    {
+      "role": "civilian",
+      "service_class": "critical",
+      "action": "deny",
+      "reason": "civilian users cannot access responder critical services during degraded operation"
+    },
+    {
+      "role": "sensor",
+      "service_class": "critical",
+      "action": "deny",
+      "reason": "sensor nodes cannot access responder critical services during degraded operation"
+    },
+    {
+      "role": "*",
+      "service_class": "external",
+      "action": "deny",
+      "reason": "external data network access is restricted during degraded operation"
+    },
+    {
+      "role": "*",
+      "service_class": "critical",
+      "action": "deny",
+      "reason": "default deny for critical services unless an explicit local identity allow rule exists"
+    },
+    {
+      "role": "*",
+      "service_class": "control",
+      "action": "deny",
+      "reason": "control-plane MEC services are internal and are not directly exposed to user devices during degraded operation"
+    }
+  ],
+
+  "ISLANDED": [
+    {
+      "role": "responder",
+      "service_class": "critical",
+      "action": "allow",
+      "reason": "authorized responder may access critical services"
+    },
+    {
+      "role": "*",
+      "service_class": "non-critical",
+      "action": "deny",
+      "reason": "non-critical services are blocked in island mode"
+    },
+    {
+      "role": "*",
+      "service_class": "external",
+      "action": "deny",
+      "reason": "general data network access is blocked in island mode"
+    },
+    {
+      "role": "*",
+      "service_class": "central-control",
+      "action": "deny",
+      "reason": "central identity and policy services are blocked in island mode"
+    },
+    {
+      "role": "unknown",
+      "service_class": "critical",
+      "action": "deny",
+      "reason": "unknown nodes cannot access critical services"
+    },
+    {
+      "role": "civilian",
+      "service_class": "critical",
+      "action": "deny",
+      "reason": "civilian users cannot access responder critical services"
+    },
+    {
+      "role": "sensor",
+      "service_class": "critical",
+      "action": "deny",
+      "reason": "sensor nodes cannot access responder critical services"
+    },
+    {
+      "role": "*",
+      "service_class": "critical",
+      "action": "deny",
+      "reason": "default deny for critical services unless an explicit local identity allow rule exists"
+    },
+    {
+      "role": "*",
+      "service_class": "control",
+      "action": "deny",
+      "reason": "control-plane MEC services are internal and are not directly exposed to user devices in island mode"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+sh echo "[scenario] MANET fallback + island-mode policy"
+
+sh echo "[step 0] check local PDP health"
+sh curl -s --max-time 2 http://127.0.0.1:8088/health
+sh echo ""
+
+sh echo "[step 1] baseline: atk reaches critical service before failure"
+atk ip neigh flush all
+crit ip neigh flush all
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[step 2] cut direct access path ap5 <-> s5"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+
+atk ip neigh flush all
+crit ip neigh flush all
+
+sh echo "[check] without fallback, atk should fail"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[step 3] enable AP-level mesh fallback ap5 <-> ap4"
+sh ip link set ap4-ap5 up
+sh ip link set ap5-ap4 up
+
+atk ip neigh flush all
+crit ip neigh flush all
+
+sh echo "[check] with fallback, atk should reach critical service in normal mode"
+sh sleep 1
+atk ping -c 3 10.0.0.30
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[step 4] cut central/core link and enter island mode"
+sh ip link set s6-eth1 down
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo "[step 5] unauthorized actor should be blocked in island mode"
+atk ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+atk curl --connect-timeout 2 http://10.0.0.31:8000
+atk curl --connect-timeout 2 http://10.0.0.40:8000
+
+sh echo "[step 6] move authorized responder to affected AP zone ap5"
+
+py resp.setPosition("110,40,0")
+sh sleep 1
+
+py resp.setAssociation(ap5, intf="resp-wlan0")
+sh sleep 2
+
+resp iw dev resp-wlan0 link
+
+resp ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+
+sh echo "[check] responder should reach critical services but not non-critical service"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+resp curl --connect-timeout 2 http://10.0.0.31:8000
+resp curl --connect-timeout 2 http://10.0.0.40:8000
+
+sh echo "[step 7] reattach: restore core link and normal mode"
+sh ip link set s6-eth1 up
+sh /mnt/shared/island_mode/edge_mode_controller.py normal
+
+resp ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+pdp ip neigh flush all
+audit ip neigh flush all
+
+
+sh echo "[cleanup] move responder back to original AP zone ap2"
+
+py resp.setPosition("20,40,0")
+sh sleep 1
+
+py resp.setAssociation(ap2, intf="resp-wlan0")
+sh sleep 1
+
+resp iw dev resp-wlan0 link
+
+
+sh echo "[check] normal services should be restored"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+resp curl --connect-timeout 2 http://10.0.0.31:8000
+resp curl --connect-timeout 2 http://10.0.0.40:8000
+resp curl --connect-timeout 2 http://10.0.0.50:8000
+resp curl --connect-timeout 2 http://10.0.0.60:8000
+
+
+sh echo "[scenario] done"

@@ -1,0 +1,223 @@
+{
+  "ap_nodes": [
+    "ap2",
+    "ap3",
+    "ap4",
+    "ap5",
+    "ap6"
+  ],
+  "primary_links": [
+    {
+      "name": "s6-s2",
+      "ifaces": [
+        "s6-s2",
+        "s2-s6"
+      ]
+    },
+    {
+      "name": "s6-s3",
+      "ifaces": [
+        "s6-s3",
+        "s3-s6"
+      ]
+    },
+    {
+      "name": "s6-s4",
+      "ifaces": [
+        "s6-s4",
+        "s4-s6"
+      ]
+    },
+    {
+      "name": "s6-s5",
+      "ifaces": [
+        "s6-s5",
+        "s5-s6"
+      ]
+    },
+    {
+      "name": "s2-ap2",
+      "ifaces": [
+        "s2-ap2",
+        "ap2-s2"
+      ]
+    },
+    {
+      "name": "s3-ap3",
+      "ifaces": [
+        "s3-ap3",
+        "ap3-s3"
+      ]
+    },
+    {
+      "name": "s4-ap4",
+      "ifaces": [
+        "s4-ap4",
+        "ap4-s4"
+      ]
+    },
+    {
+      "name": "s5-ap5",
+      "ifaces": [
+        "s5-ap5",
+        "ap5-s5"
+      ]
+    },
+    {
+      "name": "s1-s7",
+      "ifaces": [
+        "s1-s7",
+        "s7-s1"
+      ]
+    },
+    {
+      "name": "s7-s8",
+      "ifaces": [
+        "s7-s8",
+        "s8-s7"
+      ]
+    },
+    {
+      "name": "s8-ap6",
+      "ifaces": [
+        "s8-ap6",
+        "ap6-s8"
+      ]
+    }
+  ],
+  "fallback_links": [
+    {
+      "name": "ap2-ap3",
+      "ifaces": [
+        "ap2-ap3",
+        "ap3-ap2"
+      ]
+    },
+    {
+      "name": "ap3-ap4",
+      "ifaces": [
+        "ap3-ap4",
+        "ap4-ap3"
+      ]
+    },
+    {
+      "name": "ap4-ap5",
+      "ifaces": [
+        "ap4-ap5",
+        "ap5-ap4"
+      ]
+    },
+    {
+      "name": "ap3-ap5",
+      "ifaces": [
+        "ap3-ap5",
+        "ap5-ap3"
+      ]
+    },
+    {
+      "name": "s6-s7",
+      "ifaces": [
+        "s6-s7",
+        "s7-s6"
+      ]
+    }
+  ],
+  "primary_paths": {
+    "ap2": {
+      "ifaces": [
+        "s6-s2",
+        "s2-s6",
+        "s2-ap2",
+        "ap2-s2"
+      ]
+    },
+    "ap3": {
+      "ifaces": [
+        "s6-s3",
+        "s3-s6",
+        "s3-ap3",
+        "ap3-s3"
+      ]
+    },
+    "ap4": {
+      "ifaces": [
+        "s6-s4",
+        "s4-s6",
+        "s4-ap4",
+        "ap4-s4"
+      ]
+    },
+    "ap5": {
+      "ifaces": [
+        "s6-s5",
+        "s5-s6",
+        "s5-ap5",
+        "ap5-s5"
+      ]
+    },
+    "ap6": {
+      "ifaces": [
+        "s1-s7",
+        "s7-s1",
+        "s7-s8",
+        "s8-s7",
+        "s8-ap6",
+        "ap6-s8"
+      ]
+    }
+  },
+  "mesh_links": [
+    {
+      "name": "ap2-ap3",
+      "nodes": [
+        "ap2",
+        "ap3"
+      ],
+      "ifaces": [
+        "ap2-ap3",
+        "ap3-ap2"
+      ],
+      "available": true,
+      "cost": 40
+    },
+    {
+      "name": "ap3-ap4",
+      "nodes": [
+        "ap3",
+        "ap4"
+      ],
+      "ifaces": [
+        "ap3-ap4",
+        "ap4-ap3"
+      ],
+      "available": true,
+      "cost": 18
+    },
+    {
+      "name": "ap4-ap5",
+      "nodes": [
+        "ap4",
+        "ap5"
+      ],
+      "ifaces": [
+        "ap4-ap5",
+        "ap5-ap4"
+      ],
+      "available": true,
+      "cost": 10
+    },
+    {
+      "name": "ap3-ap5",
+      "nodes": [
+        "ap3",
+        "ap5"
+      ],
+      "ifaces": [
+        "ap3-ap5",
+        "ap5-ap3"
+      ],
+      "available": true,
+      "cost": 80
+    }
+  ]
+}

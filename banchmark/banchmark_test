@@ -1,0 +1,282 @@
+sh echo "=== Scenario: integrated resilience evaluation ==="
+
+sh echo ""
+sh echo "[0] Prepare metrics"
+sh mkdir -p /mnt/shared/results
+sh rm -f /mnt/shared/results/integrated_metrics.csv
+sh rm -f /tmp/traffic_probe.stop
+sh rm -f /tmp/traffic_probe_start
+sh echo "NORMAL" > /tmp/island_phase
+
+sh echo ""
+sh echo "[1] Start watch for state-driven transitions"
+sh bash /mnt/shared/island_mode/stop_watch.sh 2>/dev/null || true
+sh rm -f /mnt/shared/island_mode/watch.log
+sh rm -f /mnt/shared/island_mode/watch.pid
+sh bash /mnt/shared/island_mode/start_watch.sh
+sh sleep 4
+sh tail -n 10 /mnt/shared/island_mode/watch.log 2>/dev/null || true
+
+sh echo ""
+sh echo "[2] Restore clean baseline"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py clear-quarantine
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+sh bash /mnt/shared/island_mode/restore_core_link.sh 2>/dev/null || true
+
+sh echo ""
+sh echo "[3] Force responder on ap2 and attacker on ap5"
+py resp.setPosition("20,40,0")
+sh sleep 1
+resp iw dev resp-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+resp iw dev resp-wlan0 connect zone2-responder 2437 02:00:00:00:08:00
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+py atk.setPosition("110,40,0")
+sh sleep 1
+atk iw dev atk-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+atk iw dev atk-wlan0 connect zone5-other 2437 02:00:00:00:0b:00
+sh sleep 2
+atk iw dev atk-wlan0 link
+
+sh echo ""
+sh echo "[4] Start continuous traffic probes"
+sh rm -f /tmp/traffic_probe.stop
+sh rm -f /tmp/traffic_probe_start
+sh date +%s.%N > /tmp/traffic_probe_start
+sh echo "NORMAL" > /tmp/island_phase
+sh echo "[debug] traffic probe start marker:"
+sh cat /tmp/traffic_probe_start
+
+resp python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder --service svc_critical --url http://10.0.0.30:8000 --interval 1 --timeout 2 &
+resp python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder --service svc_alert --url http://10.0.0.31:8000 --interval 1 --timeout 2 &
+resp python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder --service svc_noncritical --url http://10.0.0.40:8000 --interval 1 --timeout 2 &
+resp python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder --service svc_central_identity --url http://10.0.0.10:8000 --interval 1 --timeout 2 &
+atk python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_attacker --service svc_critical --url http://10.0.0.30:8000 --interval 1 --timeout 2 &
+usr python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_civilian_user --service svc_critical --url http://10.0.0.30:8000 --interval 1 --timeout 2 &
+resp python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder --service svc_external --url http://10.0.0.70:8000 --interval 1 --timeout 2 &
+sens python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_sensor --service svc_alert --url http://10.0.0.31:8000 --interval 1 --timeout 2 &
+sens python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_sensor --service svc_central_identity --url http://10.0.0.10:8000 --interval 1 --timeout 2 &
+sh sleep 10
+
+sh echo "[5] Phase DEGRADED: apply delay/loss/rate-limit on core link"
+sh bash /mnt/shared/island_mode/degrade_core.sh
+sh sleep 8
+sh echo "DEGRADED" > /tmp/island_phase
+
+sh echo ""
+sh echo "[6] Mobility while degraded: move responder to user zone ap3"
+py resp.setPosition("50,40,0")
+sh sleep 1
+resp iw dev resp-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+resp iw dev resp-wlan0 connect zone3-users 2437 02:00:00:00:09:00
+sh sleep 3
+resp iw dev resp-wlan0 link
+
+sh sleep 10
+
+sh echo "[7] Phase ISLANDED: full core/backhaul outage"
+sh ip link set s6-eth1 down
+sh ip link set s1-eth3 down 2>/dev/null || true
+sh sleep 8
+sh echo "ISLANDED" > /tmp/island_phase
+
+sh echo ""
+sh echo "[8] Mobility in island mode: move responder and attacker to ap5"
+py resp.setPosition("110,40,0")
+sh sleep 1
+resp iw dev resp-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+resp iw dev resp-wlan0 connect zone5-other 2437 02:00:00:00:0b:00
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+py atk.setPosition("110,40,0")
+sh sleep 1
+atk iw dev atk-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+atk iw dev atk-wlan0 connect zone5-other 2437 02:00:00:00:0b:00
+sh sleep 2
+atk iw dev atk-wlan0 link
+
+sh sleep 8
+
+sh echo ""
+sh echo "[9] AP path failure and mesh fallback repair for ap5"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+sh sleep 2
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py repair ap5
+
+sh echo "[mesh] flushing OVS forwarding databases after repair"
+sh ovs-appctl fdb/flush s6 2>/dev/null || true
+sh ovs-appctl fdb/flush s4 2>/dev/null || true
+sh ovs-appctl fdb/flush s5 2>/dev/null || true
+sh ovs-appctl fdb/flush ap4 2>/dev/null || true
+sh ovs-appctl fdb/flush ap5 2>/dev/null || true
+
+resp ip neigh flush all
+atk ip neigh flush all
+usr ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+
+sh sleep 5
+sh echo "ISLANDED_MESH" > /tmp/island_phase
+sh sleep 12
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo ""
+sh echo "[10] Phase TRUST_AWARE_MESH: quarantined relay must be avoided"
+sh echo "TRUST_AWARE_MESH" > /tmp/island_phase
+
+sh echo "[trust] reset mesh links but keep island policy active"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py clear-quarantine
+
+sh echo "[trust] deterministic mesh costs: ap4 is cheaper, ap3 is fallback alternative"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py set-cost ap4-ap5 10
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py set-cost ap3-ap5 80
+
+sh echo "[trust] quarantine ap4 as suspected mesh relay"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py quarantine-node ap4
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py trust-status
+
+sh echo "[trust] fail ap5 primary path"
+sh ip link set s5-ap5 down 2>/dev/null || true
+sh ip link set ap5-s5 down 2>/dev/null || true
+sh sleep 2
+
+sh echo "[trust] repair ap5; expected path is ap5->ap3 because ap4 is quarantined"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py repair ap5
+
+sh echo "[trust] flushing FDB/neighbors after trust-aware repair"
+sh ovs-appctl fdb/flush s6 2>/dev/null || true
+sh ovs-appctl fdb/flush s4 2>/dev/null || true
+sh ovs-appctl fdb/flush s5 2>/dev/null || true
+sh ovs-appctl fdb/flush ap3 2>/dev/null || true
+sh ovs-appctl fdb/flush ap4 2>/dev/null || true
+sh ovs-appctl fdb/flush ap5 2>/dev/null || true
+
+resp ip neigh flush all
+atk ip neigh flush all
+usr ip neigh flush all
+sens ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+
+sh sleep 12
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo ""
+sh echo "[11] Phase INTER_ISLAND_MESH: second island actors through inter-island fallback"
+sh echo "INTER_ISLAND_MESH" > /tmp/island_phase
+
+sh echo "[inter-island] enable s6-s7 fallback"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py inter-island
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo "[inter-island] start second-island traffic probes"
+resp2 python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder_i2 --service svc_critical --url http://10.0.0.30:8000 --out /mnt/shared/results/integrated_metrics.csv --interval 1 --timeout 2 >/tmp/probe_resp2_critical.log 2>&1 &
+resp2 python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder_i2 --service svc_alert --url http://10.0.0.31:8000 --out /mnt/shared/results/integrated_metrics.csv --interval 1 --timeout 2 >/tmp/probe_resp2_alert.log 2>&1 &
+resp2 python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder_i2 --service svc_noncritical --url http://10.0.0.40:8000 --out /mnt/shared/results/integrated_metrics.csv --interval 1 --timeout 2 >/tmp/probe_resp2_noncritical.log 2>&1 &
+resp2 python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder_i2 --service svc_central_identity --url http://10.0.0.10:8000 --out /mnt/shared/results/integrated_metrics.csv --interval 1 --timeout 2 >/tmp/probe_resp2_central.log 2>&1 &
+
+usr2 python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_civilian_user_i2 --service svc_critical --url http://10.0.0.30:8000 --out /mnt/shared/results/integrated_metrics.csv --interval 1 --timeout 2 >/tmp/probe_usr2_critical.log 2>&1 &
+sens2 python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_sensor_i2 --service svc_alert --url http://10.0.0.31:8000 --out /mnt/shared/results/integrated_metrics.csv --interval 1 --timeout 2 >/tmp/probe_sens2_alert.log 2>&1 &
+atk2 python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_attacker_i2 --service svc_critical --url http://10.0.0.30:8000 --out /mnt/shared/results/integrated_metrics.csv --interval 1 --timeout 2 >/tmp/probe_atk2_critical.log 2>&1 &
+
+sh echo "[inter-island] flushing second-island FDB/neighbors"
+sh ovs-appctl fdb/flush s7 2>/dev/null || true
+sh ovs-appctl fdb/flush s8 2>/dev/null || true
+sh ovs-appctl fdb/flush ap6 2>/dev/null || true
+sh ovs-appctl fdb/flush s6 2>/dev/null || true
+
+resp2 ip neigh flush all
+usr2 ip neigh flush all
+sens2 ip neigh flush all
+atk2 ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+
+sh sleep 15
+
+
+
+sh echo ""
+sh echo "[12] Phase REATTACH: restore core and normal forwarding"
+sh echo "REATTACH" > /tmp/island_phase
+
+sh echo "[reattach] stop watch before manual reattach to avoid concurrent state changes"
+sh /mnt/shared/island_mode/stop_watch.sh
+
+sh ip link set s6-eth1 up
+sh ip link set s1-eth3 up 2>/dev/null || true
+sh bash /mnt/shared/island_mode/restore_core_link.sh 2>/dev/null || true
+
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py clear-quarantine
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+
+sh ovs-appctl fdb/flush s6 2>/dev/null || true
+sh ovs-appctl fdb/flush s7 2>/dev/null || true
+sh ovs-appctl fdb/flush s1 2>/dev/null || true
+sh ovs-appctl fdb/flush ap6 2>/dev/null || true
+
+resp ip neigh flush all
+usr ip neigh flush all
+sens ip neigh flush all
+atk ip neigh flush all
+resp2 ip neigh flush all
+usr2 ip neigh flush all
+sens2 ip neigh flush all
+atk2 ip neigh flush all
+
+sh sleep 12
+sh tail -n 80 /mnt/shared/island_mode/watch.log 2>/dev/null || true
+
+sh echo ""
+sh echo "[13] Reset mesh and restore normal forwarding"
+sh echo "NORMAL_RESTORED" > /tmp/island_phase
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py clear-quarantine
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+
+sh ovs-appctl fdb/flush s6 2>/dev/null || true
+sh ovs-appctl fdb/flush s5 2>/dev/null || true
+sh ovs-appctl fdb/flush ap5 2>/dev/null || true
+sh ovs-appctl fdb/flush ap4 2>/dev/null || true
+sh sleep 10
+
+sh echo ""
+sh echo "[14] Stop probes"
+sh touch /tmp/traffic_probe.stop
+sh sleep 3
+sh pkill -f "/mnt/shared/island_mode/traffic_probe.py" 2>/dev/null || true
+
+sh echo ""
+sh echo "[15] Stop watch"
+sh bash /mnt/shared/island_mode/stop_watch.sh 2>/dev/null || true
+
+sh echo ""
+sh echo "[16] Final OVS status"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py status
+
+sh echo ""
+sh echo "[17] Metrics file"
+sh wc -l /mnt/shared/results/integrated_metrics.csv
+sh tail -n 20 /mnt/shared/results/integrated_metrics.csv
+
+sh echo ""
+sh echo "[18] Generate final report data"
+sh bash /mnt/shared/island_mode/generate_report_data.sh --mode benchmark --metrics /mnt/shared/results/integrated_metrics.csv --outdir /mnt/shared/results --audit /tmp/island_audit.log
+
+sh echo ""
+sh echo "=== End integrated resilience evaluation ==="

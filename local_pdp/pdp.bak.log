@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/mnt/shared/local_pdp/local_pdp_service.py", line 234, in <module>
+    main()
+  File "/mnt/shared/local_pdp/local_pdp_service.py", line 228, in main
+    server = HTTPServer((HOST, PORT), PDPHandler)
+  File "/usr/lib/python3.10/socketserver.py", line 452, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.10/http/server.py", line 137, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib/python3.10/socketserver.py", line 466, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use

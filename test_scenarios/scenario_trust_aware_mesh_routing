@@ -1,0 +1,49 @@
+sh echo "=== Scenario: trust-aware mesh routing / secure-routing-inspired quarantine ==="
+
+sh echo ""
+sh echo "[setup] clean network and clear quarantine"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py clear-quarantine
+
+sh echo ""
+sh echo "[setup] force deterministic costs"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py set-cost ap4-ap5 10
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py set-cost ap3-ap5 80
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo ""
+sh echo "[baseline] fail ap5 primary path; ap4 is trusted, so ap5 should repair through ap4"
+sh ip link set s5-ap5 down 2>/dev/null || true
+sh ip link set ap5-s5 down 2>/dev/null || true
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py repair ap5
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo ""
+sh echo "[reset] restore, clear quarantine, and reapply deterministic costs"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py clear-quarantine
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py set-cost ap4-ap5 10
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py set-cost ap3-ap5 80
+
+sh echo ""
+sh echo "[trust] quarantine ap4 as suspected relay"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py quarantine-node ap4
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py trust-status
+
+sh echo ""
+sh echo "[trust-aware repair] fail ap5 primary path; ap4 has lower cost but is quarantined, so ap5 should repair through ap3"
+sh ip link set s5-ap5 down 2>/dev/null || true
+sh ip link set ap5-s5 down 2>/dev/null || true
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py repair ap5
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo ""
+sh echo "[audit]"
+sh tail -40 /tmp/island_audit.log
+
+sh echo ""
+sh echo "[cleanup]"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py clear-quarantine
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+
+sh echo "=== End scenario ==="

@@ -1,0 +1,135 @@
+sh echo "[scenario] combined island policy + AP mesh fallback + mobility"
+
+sh echo "[step 0] clean topology and normal forwarding"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+
+sh echo "[step 1] force responder initially on ap2"
+py resp.setPosition("20,40,0")
+sh sleep 2
+resp iw dev resp-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+resp iw dev resp-wlan0 connect zone2-responder 2437 02:00:00:00:08:00
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+resp ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+atk ip neigh flush all
+
+sh echo "[normal baseline] responder -> critical should work"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[normal baseline] attacker -> critical should work before island policy"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[step 2] enter ISLANDED mode"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py island
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+
+sh echo "[island check] responder -> critical should be allowed"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[island check] responder -> alert should be allowed"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.31:8000
+
+sh echo "[island check] responder -> non-critical should be blocked"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo "[island check] attacker -> critical should be blocked"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[step 3] cut direct AP5 access path ap5 <-> s5"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo "[step 4] repair ap5 using SDN/AP mesh controller"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py repair ap5
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh sleep 1
+
+sh echo "[step 5] move authorized responder to affected ap5 zone"
+py resp.setPosition("110,40,0")
+sh sleep 2
+resp iw dev resp-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+resp iw dev resp-wlan0 connect zone5-other 2437 02:00:00:00:0b:00
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+
+sh echo "[combined check] responder on ap5 -> critical should work through fallback"
+resp ping -c 3 10.0.0.30
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[combined check] responder on ap5 -> alert should work through fallback"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.31:8000
+
+sh echo "[combined check] responder on ap5 -> non-critical should remain blocked"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo "[combined check] attacker on ap5 -> critical should remain blocked even after fallback repair"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[step 6] reattach / restore NORMAL mode and clean mesh"
+
+sh echo "[reattach] restore physical/access topology first"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+
+sh echo "[reattach] restore normal forwarding after links are clean"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+
+sh echo "[reattach] flush OVS MAC learning tables"
+sh ovs-appctl fdb/flush s6 2>/dev/null || true
+sh ovs-appctl fdb/flush s5 2>/dev/null || true
+sh ovs-appctl fdb/flush ap5 2>/dev/null || true
+sh ovs-appctl fdb/flush ap4 2>/dev/null || true
+
+sh sleep 1
+
+sh echo "[step 7] move responder back to ap2"
+py resp.setPosition("20,40,0")
+sh sleep 2
+resp iw dev resp-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+resp iw dev resp-wlan0 connect zone2-responder 2437 02:00:00:00:08:00
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+sh echo "[reattach] force attacker association on ap5"
+py atk.setPosition("110,40,0")
+sh sleep 1
+atk iw dev atk-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+atk iw dev atk-wlan0 connect zone5-other 2437 02:00:00:00:0b:00
+sh sleep 2
+atk iw dev atk-wlan0 link
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+ncrit ip neigh flush all
+
+sh echo "[normal restored] attacker -> critical should work again"
+atk ping -c 3 10.0.0.30
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[normal restored] responder -> non-critical should work again"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo "[scenario] combined island policy + AP mesh fallback + mobility done"

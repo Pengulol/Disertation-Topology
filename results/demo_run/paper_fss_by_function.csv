@@ -1,0 +1,4 @@
+function,active_elements,total_elements,FSS,FSS_percent,FSS_star_none_weight,FSS_star_none_weight_percent
+critical_service_support,5,5,1.0,100.0,0.86,86.0
+zero_trust_policy_support,4,4,1.0,100.0,0.8,80.0
+recovery_orchestration_support,3,4,1.0,100.0,0.8,80.0

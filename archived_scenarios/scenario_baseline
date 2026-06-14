@@ -1,0 +1,18 @@
+sh echo "=== Scenario: baseline normal connectivity ==="
+
+sh echo "[1] responder -> critical coordination"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[2] responder -> critical alert"
+resp curl --connect-timeout 2 http://10.0.0.31:8000
+
+sh echo "[3] responder -> non-critical"
+resp curl --connect-timeout 2 http://10.0.0.40:8000
+
+sh echo "[4] responder -> local PDP MEC"
+resp curl --connect-timeout 2 http://10.0.0.50:8000
+
+sh echo "[5] responder -> audit MEC"
+resp curl --connect-timeout 2 http://10.0.0.60:8000
+
+sh echo "=== Expected: all five services reachable ==="

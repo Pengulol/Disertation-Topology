@@ -1,0 +1,23 @@
+# Continuation after scenario_multi_island_mesh: AP mesh repair is active.
+# Now the edge loses central/core connectivity and island policy must control access.
+sh curl -s --max-time 2 http://127.0.0.1:8088/health
+sh ip link set s6-eth1 down
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+resp2 ip neigh flush all
+usr2 ip neigh flush all
+sens2 ip neigh flush all
+atk2 ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+
+# Authorized responder in the affected/east island: critical allowed, non-critical blocked.
+resp2 curl --connect-timeout 2 http://10.0.0.30:8000
+resp2 curl --connect-timeout 2 http://10.0.0.31:8000
+resp2 curl --connect-timeout 2 http://10.0.0.40:8000
+
+# Other actor classes have restored connectivity, but no critical-service authorization.
+usr2 curl --connect-timeout 2 http://10.0.0.30:8000
+sens2 curl --connect-timeout 2 http://10.0.0.30:8000
+atk2 curl --connect-timeout 2 http://10.0.0.30:8000

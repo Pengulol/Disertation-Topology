@@ -1,0 +1,42 @@
+sh echo "[scenario] topology baseline in normal mode"
+
+sh echo "[check] OVS bridges"
+sh ovs-vsctl list-br
+
+sh echo "[check] NORMAL flows on all current bridges"
+sh ovs-ofctl dump-flows s1
+sh ovs-ofctl dump-flows s6
+sh ovs-ofctl dump-flows s2
+sh ovs-ofctl dump-flows s3
+sh ovs-ofctl dump-flows s4
+sh ovs-ofctl dump-flows s5
+sh ovs-ofctl dump-flows ap2
+sh ovs-ofctl dump-flows ap3
+sh ovs-ofctl dump-flows ap4
+sh ovs-ofctl dump-flows ap5
+
+sh echo "[check] wireless associations"
+resp iw dev resp-wlan0 link
+usr iw dev usr-wlan0 link
+sens iw dev sens-wlan0 link
+atk iw dev atk-wlan0 link
+
+sh echo "[check] critical services from each station"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+usr curl --connect-timeout 2 http://10.0.0.30:8000
+sens curl --connect-timeout 2 http://10.0.0.30:8000
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[check] all MEC services from responder"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+resp curl --connect-timeout 2 http://10.0.0.31:8000
+resp curl --connect-timeout 2 http://10.0.0.40:8000
+resp curl --connect-timeout 2 http://10.0.0.50:8000
+resp curl --connect-timeout 2 http://10.0.0.60:8000
+
+sh echo "[check] central/core services from responder"
+resp curl --connect-timeout 2 http://10.0.0.10:8000
+resp curl --connect-timeout 2 http://10.0.0.11:8000
+resp curl --connect-timeout 2 http://10.0.0.70:8000
+
+sh echo "[scenario] topology baseline done"

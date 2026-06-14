@@ -1,0 +1,49 @@
+sh echo "=== Scenario: authorized responder over AP mesh fallback ==="
+
+sh echo "[0] Verify local PDP"
+sh curl -s --max-time 2 http://127.0.0.1:8088/health
+
+sh echo "[1] Configure AP mesh fallback: ap5 -> ap4 -> s4 -> s6"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+sh /mnt/shared/island_mode/manet_fallback_controller.py repair ap5
+sh sleep 1
+
+sh echo "[2] Move responder physically near AP5"
+py resp.setPosition('110,40,0')
+sh sleep 2
+
+sh echo "[3] Associate responder to AP5"
+py resp.setAssociation(ap5, intf="resp-wlan0")
+sh sleep 2
+
+sh echo "[4] Verify responder association; expected SSID: zone5-other"
+resp iw dev resp-wlan0 link
+
+sh echo "[5] Verify responder reaches critical service over AP mesh before island mode"
+resp ip neigh flush all
+crit ip neigh flush all
+resp ping -c 1 10.0.0.30
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[6] Simulate core/backhaul outage"
+sh ip link set s6-eth1 down
+
+sh echo "[7] Apply ISLANDED policy"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+resp ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+
+sh echo "[8] Expected: authorized responder reaches critical coordination"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[9] Expected: authorized responder reaches critical alert"
+resp curl --connect-timeout 2 http://10.0.0.31:8000
+
+sh echo "[10] Expected: responder is blocked from non-critical service in island mode"
+resp curl --connect-timeout 2 http://10.0.0.40:8000
+
+sh echo "=== Expected result: zone5-other, crit OK, alert OK, ncrit timeout ==="

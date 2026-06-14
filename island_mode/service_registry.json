@@ -1,0 +1,42 @@
+{
+  "crit": {
+    "ip": "10.0.0.30",
+    "class": "critical",
+    "description": "Emergency coordination MEC service"
+  },
+  "alert": {
+    "ip": "10.0.0.31",
+    "class": "critical",
+    "description": "Emergency alert MEC service"
+  },
+  "ncrit": {
+    "ip": "10.0.0.40",
+    "class": "non-critical",
+    "description": "Non-critical local MEC service"
+  },
+  "pdp": {
+    "ip": "10.0.0.50",
+    "class": "control",
+    "description": "Local PDP MEC service"
+  },
+  "audit": {
+    "ip": "10.0.0.60",
+    "class": "control",
+    "description": "Local audit buffer MEC service"
+  },
+  "inet": {
+    "ip": "10.0.0.70",
+    "class": "external",
+    "description": "Internet / data network placeholder"
+  },
+  "cidp": {
+    "ip": "10.0.0.10",
+    "class": "central-control",
+    "description": "Central identity provider"
+  },
+  "cp": {
+    "ip": "10.0.0.11",
+    "class": "central-control",
+    "description": "Central policy server"
+  }
+}

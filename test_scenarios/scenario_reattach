@@ -1,0 +1,157 @@
+sh echo "=== Scenario: island reattach and normal restoration ==="
+
+sh echo ""
+sh echo "[0] Clean topology and normal forwarding"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+sh bash /mnt/shared/island_mode/restore_core_link.sh 2>/dev/null || true
+
+sh echo ""
+sh echo "[1] Force responder on ap2"
+py resp.setPosition("20,40,0")
+sh sleep 2
+resp iw dev resp-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+resp iw dev resp-wlan0 connect zone2-responder 2437 02:00:00:00:08:00
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+sh echo ""
+sh echo "[2] Force attacker on ap5"
+py atk.setPosition("110,40,0")
+sh sleep 1
+atk iw dev atk-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+atk iw dev atk-wlan0 connect zone5-other 2437 02:00:00:00:0b:00
+sh sleep 2
+atk iw dev atk-wlan0 link
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+ncrit ip neigh flush all
+
+sh echo ""
+sh echo "[3] NORMAL baseline: responder -> critical should work"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[4] NORMAL baseline: responder -> non-critical should work"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo ""
+sh echo "[5] NORMAL baseline: attacker -> critical should work before island policy"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[6] Simulate core/backhaul outage"
+sh ip link set s6-eth1 down
+sh ip link set s1-eth3 down 2>/dev/null || true
+sh sleep 1
+
+sh echo ""
+sh echo "[7] Apply ISLANDED policy"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py island
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+ncrit ip neigh flush all
+cidp ip neigh flush all
+cp ip neigh flush all
+
+sh echo ""
+sh echo "[8] ISLANDED: central identity should be unreachable"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.10:8000
+
+sh echo ""
+sh echo "[9] ISLANDED: central policy should be unreachable"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.11:8000
+
+sh echo ""
+sh echo "[10] ISLANDED: responder -> critical should still work"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[11] ISLANDED: responder -> alert should still work"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.31:8000
+
+sh echo ""
+sh echo "[12] ISLANDED: responder -> non-critical should be blocked"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo ""
+sh echo "[13] ISLANDED: attacker -> critical should be blocked"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[14] REATTACH: restore core/backhaul link"
+sh ip link set s6-eth1 up
+sh ip link set s1-eth3 up 2>/dev/null || true
+sh bash /mnt/shared/island_mode/restore_core_link.sh 2>/dev/null || true
+sh sleep 1
+
+sh echo ""
+sh echo "[15] REATTACH: restore clean topology and normal forwarding"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+
+sh echo ""
+sh echo "[16] REATTACH: flush OVS MAC learning tables"
+sh ovs-appctl fdb/flush s1 2>/dev/null || true
+sh ovs-appctl fdb/flush s6 2>/dev/null || true
+sh ovs-appctl fdb/flush s5 2>/dev/null || true
+sh ovs-appctl fdb/flush ap5 2>/dev/null || true
+sh ovs-appctl fdb/flush ap2 2>/dev/null || true
+sh sleep 1
+
+sh echo ""
+sh echo "[17] REATTACH: force responder back on ap2"
+py resp.setPosition("20,40,0")
+sh sleep 2
+resp iw dev resp-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+resp iw dev resp-wlan0 connect zone2-responder 2437 02:00:00:00:08:00
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+sh echo ""
+sh echo "[18] REATTACH: force attacker back on ap5"
+py atk.setPosition("110,40,0")
+sh sleep 1
+atk iw dev atk-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+atk iw dev atk-wlan0 connect zone5-other 2437 02:00:00:00:0b:00
+sh sleep 2
+atk iw dev atk-wlan0 link
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+ncrit ip neigh flush all
+cidp ip neigh flush all
+cp ip neigh flush all
+
+sh echo ""
+sh echo "[19] NORMAL restored: central identity should work again"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.10:8000
+
+sh echo ""
+sh echo "[20] NORMAL restored: central policy should work again"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.11:8000
+
+sh echo ""
+sh echo "[21] NORMAL restored: responder -> non-critical should work again"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo ""
+sh echo "[22] NORMAL restored: attacker -> critical should work again"
+atk ping -c 3 10.0.0.30
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[23] Final OVS status"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py status
+
+sh echo ""
+sh echo "=== Expected result: island restricts access, reattach restores central and non-critical services ==="

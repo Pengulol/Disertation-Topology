@@ -1,0 +1,4 @@
+layer,total_elements,admissible_distinct_elements,tau,tau_percent,entropy_normalized,entropy_percent
+L1_connectivity,5,4,0.8,80.0,0.6847,68.47
+L2_control_security,5,5,1.0,100.0,0.8254,82.54
+L3_service_application,5,3,0.6,60.0,0.6231,62.31

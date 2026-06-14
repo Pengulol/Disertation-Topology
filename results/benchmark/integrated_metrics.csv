@@ -1,0 +1,858 @@
+t_rel_s,phase,actor,service,url,result,http_code,latency_ms,error
+0.107,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,56,
+0.136,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,71,
+0.145,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,71,
+0.145,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,72,
+0.150,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,74,
+0.150,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,71,
+1.173,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,38,
+1.177,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,38,
+1.189,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,37,
+1.189,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,37,
+1.189,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,40,
+1.190,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,36,
+2.056,NORMAL,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2001 ms |
+2.069,NORMAL,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2002 ms |
+2.104,NORMAL,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2026,curl: (28) Connection timeout after 2022 ms |
+2.221,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,44,
+2.226,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,43,
+2.229,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,36,
+2.230,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,37,
+2.231,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,38,
+2.232,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,38,
+3.165,NORMAL,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,47,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 43 ms: No route to host |
+3.165,NORMAL,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,97,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 94 ms: No route to host |
+3.165,NORMAL,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,94,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 88 ms: No route to host |
+3.266,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,39,
+3.268,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,40,
+3.271,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,37,
+3.272,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,40,
+3.272,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,39,
+3.274,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,39,
+4.332,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,58,
+4.333,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,59,
+4.333,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,61,
+4.333,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,61,
+4.337,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,62,
+4.338,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,63,
+5.395,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,54,
+5.395,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,54,
+5.395,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,55,
+5.395,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,55,
+5.395,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,55,
+5.395,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,55,
+6.189,NORMAL,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2019,curl: (28) Connection timeout after 2014 ms |
+6.189,NORMAL,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2019,curl: (28) Connection timeout after 2011 ms |
+6.189,NORMAL,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2019,curl: (28) Connection timeout after 2011 ms |
+6.446,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,43,
+6.446,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,44,
+6.446,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,44,
+6.467,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,65,
+6.467,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,66,
+6.467,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,65,
+7.276,NORMAL,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,81,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 74 ms: No route to host |
+7.276,NORMAL,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,81,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 74 ms: No route to host |
+7.276,NORMAL,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,81,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 74 ms: No route to host |
+7.495,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,37,
+7.499,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,40,
+7.499,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,40,
+7.509,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,38,
+7.509,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,38,
+7.510,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,40,
+8.541,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,38,
+8.543,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,40,
+8.546,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,43,
+8.548,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,36,
+8.548,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,37,
+8.552,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,41,
+9.585,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,40,
+9.586,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,41,
+9.586,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,38,
+9.591,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,39,
+9.591,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,41,
+9.592,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,37,
+10.294,NORMAL,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2013,curl: (28) Connection timeout after 2007 ms |
+10.294,NORMAL,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2014,curl: (28) Connection timeout after 2007 ms |
+10.294,NORMAL,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2015,curl: (28) Connection timeout after 2010 ms |
+10.631,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,36,
+10.633,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,39,
+10.634,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,39,
+10.635,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,41,
+11.360,NORMAL,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,61,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 54 ms: No route to host |
+11.360,NORMAL,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,60,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 54 ms: No route to host |
+11.360,NORMAL,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,60,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 54 ms: No route to host |
+11.719,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,1125,
+11.735,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,101,
+11.735,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,97,
+11.737,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,98,
+11.741,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,102,
+12.619,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2025,curl: (28) Connection timeout after 2019 ms |
+12.779,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,40,
+12.787,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,45,
+12.787,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,45,
+12.787,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,success,200,46,
+13.819,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,38,
+13.827,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,1088,
+13.830,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,39,
+14.374,NORMAL,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2011,curl: (28) Connection timeout after 2006 ms |
+14.375,NORMAL,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2001 ms |
+14.375,NORMAL,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2001 ms |
+14.897,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,76,
+14.908,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,41,
+15.385,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,1743,
+15.447,NORMAL,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,70,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 66 ms: No route to host |
+15.447,NORMAL,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,68,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 64 ms: No route to host |
+15.447,NORMAL,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,67,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 64 ms: No route to host |
+15.795,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+15.796,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2007,curl: (28) Connection timeout after 2003 ms |
+16.036,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,130,
+16.041,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,117,
+16.877,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2010,curl: (28) Connection timeout after 2002 ms |
+17.126,NORMAL,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,67,
+17.126,NORMAL,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,67,
+18.253,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,124,
+18.253,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,124,
+18.461,NORMAL,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+18.461,NORMAL,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2002 ms |
+18.461,NORMAL,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2002 ms |
+18.807,NORMAL,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2008,curl: (28) Connection timeout after 2002 ms |
+18.807,NORMAL,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2008,curl: (28) Connection timeout after 2003 ms |
+18.984,NORMAL,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,1105,
+19.405,NORMAL,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,3014,curl: (28) Operation timed out after 3009 milliseconds with 0 bytes received |
+19.544,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,80,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 76 ms: No route to host |
+19.545,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,82,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 76 ms: No route to host |
+21.265,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,blocked,000,2007,curl: (28) Connection timeout after 2002 ms |
+21.266,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2008,curl: (28) Connection timeout after 2003 ms |
+21.476,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2013,curl: (28) Connection timeout after 2007 ms |
+21.821,DEGRADED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+21.821,DEGRADED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2007,curl: (28) Connection timeout after 2003 ms |
+22.025,DEGRADED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2028,curl: (28) Connection timeout after 2023 ms |
+22.310,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,42,
+22.316,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,47,
+22.426,DEGRADED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2011,curl: (28) Connection timeout after 2007 ms |
+22.553,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,74,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 70 ms: No route to host |
+22.555,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2000 ms |
+22.557,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2001 ms |
+23.447,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,129,
+23.448,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,129,
+23.652,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,88,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 85 ms: No route to host |
+23.710,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,147,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 143 ms: No route to host |
+24.097,DEGRADED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,1063,
+24.540,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,69,
+24.544,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,74,
+24.838,DEGRADED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+24.838,DEGRADED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2009,curl: (28) Connection timeout after 2004 ms |
+25.574,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2010,curl: (28) Connection timeout after 2004 ms |
+25.580,DEGRADED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,2147,
+25.620,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,65,
+25.620,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,65,
+26.665,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2003 ms |
+26.694,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,54,
+26.694,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,55,
+26.711,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,117,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 114 ms: No route to host |
+26.722,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2001 ms |
+27.201,DEGRADED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,2100,
+27.762,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,84,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 78 ms: No route to host |
+27.767,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,69,
+27.767,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,69,
+27.806,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,82,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 76 ms: No route to host |
+27.865,DEGRADED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2021,curl: (28) Connection timeout after 2016 ms |
+27.865,DEGRADED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2021,curl: (28) Connection timeout after 2014 ms |
+28.896,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,115,
+28.901,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,120,
+29.604,DEGRADED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,200,3010,curl: (28) Operation timed out after 3006 milliseconds with 0 out of 26 bytes received |
+29.720,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2001 ms |
+29.984,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,73,
+29.984,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,73,
+30.339,DEGRADED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,2131,
+30.802,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2022,curl: (28) Connection timeout after 2017 ms |
+30.813,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,81,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 77 ms: No route to host |
+30.871,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2046,curl: (28) Connection timeout after 2041 ms |
+30.918,DEGRADED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2034,curl: (28) Connection timeout after 2030 ms |
+30.918,DEGRADED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2034,curl: (28) Connection timeout after 2030 ms |
+31.045,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,54,
+31.045,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,55,
+31.897,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,87,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 82 ms: No route to host |
+31.897,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,23,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 18 ms: No route to host |
+32.111,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,59,
+32.111,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,59,
+32.456,DEGRADED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,1103,
+33.170,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,39,
+33.173,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,43,
+33.617,DEGRADED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,3008,curl: (28) Operation timed out after 3003 milliseconds with 0 bytes received |
+33.830,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2014,curl: (28) Connection timeout after 2009 ms |
+33.944,DEGRADED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2014,curl: (28) Connection timeout after 2006 ms |
+33.944,DEGRADED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2017,curl: (28) Connection timeout after 2012 ms |
+34.218,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,45,
+34.225,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,49,
+34.909,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,52,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 45 ms: No route to host |
+34.913,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2001 ms |
+34.913,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2000 ms |
+35.356,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,129,
+35.356,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,128,
+35.489,DEGRADED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2012,curl: (28) Connection timeout after 2007 ms |
+35.995,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,77,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 72 ms: No route to host |
+35.995,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,77,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 71 ms: No route to host |
+36.506,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,142,
+36.635,DEGRADED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+36.965,DEGRADED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2020,curl: (28) Connection timeout after 2015 ms |
+36.966,DEGRADED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2018,curl: (28) Connection timeout after 2013 ms |
+37.597,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,74,
+37.925,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2001 ms |
+38.382,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2019,curl: (28) Connection timeout after 2014 ms |
+38.528,DEGRADED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2029,curl: (28) Connection timeout after 2025 ms |
+38.729,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,115,
+39.018,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+39.019,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+39.018,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,83,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 79 ms: No route to host |
+39.646,DEGRADED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2007,curl: (28) Connection timeout after 2002 ms |
+39.842,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,90,
+39.984,DEGRADED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2010,curl: (28) Connection timeout after 2002 ms |
+39.984,DEGRADED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2010,curl: (28) Connection timeout after 2002 ms |
+40.087,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,64,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 58 ms: No route to host |
+40.087,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,64,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 57 ms: No route to host |
+40.922,DEGRADED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,72,
+41.402,DEGRADED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2015,curl: (28) Connection timeout after 2009 ms |
+41.560,DEGRADED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2017,curl: (28) Connection timeout after 2013 ms |
+42.026,DEGRADED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2003,curl: (28) Connection timeout after 2000 ms |
+42.679,DEGRADED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2012,curl: (28) Connection timeout after 2008 ms |
+43.001,DEGRADED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2011,curl: (28) Connection timeout after 2006 ms |
+43.001,DEGRADED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2011,curl: (28) Connection timeout after 2006 ms |
+43.119,DEGRADED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2029,curl: (28) Connection timeout after 2024 ms |
+43.120,DEGRADED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2029,curl: (28) Connection timeout after 2026 ms |
+43.943,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,blocked,000,2014,curl: (28) Connection timeout after 2010 ms |
+44.186,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,61,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 54 ms: No route to host |
+44.186,ISLANDED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,61,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 56 ms: No route to host |
+44.421,ISLANDED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2015,curl: (28) Connection timeout after 2008 ms |
+44.600,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2028,curl: (28) Connection timeout after 2024 ms |
+45.015,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,blocked,000,54,curl: (7) Failed to connect to 10.0.0.31 port 8000 after 50 ms: No route to host |
+45.038,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2001 ms |
+45.102,ISLANDED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,1099,curl: (7) Failed to connect to 10.0.0.70 port 8000 after 1096 ms: No route to host |
+45.485,ISLANDED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,58,curl: (7) Failed to connect to 10.0.0.40 port 8000 after 54 ms: No route to host |
+45.662,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,32,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 28 ms: No route to host |
+45.712,ISLANDED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2028,curl: (28) Connection timeout after 2024 ms |
+46.031,ISLANDED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2027,curl: (28) Connection timeout after 2023 ms |
+46.099,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,68,
+46.104,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,64,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 58 ms: No route to host |
+47.210,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,95,
+47.210,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2018,curl: (28) Connection timeout after 2014 ms |
+47.210,ISLANDED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2018,curl: (28) Connection timeout after 2012 ms |
+48.125,ISLANDED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2022,curl: (28) Connection timeout after 2017 ms |
+48.278,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,61,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 56 ms: No route to host |
+48.338,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,120,
+48.511,ISLANDED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2016,curl: (28) Connection timeout after 2013 ms |
+48.686,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2016,curl: (28) Connection timeout after 2012 ms |
+48.739,ISLANDED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2025,curl: (28) Connection timeout after 2018 ms |
+49.050,ISLANDED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2018,curl: (28) Connection timeout after 2014 ms |
+49.129,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2015,curl: (28) Connection timeout after 2010 ms |
+49.411,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,71,
+49.759,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,68,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 64 ms: No route to host |
+50.208,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,76,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 70 ms: No route to host |
+50.225,ISLANDED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2002 ms |
+50.525,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,99,
+51.147,ISLANDED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2018,curl: (28) Connection timeout after 2010 ms |
+51.291,ISLANDED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,55,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 51 ms: No route to host |
+51.291,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2005 ms |
+51.532,ISLANDED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2016,curl: (28) Connection timeout after 2009 ms |
+51.576,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,45,
+51.756,ISLANDED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2010,curl: (28) Connection timeout after 2006 ms |
+52.061,ISLANDED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+52.377,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,81,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 77 ms: No route to host |
+52.649,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,71,
+52.788,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2014,curl: (28) Connection timeout after 2009 ms |
+53.245,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2002 ms |
+53.727,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,74,
+53.851,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,54,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 48 ms: No route to host |
+54.167,ISLANDED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2016,curl: (28) Connection timeout after 2012 ms |
+54.295,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,40,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 36 ms: No route to host |
+54.303,ISLANDED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2003 ms |
+54.548,ISLANDED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2011,curl: (28) Connection timeout after 2006 ms |
+54.784,ISLANDED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2022,curl: (28) Connection timeout after 2017 ms |
+54.824,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,84,
+55.087,ISLANDED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2018,curl: (28) Connection timeout after 2011 ms |
+55.402,ISLANDED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,96,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 92 ms: No route to host |
+55.403,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2015,curl: (28) Connection timeout after 2011 ms |
+55.974,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,140,
+56.480,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,65,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 61 ms: No route to host |
+56.861,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+57.092,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,108,
+57.189,ISLANDED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2014,curl: (28) Connection timeout after 2008 ms |
+57.309,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+57.559,ISLANDED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+57.804,ISLANDED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2015,curl: (28) Connection timeout after 2011 ms |
+57.954,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,89,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 85 ms: No route to host |
+58.105,ISLANDED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2012,curl: (28) Connection timeout after 2008 ms |
+58.391,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,78,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 74 ms: No route to host |
+58.423,ISLANDED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2003 ms |
+59.504,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+59.544,ISLANDED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,118,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 113 ms: No route to host |
+59.566,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,592,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 588 ms: No route to host |
+59.567,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,173,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 167 ms: No route to host |
+60.110,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+60.223,ISLANDED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2015,curl: (28) Connection timeout after 2010 ms |
+60.592,ISLANDED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+60.824,ISLANDED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2007,curl: (28) Connection timeout after 2000 ms |
+61.123,ISLANDED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2008,curl: (28) Connection timeout after 2003 ms |
+61.197,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,75,
+62.270,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,70,
+62.521,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2005,curl: (28) Connection timeout after 2000 ms |
+62.562,ISLANDED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+62.572,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+62.575,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+63.253,ISLANDED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2013,curl: (28) Connection timeout after 2008 ms |
+63.349,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,75,
+63.577,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,46,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 41 ms: No route to host |
+63.640,ISLANDED,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,63,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 57 ms: No route to host |
+63.640,ISLANDED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,62,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 57 ms: No route to host |
+63.640,ISLANDED,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2042,curl: (28) Connection timeout after 2036 ms |
+63.641,ISLANDED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,75,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 68 ms: No route to host |
+63.844,ISLANDED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2014,curl: (28) Connection timeout after 2010 ms |
+64.141,ISLANDED,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+64.412,ISLANDED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,59,
+65.559,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,134,
+66.289,ISLANDED,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2014,curl: (28) Connection timeout after 2010 ms |
+66.607,ISLANDED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2018,curl: (28) Connection timeout after 2013 ms |
+66.634,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,58,
+66.652,ISLANDED_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2005,curl: (28) Connection timeout after 2002 ms |
+66.652,ISLANDED_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+66.653,ISLANDED_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+66.654,ISLANDED_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2008,curl: (28) Connection timeout after 2002 ms |
+66.867,ISLANDED_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2010,curl: (28) Connection timeout after 2002 ms |
+67.158,ISLANDED_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2011,curl: (28) Connection timeout after 2006 ms |
+67.671,ISLANDED_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,56,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 52 ms: No route to host |
+67.682,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,39,
+67.736,ISLANDED_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,79,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 75 ms: No route to host |
+67.736,ISLANDED_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,79,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 75 ms: No route to host |
+67.736,ISLANDED_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,80,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 75 ms: No route to host |
+68.748,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,64,
+69.346,ISLANDED_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2030,curl: (28) Connection timeout after 2026 ms |
+69.666,ISLANDED_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2010,curl: (28) Connection timeout after 2005 ms |
+69.826,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,67,
+69.895,ISLANDED_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2019,curl: (28) Connection timeout after 2015 ms |
+70.179,ISLANDED_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2013,curl: (28) Connection timeout after 2006 ms |
+70.686,ISLANDED_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2005 ms |
+70.752,ISLANDED_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2005 ms |
+70.752,ISLANDED_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2009,curl: (28) Connection timeout after 2005 ms |
+70.752,ISLANDED_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2005 ms |
+70.914,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,85,
+71.768,ISLANDED_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,75,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 71 ms: No route to host |
+71.831,ISLANDED_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,65,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 57 ms: No route to host |
+71.832,ISLANDED_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,65,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 58 ms: No route to host |
+71.831,ISLANDED_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,64,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 60 ms: No route to host |
+72.026,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,91,
+72.366,ISLANDED_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2011,curl: (28) Connection timeout after 2006 ms |
+72.715,ISLANDED_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2030,curl: (28) Connection timeout after 2025 ms |
+72.926,ISLANDED_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2023,curl: (28) Connection timeout after 2016 ms |
+73.171,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,140,
+73.203,ISLANDED_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2006,curl: (28) Connection timeout after 2001 ms |
+74.229,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,55,
+74.782,ISLANDED_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2003 ms |
+74.856,ISLANDED_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2020,curl: (28) Connection timeout after 2014 ms |
+74.856,ISLANDED_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2019,curl: (28) Connection timeout after 2015 ms |
+74.856,ISLANDED_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2019,curl: (28) Connection timeout after 2013 ms |
+75.307,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,73,
+75.410,ISLANDED_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2014,curl: (28) Connection timeout after 2009 ms |
+75.769,ISLANDED_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2024,curl: (28) Connection timeout after 2019 ms |
+75.872,ISLANDED_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,88,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 81 ms: No route to host |
+75.927,ISLANDED_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,55,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 51 ms: No route to host |
+75.927,ISLANDED_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,55,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 49 ms: No route to host |
+75.927,ISLANDED_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,55,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 49 ms: No route to host |
+75.956,ISLANDED_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2004,curl: (28) Connection timeout after 2000 ms |
+76.217,ISLANDED_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2008,curl: (28) Connection timeout after 2003 ms |
+76.358,ISLANDED_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,46,
+77.015,TRUST_AWARE_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,57,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 51 ms: No route to host |
+78.420,ISLANDED_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+78.790,ISLANDED_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2019,curl: (28) Connection timeout after 2015 ms |
+78.881,ISLANDED_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+78.935,TRUST_AWARE_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2005,curl: (28) Connection timeout after 2000 ms |
+78.935,TRUST_AWARE_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2000 ms |
+78.935,TRUST_AWARE_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2005,curl: (28) Connection timeout after 2000 ms |
+79.234,TRUST_AWARE_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2015,curl: (28) Connection timeout after 2009 ms |
+79.373,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,blocked,000,2004,curl: (28) Connection timeout after 2000 ms |
+79.459,TRUST_AWARE_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,1431,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 1428 ms: No route to host |
+80.550,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,160,
+81.429,TRUST_AWARE_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+81.641,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,79,
+81.797,TRUST_AWARE_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+81.944,TRUST_AWARE_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2058,curl: (28) Connection timeout after 2051 ms |
+81.946,TRUST_AWARE_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2003,curl: (28) Connection timeout after 2000 ms |
+81.949,TRUST_AWARE_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2006,curl: (28) Connection timeout after 2001 ms |
+81.949,TRUST_AWARE_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2001 ms |
+82.248,TRUST_AWARE_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2011,curl: (28) Connection timeout after 2007 ms |
+82.489,TRUST_AWARE_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2018,curl: (28) Connection timeout after 2014 ms |
+82.776,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,116,
+82.967,TRUST_AWARE_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,10,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 6 ms: No route to host |
+83.031,TRUST_AWARE_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,74,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 68 ms: No route to host |
+83.032,TRUST_AWARE_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,75,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 68 ms: No route to host |
+83.032,TRUST_AWARE_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,75,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 71 ms: No route to host |
+83.544,TRUST_AWARE_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,45,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 41 ms: No route to host |
+83.855,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,66,
+84.450,TRUST_AWARE_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2010,curl: (28) Connection timeout after 2004 ms |
+84.809,TRUST_AWARE_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2009,curl: (28) Connection timeout after 2004 ms |
+84.956,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,97,
+85.268,TRUST_AWARE_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2012,curl: (28) Connection timeout after 2008 ms |
+85.992,TRUST_AWARE_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2004,curl: (28) Connection timeout after 2000 ms |
+86.035,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,59,
+86.049,TRUST_AWARE_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2004,curl: (28) Connection timeout after 2000 ms |
+86.050,TRUST_AWARE_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2000 ms |
+86.050,TRUST_AWARE_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+86.562,TRUST_AWARE_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2014,curl: (28) Connection timeout after 2010 ms |
+87.065,TRUST_AWARE_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,62,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 58 ms: No route to host |
+87.104,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,55,
+87.127,TRUST_AWARE_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,74,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 71 ms: No route to host |
+87.128,TRUST_AWARE_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,72,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 67 ms: No route to host |
+87.127,TRUST_AWARE_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,75,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 71 ms: No route to host |
+87.485,TRUST_AWARE_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2017,curl: (28) Connection timeout after 2010 ms |
+87.654,TRUST_AWARE_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,86,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 81 ms: No route to host |
+87.843,TRUST_AWARE_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2020,curl: (28) Connection timeout after 2015 ms |
+88.154,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,44,
+88.285,TRUST_AWARE_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2011,curl: (28) Connection timeout after 2004 ms |
+89.219,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,60,
+90.085,TRUST_AWARE_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2012,curl: (28) Connection timeout after 2008 ms |
+90.147,TRUST_AWARE_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2017,curl: (28) Connection timeout after 2013 ms |
+90.147,TRUST_AWARE_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2016,curl: (28) Connection timeout after 2010 ms |
+90.148,TRUST_AWARE_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2018,curl: (28) Connection timeout after 2013 ms |
+90.363,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,141,
+90.512,TRUST_AWARE_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+90.684,TRUST_AWARE_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2019,curl: (28) Connection timeout after 2015 ms |
+90.870,TRUST_AWARE_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2013,curl: (28) Connection timeout after 2009 ms |
+91.165,TRUST_AWARE_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,60,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 56 ms: No route to host |
+91.230,TRUST_AWARE_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,74,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 68 ms: No route to host |
+91.230,TRUST_AWARE_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,75,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 70 ms: No route to host |
+91.230,TRUST_AWARE_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,76,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 69 ms: No route to host |
+91.305,TRUST_AWARE_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2010,curl: (28) Connection timeout after 2006 ms |
+91.519,TRUST_AWARE_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,152,
+91.738,TRUST_AWARE_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,52,curl: (7) Failed to connect to 10.0.0.10 port 8000 after 46 ms: No route to host |
+92.132,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,10,
+92.680,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,156,
+93.159,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,10,
+93.529,TRUST_AWARE_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2016,curl: (28) Connection timeout after 2008 ms |
+93.749,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,59,
+93.884,INTER_ISLAND_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2011,curl: (28) Connection timeout after 2007 ms |
+94.124,INTER_ISLAND_MESH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2001 ms |
+94.138,INTER_ISLAND_MESH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,blocked,000,2009,curl: (28) Connection timeout after 2001 ms |
+94.140,INTER_ISLAND_MESH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2001 ms |
+94.145,INTER_ISLAND_MESH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,blocked,000,2007,curl: (28) Connection timeout after 2002 ms |
+94.146,INTER_ISLAND_MESH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2001 ms |
+94.149,INTER_ISLAND_MESH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,blocked,000,2009,curl: (28) Connection timeout after 2002 ms |
+94.169,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,7,
+94.174,INTER_ISLAND_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2001 ms |
+94.245,INTER_ISLAND_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2009,curl: (28) Connection timeout after 2003 ms |
+94.245,INTER_ISLAND_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2004 ms |
+94.246,INTER_ISLAND_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2004 ms |
+94.326,INTER_ISLAND_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2007,curl: (28) Connection timeout after 2000 ms |
+94.754,INTER_ISLAND_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2010,curl: (28) Connection timeout after 2006 ms |
+94.908,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,155,
+95.179,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,5,
+95.192,INTER_ISLAND_MESH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,58,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 52 ms: No route to host |
+95.192,INTER_ISLAND_MESH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,51,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 45 ms: No route to host |
+95.255,INTER_ISLAND_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,78,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 74 ms: No route to host |
+95.255,INTER_ISLAND_MESH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,106,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 103 ms: No route to host |
+95.344,INTER_ISLAND_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,90,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 86 ms: No route to host |
+95.344,INTER_ISLAND_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,90,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 86 ms: No route to host |
+96.036,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,118,
+96.200,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,11,
+96.548,INTER_ISLAND_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2011,curl: (28) Connection timeout after 2008 ms |
+96.907,INTER_ISLAND_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2005,curl: (28) Connection timeout after 2000 ms |
+97.097,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,52,
+97.164,INTER_ISLAND_MESH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,blocked,000,2016,curl: (28) Connection timeout after 2010 ms |
+97.164,INTER_ISLAND_MESH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,blocked,000,2013,curl: (28) Connection timeout after 2010 ms |
+97.165,INTER_ISLAND_MESH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,blocked,000,2023,curl: (28) Connection timeout after 2018 ms |
+97.214,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,10,
+97.259,INTER_ISLAND_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+97.359,INTER_ISLAND_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2015,curl: (28) Connection timeout after 2011 ms |
+97.768,INTER_ISLAND_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2009,curl: (28) Connection timeout after 2003 ms |
+98.170,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,46,
+98.207,INTER_ISLAND_MESH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+98.207,INTER_ISLAND_MESH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+98.223,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+98.276,INTER_ISLAND_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2015,curl: (28) Connection timeout after 2008 ms |
+98.276,INTER_ISLAND_MESH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2015,curl: (28) Connection timeout after 2008 ms |
+98.370,INTER_ISLAND_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+98.370,INTER_ISLAND_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2000 ms |
+99.230,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,5,
+99.243,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,64,
+99.287,INTER_ISLAND_MESH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,78,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 74 ms: No route to host |
+99.287,INTER_ISLAND_MESH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,78,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 74 ms: No route to host |
+99.365,INTER_ISLAND_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,85,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 78 ms: No route to host |
+99.365,INTER_ISLAND_MESH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,85,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 80 ms: No route to host |
+99.422,INTER_ISLAND_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,48,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 44 ms: No route to host |
+99.556,INTER_ISLAND_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,181,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 177 ms: No route to host |
+99.563,INTER_ISLAND_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+99.936,INTER_ISLAND_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2017,curl: (28) Connection timeout after 2012 ms |
+100.192,INTER_ISLAND_MESH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,blocked,000,2025,curl: (28) Connection timeout after 2018 ms |
+100.193,INTER_ISLAND_MESH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,blocked,000,2024,curl: (28) Connection timeout after 2019 ms |
+100.193,INTER_ISLAND_MESH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,blocked,000,2025,curl: (28) Connection timeout after 2020 ms |
+100.249,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,10,
+100.283,INTER_ISLAND_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2007,curl: (28) Connection timeout after 2001 ms |
+100.369,INTER_ISLAND_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2005,curl: (28) Connection timeout after 2000 ms |
+100.373,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,126,
+100.803,INTER_ISLAND_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2015,curl: (28) Connection timeout after 2010 ms |
+101.266,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,8,
+101.430,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,53,
+102.296,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,16,
+102.297,INTER_ISLAND_MESH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+102.298,INTER_ISLAND_MESH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2002 ms |
+102.379,INTER_ISLAND_MESH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2011,curl: (28) Connection timeout after 2006 ms |
+102.379,INTER_ISLAND_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2011,curl: (28) Connection timeout after 2004 ms |
+102.485,INTER_ISLAND_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2002 ms |
+102.503,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,69,
+102.579,INTER_ISLAND_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2006,curl: (28) Connection timeout after 2001 ms |
+102.581,INTER_ISLAND_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2003 ms |
+102.968,INTER_ISLAND_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2012,curl: (28) Connection timeout after 2005 ms |
+103.248,INTER_ISLAND_MESH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,blocked,000,2023,curl: (28) Connection timeout after 2018 ms |
+103.248,INTER_ISLAND_MESH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,blocked,000,2022,curl: (28) Connection timeout after 2018 ms |
+103.248,INTER_ISLAND_MESH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,blocked,000,2022,curl: (28) Connection timeout after 2018 ms |
+103.295,INTER_ISLAND_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2009,curl: (28) Connection timeout after 2005 ms |
+103.312,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+103.383,INTER_ISLAND_MESH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,76,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 72 ms: No route to host |
+103.383,INTER_ISLAND_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+103.384,INTER_ISLAND_MESH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,77,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 72 ms: No route to host |
+103.448,INTER_ISLAND_MESH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,67,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 59 ms: No route to host |
+103.448,INTER_ISLAND_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,67,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 59 ms: No route to host |
+103.590,INTER_ISLAND_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,96,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 91 ms: No route to host |
+103.621,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,115,
+103.641,INTER_ISLAND_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,51,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 44 ms: No route to host |
+103.815,INTER_ISLAND_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2010,curl: (28) Connection timeout after 2003 ms |
+104.337,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,22,
+104.688,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,61,
+105.351,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,5,
+105.619,INTER_ISLAND_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2030,curl: (28) Connection timeout after 2022 ms |
+105.812,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,112,
+106.004,INTER_ISLAND_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2030,curl: (28) Connection timeout after 2025 ms |
+106.268,INTER_ISLAND_MESH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,blocked,000,2015,curl: (28) Connection timeout after 2011 ms |
+106.268,INTER_ISLAND_MESH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,blocked,000,2016,curl: (28) Connection timeout after 2011 ms |
+106.268,INTER_ISLAND_MESH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,blocked,000,2015,curl: (28) Connection timeout after 2011 ms |
+106.328,INTER_ISLAND_MESH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2022,curl: (28) Connection timeout after 2018 ms |
+106.359,INTER_ISLAND_MESH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,5,
+106.403,INTER_ISLAND_MESH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2017,curl: (28) Connection timeout after 2011 ms |
+106.403,INTER_ISLAND_MESH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2017,curl: (28) Connection timeout after 2011 ms |
+106.403,INTER_ISLAND_MESH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+106.461,INTER_ISLAND_MESH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+106.479,INTER_ISLAND_MESH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2011,curl: (28) Connection timeout after 2007 ms |
+106.616,INTER_ISLAND_MESH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2016,curl: (28) Connection timeout after 2012 ms |
+106.657,INTER_ISLAND_MESH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+106.836,INTER_ISLAND_MESH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2010,curl: (28) Connection timeout after 2003 ms |
+106.858,INTER_ISLAND_MESH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,42,
+107.371,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,10,
+107.641,REATTACH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,234,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 75 ms: No route to host |
+107.557,REATTACH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,150,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 87 ms: No route to host |
+108.888,INTER_ISLAND_MESH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2267,curl: (28) Connection timeout after 2016 ms |
+109.170,INTER_ISLAND_MESH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2161,curl: (28) Connection timeout after 2008 ms |
+109.406,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,blocked,000,2134,curl: (28) Connection timeout after 2003 ms |
+109.421,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,blocked,000,2150,curl: (28) Connection timeout after 2005 ms |
+109.443,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,blocked,000,2172,curl: (28) Connection timeout after 2017 ms |
+109.472,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2143,curl: (28) Connection timeout after 2004 ms |
+109.533,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2125,curl: (28) Connection timeout after 2012 ms |
+110.033,REATTACH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2552,curl: (28) Connection timeout after 2005 ms |
+110.268,REATTACH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2583,curl: (28) Connection timeout after 2035 ms |
+110.302,REATTACH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2638,curl: (28) Connection timeout after 2000 ms |
+110.340,REATTACH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2870,curl: (28) Connection timeout after 2020 ms |
+110.430,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2510,curl: (28) Connection timeout after 2007 ms |
+110.683,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,blocked,000,2732,curl: (28) Connection timeout after 2019 ms |
+110.861,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,blocked,000,2472,curl: (28) Connection timeout after 2001 ms |
+111.003,REATTACH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2295,curl: (28) Connection timeout after 2001 ms |
+111.301,REATTACH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2570,curl: (28) Connection timeout after 2006 ms |
+112.476,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2542,curl: (28) Connection timeout after 2002 ms |
+112.843,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,blocked,000,2403,curl: (28) Connection timeout after 2000 ms |
+112.851,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2619,curl: (28) Connection timeout after 2001 ms |
+112.986,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,blocked,000,2505,curl: (28) Connection timeout after 2012 ms |
+113.023,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,blocked,000,2579,curl: (28) Connection timeout after 2029 ms |
+113.050,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2446,curl: (28) Connection timeout after 2000 ms |
+113.144,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2606,curl: (28) Connection timeout after 2000 ms |
+113.622,REATTACH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2529,curl: (28) Connection timeout after 2014 ms |
+113.739,REATTACH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2443,curl: (28) Connection timeout after 2001 ms |
+113.856,REATTACH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2490,curl: (28) Connection timeout after 2003 ms |
+113.907,REATTACH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2512,curl: (28) Connection timeout after 2002 ms |
+113.982,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2501,curl: (28) Connection timeout after 2060 ms |
+114.210,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,blocked,000,2414,curl: (28) Connection timeout after 2031 ms |
+114.421,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,blocked,000,2507,curl: (28) Connection timeout after 2032 ms |
+114.520,REATTACH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2421,curl: (28) Connection timeout after 2001 ms |
+114.814,REATTACH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2453,curl: (28) Connection timeout after 2000 ms |
+116.116,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,blocked,000,2226,curl: (28) Connection timeout after 2001 ms |
+116.243,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,blocked,000,2659,curl: (28) Connection timeout after 2006 ms |
+116.287,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,blocked,000,2342,curl: (28) Connection timeout after 2001 ms |
+116.352,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,blocked,000,2217,curl: (28) Connection timeout after 2002 ms |
+116.353,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,blocked,000,2327,curl: (28) Connection timeout after 2001 ms |
+116.541,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,blocked,000,2331,curl: (28) Connection timeout after 2001 ms |
+116.595,REATTACH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,1823,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 1387 ms: No route to host |
+116.599,REATTACH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,1925,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 1675 ms: No route to host |
+116.603,REATTACH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,1714,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 1309 ms: No route to host |
+116.606,REATTACH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,1040,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 757 ms: No route to host |
+116.608,REATTACH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,730,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 394 ms: No route to host |
+116.614,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,blocked,000,2417,curl: (28) Connection timeout after 2001 ms |
+116.615,REATTACH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,1641,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 1253 ms: No route to host |
+116.935,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,1481,
+117.202,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,9,
+117.279,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,blocked,000,2230,curl: (28) Connection timeout after 2003 ms |
+117.400,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,136,
+117.403,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,44,
+117.404,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,44,
+117.416,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,125,
+117.627,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,76,
+117.714,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,98,
+117.752,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,blocked,000,2376,curl: (28) Connection timeout after 2000 ms |
+118.002,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,58,
+118.228,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,20,
+118.404,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,116,
+118.412,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+118.413,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,8,
+118.452,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,48,
+118.466,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,48,
+118.690,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,54,
+118.768,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,46,
+118.825,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,68,
+119.010,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,7,
+119.239,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,8,
+119.421,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+119.421,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,6,
+119.517,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,102,
+119.530,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,76,
+119.546,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,78,
+119.627,REATTACH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2019,curl: (28) Connection timeout after 2014 ms |
+119.628,REATTACH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2031,curl: (28) Connection timeout after 2024 ms |
+119.628,REATTACH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2017,curl: (28) Connection timeout after 2013 ms |
+119.628,REATTACH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2020,curl: (28) Connection timeout after 2014 ms |
+119.628,REATTACH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2010,curl: (28) Connection timeout after 2006 ms |
+119.628,REATTACH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2025,curl: (28) Connection timeout after 2021 ms |
+119.764,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,70,
+119.809,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,38,
+119.878,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,50,
+120.043,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+120.254,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,11,
+120.439,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,11,
+120.440,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,11,
+120.586,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,48,
+120.586,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,48,
+120.591,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,42,
+120.663,REATTACH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,30,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 26 ms: No route to host |
+120.663,REATTACH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,30,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 24 ms: No route to host |
+120.663,REATTACH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,30,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 26 ms: No route to host |
+120.664,REATTACH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,30,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 23 ms: No route to host |
+120.664,REATTACH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,31,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 27 ms: No route to host |
+120.727,REATTACH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,95,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 90 ms: No route to host |
+120.842,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,53,
+120.863,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,42,
+120.936,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,53,
+121.055,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+121.269,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,5,
+121.458,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,6,
+121.458,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+121.684,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,92,
+121.685,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,91,
+121.685,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,94,
+121.952,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,84,
+121.952,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,84,
+122.014,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,74,
+122.070,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,10,
+122.282,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,6,
+122.472,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,6,
+122.472,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+122.736,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,43,
+122.736,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,43,
+122.736,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,43,
+122.999,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,36,
+123.000,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,38,
+123.083,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,5,
+123.083,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,67,
+123.311,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,25,
+123.483,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,6,
+123.484,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+123.674,REATTACH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2002 ms |
+123.674,REATTACH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2001 ms |
+123.674,REATTACH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2002 ms |
+123.674,REATTACH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2003 ms |
+123.674,REATTACH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2002 ms |
+123.739,REATTACH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2006,curl: (28) Connection timeout after 2001 ms |
+123.818,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,80,
+123.829,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,90,
+123.829,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,90,
+124.084,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,78,
+124.084,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,78,
+124.092,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+124.128,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,43,
+124.325,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,9,
+124.510,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,6,
+124.513,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,9,
+124.759,REATTACH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,70,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 66 ms: No route to host |
+124.759,REATTACH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,70,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 63 ms: No route to host |
+124.760,REATTACH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,70,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 64 ms: No route to host |
+124.760,REATTACH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,71,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 66 ms: No route to host |
+124.760,REATTACH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,71,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 66 ms: No route to host |
+124.825,REATTACH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,82,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 78 ms: No route to host |
+124.867,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,42,
+124.875,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,44,
+124.876,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,44,
+125.100,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+125.174,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,86,
+125.174,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,87,
+125.276,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,143,
+125.350,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,8,
+125.535,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+125.537,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,8,
+126.037,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,146,
+126.037,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,147,
+126.037,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,147,
+126.113,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,12,
+126.216,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,37,
+126.221,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,44,
+126.373,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,94,
+126.373,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,15,
+126.551,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+126.553,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,8,
+127.092,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,52,
+127.092,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,52,
+127.092,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,52,
+127.133,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,17,
+127.330,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,96,
+127.330,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,96,
+127.386,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,6,
+127.487,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,107,
+127.564,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+127.566,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,8,
+127.779,REATTACH,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2014,curl: (28) Connection timeout after 2009 ms |
+127.779,REATTACH,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2014,curl: (28) Connection timeout after 2009 ms |
+127.779,REATTACH,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2014,curl: (28) Connection timeout after 2009 ms |
+127.779,REATTACH,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2015,curl: (28) Connection timeout after 2007 ms |
+127.778,REATTACH,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2012,curl: (28) Connection timeout after 2008 ms |
+127.841,REATTACH,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2002 ms |
+128.147,REATTACH,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,8,
+128.181,REATTACH,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,76,
+128.186,REATTACH,zt_responder,svc_external,http://10.0.0.70:8000,success,200,82,
+128.187,REATTACH,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,82,
+128.408,REATTACH,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,8,
+128.418,REATTACH,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,81,
+128.418,REATTACH,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,82,
+128.575,REATTACH,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,6,
+128.575,REATTACH,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,7,
+128.597,REATTACH,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,108,
+128.855,NORMAL_RESTORED,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,71,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 65 ms: No route to host |
+128.855,NORMAL_RESTORED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,71,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 67 ms: No route to host |
+128.855,NORMAL_RESTORED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,72,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 68 ms: No route to host |
+128.855,NORMAL_RESTORED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,72,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 67 ms: No route to host |
+128.856,NORMAL_RESTORED,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,73,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 68 ms: No route to host |
+128.920,NORMAL_RESTORED,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,76,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 71 ms: No route to host |
+129.174,NORMAL_RESTORED,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,11,
+129.223,NORMAL_RESTORED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,41,
+129.228,NORMAL_RESTORED,zt_responder,svc_external,http://10.0.0.70:8000,success,200,39,
+129.229,NORMAL_RESTORED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,40,
+129.424,NORMAL_RESTORED,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,6,
+129.532,NORMAL_RESTORED,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,112,
+129.533,NORMAL_RESTORED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,113,
+129.586,NORMAL_RESTORED,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,6,
+129.588,NORMAL_RESTORED,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,8,
+129.650,NORMAL_RESTORED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,51,
+130.192,NORMAL_RESTORED,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,7,
+130.269,NORMAL_RESTORED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,42,
+130.276,NORMAL_RESTORED,zt_responder,svc_external,http://10.0.0.70:8000,success,200,44,
+130.280,NORMAL_RESTORED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,48,
+130.479,NORMAL_RESTORED,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,48,
+130.598,NORMAL_RESTORED,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,6,
+130.599,NORMAL_RESTORED,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,7,
+130.621,NORMAL_RESTORED,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,62,
+130.628,NORMAL_RESTORED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,68,
+130.713,NORMAL_RESTORED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,60,
+131.225,NORMAL_RESTORED,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,18,
+131.341,NORMAL_RESTORED,zt_responder,svc_external,http://10.0.0.70:8000,success,200,64,
+131.341,NORMAL_RESTORED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,65,
+131.347,NORMAL_RESTORED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,64,
+131.563,NORMAL_RESTORED,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,71,
+131.611,NORMAL_RESTORED,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+131.612,NORMAL_RESTORED,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,7,
+131.666,NORMAL_RESTORED,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,42,
+131.682,NORMAL_RESTORED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,52,
+131.832,NORMAL_RESTORED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,114,
+131.876,NORMAL_RESTORED,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+131.876,NORMAL_RESTORED,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2004 ms |
+131.876,NORMAL_RESTORED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2003 ms |
+131.876,NORMAL_RESTORED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+131.876,NORMAL_RESTORED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+131.941,NORMAL_RESTORED,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2005,curl: (28) Connection timeout after 2001 ms |
+132.249,NORMAL_RESTORED,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,13,
+132.383,NORMAL_RESTORED,zt_responder,svc_external,http://10.0.0.70:8000,success,200,41,
+132.389,NORMAL_RESTORED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,41,
+132.392,NORMAL_RESTORED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,44,
+132.596,NORMAL_RESTORED,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,26,
+132.622,NORMAL_RESTORED,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+132.627,NORMAL_RESTORED,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,10,
+132.748,NORMAL_RESTORED,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,77,
+132.823,NORMAL_RESTORED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,133,
+132.889,NORMAL_RESTORED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,51,
+132.959,NORMAL_RESTORED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,80,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 76 ms: No route to host |
+132.960,NORMAL_RESTORED,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,81,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 76 ms: No route to host |
+132.960,NORMAL_RESTORED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,80,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 76 ms: No route to host |
+132.960,NORMAL_RESTORED,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,82,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 75 ms: No route to host |
+132.960,NORMAL_RESTORED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,81,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 74 ms: No route to host |
+133.083,NORMAL_RESTORED,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,124,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 116 ms: No route to host |
+133.284,NORMAL_RESTORED,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,17,
+133.474,NORMAL_RESTORED,zt_responder,svc_external,http://10.0.0.70:8000,success,200,87,
+133.474,NORMAL_RESTORED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,83,
+133.479,NORMAL_RESTORED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,85,
+133.610,NORMAL_RESTORED,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,7,
+133.635,NORMAL_RESTORED,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,9,
+133.636,NORMAL_RESTORED,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,7,
+133.825,NORMAL_RESTORED,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,68,
+133.944,NORMAL_RESTORED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,119,
+133.963,NORMAL_RESTORED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,65,
+134.303,NORMAL_RESTORED,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,9,
+134.612,NORMAL_RESTORED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,113,
+134.618,NORMAL_RESTORED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,120,
+134.619,NORMAL_RESTORED,zt_responder,svc_external,http://10.0.0.70:8000,success,200,121,
+134.620,NORMAL_RESTORED,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,6,
+134.645,NORMAL_RESTORED,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,8,
+134.646,NORMAL_RESTORED,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,9,
+134.884,NORMAL_RESTORED,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,52,
+135.005,NORMAL_RESTORED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,57,
+135.016,NORMAL_RESTORED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,41,
+135.343,NORMAL_RESTORED,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,8,
+135.636,NORMAL_RESTORED,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,8,
+135.656,NORMAL_RESTORED,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,7,
+135.659,NORMAL_RESTORED,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,11,
+135.669,NORMAL_RESTORED,zt_responder,svc_external,http://10.0.0.70:8000,success,200,42,
+135.671,NORMAL_RESTORED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,44,
+135.671,NORMAL_RESTORED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,44,
+135.949,NORMAL_RESTORED,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,43,
+135.971,NORMAL_RESTORED,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2001 ms |
+135.971,NORMAL_RESTORED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2001 ms |
+135.971,NORMAL_RESTORED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2010,curl: (28) Connection timeout after 2004 ms |
+135.971,NORMAL_RESTORED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2004 ms |
+135.972,NORMAL_RESTORED,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2009,curl: (28) Connection timeout after 2002 ms |
+136.091,NORMAL_RESTORED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,72,
+136.091,NORMAL_RESTORED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,72,
+136.111,NORMAL_RESTORED,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2005,curl: (28) Connection timeout after 2000 ms |
+136.359,NORMAL_RESTORED,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+136.663,NORMAL_RESTORED,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,8,
+136.665,NORMAL_RESTORED,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,5,
+136.667,NORMAL_RESTORED,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,6,
+136.949,NORMAL_RESTORED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,274,
+136.949,NORMAL_RESTORED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,274,
+136.949,NORMAL_RESTORED,zt_responder,svc_external,http://10.0.0.70:8000,success,200,274,
+136.997,NORMAL_RESTORED,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,47,
+137.048,NORMAL_RESTORED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,72,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 69 ms: No route to host |
+137.049,NORMAL_RESTORED,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,74,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 69 ms: No route to host |
+137.049,NORMAL_RESTORED,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,74,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 69 ms: No route to host |
+137.048,NORMAL_RESTORED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,73,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 69 ms: No route to host |
+137.049,NORMAL_RESTORED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,73,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 67 ms: No route to host |
+137.140,NORMAL_RESTORED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,45,
+137.140,NORMAL_RESTORED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,46,
+137.177,NORMAL_RESTORED,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,61,curl: (7) Failed to connect to 10.0.0.30 port 8000 after 57 ms: No route to host |
+137.375,NORMAL_RESTORED,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+137.672,NORMAL_RESTORED,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,6,
+137.673,NORMAL_RESTORED,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,6,
+137.674,NORMAL_RESTORED,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,6,
+138.062,NORMAL_RESTORED,zt_sensor,svc_central_identity,http://10.0.0.10:8000,success,200,102,
+138.070,NORMAL_RESTORED,zt_responder,svc_external,http://10.0.0.70:8000,success,200,109,
+138.070,NORMAL_RESTORED,zt_responder,svc_noncritical,http://10.0.0.40:8000,success,200,110,
+138.084,NORMAL_RESTORED,zt_sensor,svc_alert,http://10.0.0.31:8000,success,200,43,
+138.243,NORMAL_RESTORED,zt_responder,svc_central_identity,http://10.0.0.10:8000,success,200,82,
+138.243,NORMAL_RESTORED,zt_responder,svc_alert,http://10.0.0.31:8000,success,200,82,
+138.390,NORMAL_RESTORED,zt_responder_i2,svc_alert,http://10.0.0.31:8000,success,200,8,
+138.683,NORMAL_RESTORED,zt_responder_i2,svc_noncritical,http://10.0.0.40:8000,success,200,8,
+138.684,NORMAL_RESTORED,zt_responder_i2,svc_central_identity,http://10.0.0.10:8000,success,200,7,
+138.684,NORMAL_RESTORED,zt_sensor_i2,svc_alert,http://10.0.0.31:8000,success,200,8,
+140.060,NORMAL_RESTORED,zt_responder,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2003 ms |
+140.060,NORMAL_RESTORED,zt_attacker,svc_critical,http://10.0.0.30:8000,blocked,000,2007,curl: (28) Connection timeout after 2003 ms |
+140.060,NORMAL_RESTORED,zt_civilian_user_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2003 ms |
+140.060,NORMAL_RESTORED,zt_responder_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2004 ms |
+140.060,NORMAL_RESTORED,zt_civilian_user,svc_critical,http://10.0.0.30:8000,blocked,000,2008,curl: (28) Connection timeout after 2002 ms |
+140.199,NORMAL_RESTORED,zt_attacker_i2,svc_critical,http://10.0.0.30:8000,blocked,000,2017,curl: (28) Connection timeout after 2012 ms |

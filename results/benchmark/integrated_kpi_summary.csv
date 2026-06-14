@@ -1,0 +1,9 @@
+kpi,description,requests,metric_type,value
+critical_service_continuity,Responder access to critical and alert services during degraded/islanded operation,139,success_rate_pct,61.15
+unauthorized_access_blocking,Attacker and civilian requests to critical service must be blocked outside normal mode,98,block_rate_pct,100.00
+island_graceful_degradation,"Non-critical, external and central identity access should be restricted in island mode",84,block_rate_pct,100.00
+trust_aware_mesh_continuity,Responder critical/alert access while quarantined mesh relay is avoided,19,success_rate_pct,57.89
+inter_island_fallback_continuity,Second-island responder access to critical/alert services through inter-island fallback,22,success_rate_pct,68.18
+normal_restore_availability,Service availability after reattach and restoration to normal forwarding,130,success_rate_pct,72.31
+overall_policy_correctness,Requests matching expected policy outcome across all scored phases,602,pass_rate_pct,78.24
+critical_success_latency_avg,Average latency for successful responder critical/alert requests,196,avg_success_latency_ms,63.70

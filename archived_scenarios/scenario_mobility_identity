@@ -1,0 +1,54 @@
+sh echo "=== Scenario: mobility-aware identity-based enforcement ==="
+
+sh echo ""
+sh echo "[0] Reset responder to responder zone"
+py resp.setPosition('20,40,0')
+py resp.setAssociation(ap2, intf='resp-wlan0')
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+sh echo ""
+sh echo "[1] Verify local PDP"
+sh curl -s http://127.0.0.1:8088/health
+
+sh echo ""
+sh echo "[2] Validate responder identity"
+sh curl -s -X POST http://127.0.0.1:8088/identity/validate -H "Content-Type: application/json" -d '{"actor":"resp"}'
+
+sh echo ""
+sh echo "[3] Apply ISLANDED policy with IP+MAC binding"
+sh rm -f /mnt/shared/island_mode/compiled_policy_cache.json
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[4] Expected: responder can access critical service in responder zone"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[5] Mobility event: move responder from responder zone to user zone"
+py resp.setPosition('50,40,0')
+py resp.setAssociation(ap3, intf='resp-wlan0')
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+sh echo ""
+sh echo "[6] Expected: responder still can access critical service after mobility"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[7] Expected: normal user remains blocked from critical service"
+usr curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[8] Final critical-service counters"
+sh ovs-ofctl dump-flows s6 | grep "10.0.0.30"
+
+sh echo ""
+sh echo "[9] Restore responder to original zone"
+py resp.setPosition('20,40,0')
+py resp.setAssociation(ap2, intf='resp-wlan0')
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+sh echo ""
+sh echo "=== End scenario ==="

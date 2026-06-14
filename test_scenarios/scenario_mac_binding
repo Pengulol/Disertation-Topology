@@ -1,0 +1,33 @@
+sh echo "=== Scenario: IP+MAC identity binding in island mode ==="
+
+sh echo ""
+sh echo "[0] Verify local PDP"
+sh curl -s http://127.0.0.1:8088/health
+
+sh echo ""
+sh echo "[1] Validate responder identity"
+sh curl -s -X POST http://127.0.0.1:8088/identity/validate -H "Content-Type: application/json" -d '{"actor":"resp"}'
+
+sh echo ""
+sh echo "[2] Apply ISLANDED policy with IP+MAC binding"
+sh rm -f /mnt/shared/island_mode/compiled_policy_cache.json
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[3] Verify OVS rules contain dl_src"
+sh ovs-ofctl dump-flows s6 | grep dl_src
+
+sh echo ""
+sh echo "[4] Expected: responder with correct IP+MAC can access critical service"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[5] Expected: attacker cannot access critical service"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[6] Final OVS status"
+sh /mnt/shared/island_mode/edge_mode_controller.py status
+
+sh echo ""
+sh echo "=== End scenario ==="

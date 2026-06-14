@@ -1,0 +1,159 @@
+sh echo "=== Scenario: state-driven resilience transition ==="
+
+sh echo ""
+sh echo "[0] Verify local PDP"
+sh curl -s http://127.0.0.1:8088/health
+sh echo ""
+
+sh echo ""
+sh echo "[1] Start watch for this scenario"
+sh bash /mnt/shared/island_mode/stop_watch.sh 2>/dev/null || true
+sh rm -f /mnt/shared/island_mode/watch.log
+sh rm -f /mnt/shared/island_mode/watch.pid
+sh bash /mnt/shared/island_mode/start_watch.sh
+sh sleep 5
+
+sh echo ""
+sh echo "[2] Verify watch is running"
+sh if [ -f /mnt/shared/island_mode/watch.pid ] && kill -0 $(cat /mnt/shared/island_mode/watch.pid) 2>/dev/null; then echo "[watch] running PID $(cat /mnt/shared/island_mode/watch.pid)"; else echo "[watch] NOT RUNNING"; fi
+sh tail -n 20 /mnt/shared/island_mode/watch.log 2>/dev/null || true
+
+sh echo ""
+sh echo "[3] Make sure responder is valid"
+sh curl -s -X POST http://127.0.0.1:8088/identity/validate -H "Content-Type: application/json" -d '{"actor":"resp"}'
+sh echo ""
+
+sh echo ""
+sh echo "[4] Force responder on ap2"
+py resp.setPosition("20,40,0")
+sh sleep 2
+resp iw dev resp-wlan0 disconnect 2>/dev/null || true
+sh sleep 1
+resp iw dev resp-wlan0 connect zone2-responder 2437 02:00:00:00:08:00
+sh sleep 2
+resp iw dev resp-wlan0 link
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+cidp ip neigh flush all
+cp ip neigh flush all
+inet ip neigh flush all
+
+sh echo ""
+sh echo "[5] NORMAL expected: central identity reachable"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.10:8000
+
+sh echo ""
+sh echo "[6] NORMAL expected: central policy reachable"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.11:8000
+
+sh echo ""
+sh echo "[7] NORMAL expected: critical service reachable"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[8] Apply core/backhaul degradation"
+sh bash /mnt/shared/island_mode/degrade_core.sh
+sh sleep 8
+
+sh echo ""
+sh echo "[9] Watch log after degradation"
+sh tail -n 40 /mnt/shared/island_mode/watch.log 2>/dev/null || true
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+inet ip neigh flush all
+
+sh echo ""
+sh echo "[10] DEGRADED expected: critical service reachable for responder"
+resp curl --connect-timeout 4 --max-time 6 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[11] DEGRADED expected: external/data network blocked"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.70:8000
+
+sh echo ""
+sh echo "[12] Simulate full core/backhaul outage"
+sh ip link set s6-eth1 down
+sh ip link set s1-eth3 down 2>/dev/null || true
+sh sleep 8
+
+sh echo ""
+sh echo "[13] Watch log after outage"
+sh tail -n 60 /mnt/shared/island_mode/watch.log 2>/dev/null || true
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+cidp ip neigh flush all
+cp ip neigh flush all
+
+sh echo ""
+sh echo "[14] ISLANDED expected: central identity unreachable"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.10:8000
+
+sh echo ""
+sh echo "[15] ISLANDED expected: critical service still reachable"
+resp curl --connect-timeout 4 --max-time 6 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[16] ISLANDED expected: alert service still reachable"
+resp curl --connect-timeout 4 --max-time 6 http://10.0.0.31:8000
+
+sh echo ""
+sh echo "[17] ISLANDED expected: non-critical service blocked"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo ""
+sh echo "[18] ISLANDED expected: attacker blocked from critical"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[19] Restore core/backhaul link"
+sh ip link set s6-eth1 up
+sh ip link set s1-eth3 up 2>/dev/null || true
+sh bash /mnt/shared/island_mode/restore_core_link.sh 2>/dev/null || true
+sh sleep 10
+
+sh echo ""
+sh echo "[20] Watch log after restore"
+sh tail -n 80 /mnt/shared/island_mode/watch.log 2>/dev/null || true
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+cidp ip neigh flush all
+cp ip neigh flush all
+
+sh echo ""
+sh echo "[21] NORMAL expected again: central identity reachable"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.10:8000
+
+sh echo ""
+sh echo "[22] NORMAL expected again: central policy reachable"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.11:8000
+
+sh echo ""
+sh echo "[23] NORMAL expected again: non-critical service reachable"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo ""
+sh echo "[24] Final OVS status"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py status
+
+sh echo ""
+sh echo "[25] Stop watch"
+sh bash /mnt/shared/island_mode/stop_watch.sh 2>/dev/null || true
+
+sh echo ""
+sh echo "=== End scenario ==="

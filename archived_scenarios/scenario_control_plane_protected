@@ -1,0 +1,34 @@
+sh echo "=== Scenario: local control services protected in island mode ==="
+
+sh echo "[0] Verify local PDP"
+sh curl -s --max-time 2 http://127.0.0.1:8088/health
+
+sh echo "[1] Configure AP mesh fallback"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+sh ip link set ap4-ap5 up
+sh ip link set ap5-ap4 up
+sh sleep 1
+
+sh echo "[2] Simulate core/backhaul outage and apply island mode"
+sh ip link set s6-eth1 down
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+resp ip neigh flush all
+atk ip neigh flush all
+pdp ip neigh flush all
+audit ip neigh flush all
+
+sh echo "[3] Expected: responder cannot access PDP MEC container"
+resp curl --connect-timeout 2 http://10.0.0.50:8000
+
+sh echo "[4] Expected: responder cannot access audit MEC container"
+resp curl --connect-timeout 2 http://10.0.0.60:8000
+
+sh echo "[5] Expected: attacker cannot access PDP MEC container"
+atk curl --connect-timeout 2 http://10.0.0.50:8000
+
+sh echo "[6] Expected: attacker cannot access audit MEC container"
+atk curl --connect-timeout 2 http://10.0.0.60:8000
+
+sh echo "=== Expected result: all four curls timeout ==="

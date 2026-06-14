@@ -1,0 +1,32 @@
+sh echo "=== Scenario: MANET fallback controller ==="
+
+sh echo "[1] Initial status"
+sh /mnt/shared/island_mode/manet_fallback_controller.py status
+
+sh echo "[2] Verify AP5 direct path works"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[3] Break AP5 direct city link"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+
+atk ip neigh flush all
+crit ip neigh flush all
+
+sh echo "[4] Expected: AP5 loses access before controller repair"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[5] Run MANET fallback controller"
+sh /mnt/shared/island_mode/manet_fallback_controller.py repair ap5
+
+sh echo "[6] Verify fallback status"
+sh /mnt/shared/island_mode/manet_fallback_controller.py status
+
+atk ip neigh flush all
+crit ip neigh flush all
+
+sh echo "[7] Expected: AP5 reaches critical service through fallback"
+atk ping -c 1 10.0.0.30
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "=== Expected result: timeout before repair, reachable after controller repair ==="

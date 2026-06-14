@@ -1,0 +1,55 @@
+sh echo "=== Scenario: spoofed IP blocked by IP+MAC identity binding ==="
+
+sh echo ""
+sh echo "[0] Verify local PDP"
+sh curl -s http://127.0.0.1:8088/health
+
+sh echo ""
+sh echo "[1] Restore attacker original IP before test"
+atk ip addr flush dev atk-wlan0
+atk ip addr add 10.0.0.104/8 dev atk-wlan0
+atk ip link set atk-wlan0 up
+atk ip addr show dev atk-wlan0
+
+sh echo ""
+sh echo "[2] Validate responder identity"
+sh curl -s -X POST http://127.0.0.1:8088/identity/validate -H "Content-Type: application/json" -d '{"actor":"resp"}'
+
+sh echo ""
+sh echo "[3] Apply ISLANDED policy with IP+MAC binding"
+sh rm -f /mnt/shared/island_mode/compiled_policy_cache.json
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[4] Expected: responder with correct IP+MAC can access critical service"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[5] Spoof attacker IP to responder IP, but keep attacker MAC"
+atk ip addr flush dev atk-wlan0
+atk ip addr add 10.0.0.101/8 dev atk-wlan0
+atk ip link set atk-wlan0 up
+atk ip addr show dev atk-wlan0
+atk cat /sys/class/net/atk-wlan0/address
+
+sh echo ""
+sh echo "[6] Expected: attacker using responder IP is still blocked because MAC does not match"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[7] Show critical-service flows and counters"
+sh ovs-ofctl dump-flows s6 | grep "10.0.0.30"
+
+sh echo ""
+sh echo "[8] Restore attacker original IP"
+atk ip addr flush dev atk-wlan0
+atk ip addr add 10.0.0.104/8 dev atk-wlan0
+atk ip link set atk-wlan0 up
+atk ip addr show dev atk-wlan0
+
+sh echo ""
+sh echo "[9] Final OVS status"
+sh /mnt/shared/island_mode/edge_mode_controller.py status
+
+sh echo ""
+sh echo "=== End scenario ==="

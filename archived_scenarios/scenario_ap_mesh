@@ -1,0 +1,35 @@
+sh echo "=== Scenario: AP mesh fallback + island mode + attacker blocked ==="
+
+sh echo "[0] Verify local PDP"
+sh curl -s --max-time 2 http://127.0.0.1:8088/health
+
+sh echo "[1] Configure AP mesh fallback: ap5 -> ap4 -> s4 -> s6"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+
+sh /mnt/shared/island_mode/manet_fallback_controller.py repair ap5
+sh sleep 1
+
+atk ip neigh flush all
+crit ip neigh flush all
+
+sh echo "[2] Verify fallback connectivity before island mode"
+atk ping -c 1 10.0.0.30
+
+sh echo "[3] Simulate core/backhaul outage"
+sh ip link set s6-eth1 down
+
+sh echo "[4] Apply ISLANDED policy"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo "[5] Expected: attacker blocked from critical coordination"
+atk ip neigh flush all
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[6] Expected: attacker blocked from critical alert"
+atk curl --connect-timeout 2 http://10.0.0.31:8000
+
+sh echo "[7] Expected: attacker blocked from non-critical service"
+atk curl --connect-timeout 2 http://10.0.0.40:8000
+
+sh echo "=== Expected result: all three attacker curls timeout ==="

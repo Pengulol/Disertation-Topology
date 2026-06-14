@@ -1,0 +1,33 @@
+# Multi-island / denser urban access scenario.
+# s4 and s5 remain powered, APs remain alive, but their backhaul path to s6 fails.
+# The controller must find a multi-hop AP mesh path toward a healthy gateway AP.
+sh /mnt/shared/island_mode/edge_mode_controller.py normal
+sh /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+resp2 curl --connect-timeout 2 http://10.0.0.30:8000
+usr2 curl --connect-timeout 2 http://10.0.0.30:8000
+
+# Cut two city aggregation uplinks to create an east-side access island.
+sh ip link set s6-s5 down
+sh ip link set s5-s6 down
+sh ip link set s6-s4 down
+sh ip link set s4-s6 down
+
+resp2 ip neigh flush all
+usr2 ip neigh flush all
+crit ip neigh flush all
+resp2 curl --connect-timeout 2 http://10.0.0.30:8000
+usr2 curl --connect-timeout 2 http://10.0.0.30:8000
+
+# Automatic AP-level SDN/MANET repair.
+# Expected selected paths should go through ap4/ap3 because s3 still has edge reachability.
+sh /mnt/shared/island_mode/sdn_mesh_controller.py repair-all
+sh /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+resp2 ip neigh flush all
+usr2 ip neigh flush all
+crit ip neigh flush all
+resp2 ping -c 1 10.0.0.30
+resp2 curl --connect-timeout 2 http://10.0.0.30:8000
+usr2 curl --connect-timeout 2 http://10.0.0.30:8000

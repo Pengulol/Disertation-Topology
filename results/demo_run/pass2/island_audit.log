@@ -1,0 +1,70 @@
+2026-06-14T12:58:20,MESH,RESET,primary-up,fallback-down
+2026-06-14T12:58:20,MESH,TRUST,clear-quarantine
+2026-06-14T12:58:20,NORMAL,default-l2-forwarding-restored
+2026-06-14T12:58:20,WATCH,started,mode=NORMAL
+2026-06-14T12:58:54,DEGRADED,PDP,compiled-policy-cached
+2026-06-14T12:58:54,DEGRADED,ALLOW,actor=resp,role=responder,service=crit,service_class=critical,reason=authorized responder may access critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,ALLOW,actor=resp2,role=responder,service=crit,service_class=critical,reason=authorized responder may access critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,ALLOW,actor=resp,role=responder,service=alert,service_class=critical,reason=authorized responder may access critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,ALLOW,actor=resp2,role=responder,service=alert,service_class=critical,reason=authorized responder may access critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=atk,role=unknown,service=crit,service_class=critical,reason=unknown nodes cannot access critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=atk2,role=unknown,service=crit,service_class=critical,reason=unknown nodes cannot access critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=atk,role=unknown,service=alert,service_class=critical,reason=unknown nodes cannot access critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=atk2,role=unknown,service=alert,service_class=critical,reason=unknown nodes cannot access critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=usr,role=civilian,service=crit,service_class=critical,reason=civilian users cannot access responder critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=usr2,role=civilian,service=crit,service_class=critical,reason=civilian users cannot access responder critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=usr,role=civilian,service=alert,service_class=critical,reason=civilian users cannot access responder critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=usr2,role=civilian,service=alert,service_class=critical,reason=civilian users cannot access responder critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=sens,role=sensor,service=crit,service_class=critical,reason=sensor nodes cannot access responder critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=sens2,role=sensor,service=crit,service_class=critical,reason=sensor nodes cannot access responder critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=sens,role=sensor,service=alert,service_class=critical,reason=sensor nodes cannot access responder critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=sens2,role=sensor,service=alert,service_class=critical,reason=sensor nodes cannot access responder critical services during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=*,role=*,service=inet,service_class=external,reason=external data network access is restricted during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=*,role=*,service=crit,service_class=critical,reason=default deny for critical services unless an explicit local identity allow rule exists
+2026-06-14T12:58:54,DEGRADED,DENY,actor=*,role=*,service=alert,service_class=critical,reason=default deny for critical services unless an explicit local identity allow rule exists
+2026-06-14T12:58:54,DEGRADED,DENY,actor=*,role=*,service=pdp,service_class=control,reason=control-plane MEC services are internal and are not directly exposed to user devices during degraded operation
+2026-06-14T12:58:54,DEGRADED,DENY,actor=*,role=*,service=audit,service_class=control,reason=control-plane MEC services are internal and are not directly exposed to user devices during degraded operation
+2026-06-14T12:58:54,DEGRADED,entered-by-watch
+2026-06-14T12:59:16,ISLANDED,PDP,compiled-policy-cached
+2026-06-14T12:59:17,ISLANDED,ALLOW,actor=resp,role=responder,service=crit,service_class=critical,reason=authorized responder may access critical services
+2026-06-14T12:59:17,ISLANDED,ALLOW,actor=resp2,role=responder,service=crit,service_class=critical,reason=authorized responder may access critical services
+2026-06-14T12:59:17,ISLANDED,ALLOW,actor=resp,role=responder,service=alert,service_class=critical,reason=authorized responder may access critical services
+2026-06-14T12:59:17,ISLANDED,ALLOW,actor=resp2,role=responder,service=alert,service_class=critical,reason=authorized responder may access critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=*,role=*,service=ncrit,service_class=non-critical,reason=non-critical services are blocked in island mode
+2026-06-14T12:59:17,ISLANDED,DENY,actor=*,role=*,service=inet,service_class=external,reason=general data network access is blocked in island mode
+2026-06-14T12:59:17,ISLANDED,DENY,actor=*,role=*,service=cidp,service_class=central-control,reason=central identity and policy services are blocked in island mode
+2026-06-14T12:59:17,ISLANDED,DENY,actor=*,role=*,service=cp,service_class=central-control,reason=central identity and policy services are blocked in island mode
+2026-06-14T12:59:17,ISLANDED,DENY,actor=atk,role=unknown,service=crit,service_class=critical,reason=unknown nodes cannot access critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=atk2,role=unknown,service=crit,service_class=critical,reason=unknown nodes cannot access critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=atk,role=unknown,service=alert,service_class=critical,reason=unknown nodes cannot access critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=atk2,role=unknown,service=alert,service_class=critical,reason=unknown nodes cannot access critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=usr,role=civilian,service=crit,service_class=critical,reason=civilian users cannot access responder critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=usr2,role=civilian,service=crit,service_class=critical,reason=civilian users cannot access responder critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=usr,role=civilian,service=alert,service_class=critical,reason=civilian users cannot access responder critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=usr2,role=civilian,service=alert,service_class=critical,reason=civilian users cannot access responder critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=sens,role=sensor,service=crit,service_class=critical,reason=sensor nodes cannot access responder critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=sens2,role=sensor,service=crit,service_class=critical,reason=sensor nodes cannot access responder critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=sens,role=sensor,service=alert,service_class=critical,reason=sensor nodes cannot access responder critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=sens2,role=sensor,service=alert,service_class=critical,reason=sensor nodes cannot access responder critical services
+2026-06-14T12:59:17,ISLANDED,DENY,actor=*,role=*,service=crit,service_class=critical,reason=default deny for critical services unless an explicit local identity allow rule exists
+2026-06-14T12:59:17,ISLANDED,DENY,actor=*,role=*,service=alert,service_class=critical,reason=default deny for critical services unless an explicit local identity allow rule exists
+2026-06-14T12:59:17,ISLANDED,DENY,actor=*,role=*,service=pdp,service_class=control,reason=control-plane MEC services are internal and are not directly exposed to user devices in island mode
+2026-06-14T12:59:17,ISLANDED,DENY,actor=*,role=*,service=audit,service_class=control,reason=control-plane MEC services are internal and are not directly exposed to user devices in island mode
+2026-06-14T12:59:17,ISLANDED,entered-by-watch
+2026-06-14T12:59:32,MESH,PLAN,source=ap4,selected=ap4->ap5,cost=10,candidate_count=2
+2026-06-14T12:59:32,MESH,REPAIR,source=ap4,path=ap4->ap5,cost=10,gateway=ap5
+2026-06-14T12:59:48,MESH,RESET,primary-up,fallback-down
+2026-06-14T12:59:49,MESH,TRUST,clear-quarantine
+2026-06-14T12:59:49,MESH,COST,set,ap4-ap5,10->10
+2026-06-14T12:59:49,MESH,COST,set,ap3-ap5,80->80
+2026-06-14T12:59:49,MESH,TRUST,quarantine-node=ap4
+2026-06-14T12:59:49,MESH,PLAN,source=ap5,selected=ap5->ap3,cost=80,candidate_count=1
+2026-06-14T12:59:49,MESH,REPAIR,source=ap5,path=ap5->ap3,cost=80,gateway=ap3
+2026-06-14T12:59:58,MESH,REPAIR,inter-island,s6-s7-up
+2026-06-14T13:00:11,MESH,TRUST,clear-quarantine
+2026-06-14T13:00:34,MESH,RESET,primary-up,fallback-down
+2026-06-14T13:00:34,NORMAL,default-l2-forwarding-restored
+2026-06-14T13:00:44,NORMAL,default-l2-forwarding-restored
+2026-06-14T13:00:58,MESH,TRUST,clear-quarantine
+2026-06-14T13:00:59,MESH,RESET,primary-up,fallback-down
+2026-06-14T13:00:59,NORMAL,default-l2-forwarding-restored

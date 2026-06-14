@@ -1,0 +1,25 @@
+sh echo "=== Scenario: AP-level MANET multi-hop fallback ==="
+
+sh echo "[1] Break ap5 direct city link"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+
+sh echo "[2] Break ap4 direct city link too, forcing multi-hop via ap3"
+sh ip link set s4-ap4 down
+sh ip link set ap4-s4 down
+
+sh echo "[3] Enable mesh path ap5 -> ap4 -> ap3"
+sh ip link set ap4-ap5 up
+sh ip link set ap5-ap4 up
+sh ip link set ap3-ap4 up
+sh ip link set ap4-ap3 up
+sh sleep 1
+
+atk ip neigh flush all
+crit ip neigh flush all
+
+sh echo "[4] Expected: atk reaches crit through ap5 -> ap4 -> ap3 -> s3 -> s6"
+atk ping -c 1 10.0.0.30
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "=== Expected result: critical-container-service ==="

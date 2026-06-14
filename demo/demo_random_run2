@@ -1,0 +1,23 @@
+sh echo "=== Scenario: random dynamic demo run ==="
+sh echo "This is a demonstration run, not the deterministic KPI benchmark."
+
+py exec(open("/mnt/shared/demo/demo_random_driver.py").read(), dict(globals(), net=net))
+sh echo ""
+sh echo "[demo] Analyze demo metrics"
+sh python3 /mnt/shared/island_mode/analyze_integrated_metrics.py --input /mnt/shared/results/demo_run/demo_metrics.csv --outdir /mnt/shared/results/demo_run
+sh python3 /mnt/shared/island_mode/analyze_latency.py --input /mnt/shared/results/demo_run/demo_metrics.csv --outdir /mnt/shared/results/demo_run
+
+sh echo ""
+sh echo "[demo] Update outage learning from demo"
+sh python3 /mnt/shared/island_mode/outage_learning_agent.py update --metrics /mnt/shared/results/demo_run/demo_metrics.csv
+sh cat /mnt/shared/island_mode/outage_knowledge.json
+
+sh echo ""
+sh echo "[demo] Events"
+sh tail -80 /mnt/shared/results/demo_run/demo_events.log
+
+sh echo ""
+sh echo "[demo] Audit"
+sh tail -80 /tmp/island_audit.log
+
+sh echo "=== End random dynamic demo run ==="

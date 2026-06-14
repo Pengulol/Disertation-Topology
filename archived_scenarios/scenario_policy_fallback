@@ -1,0 +1,76 @@
+sh echo "=== Scenario: policy fallback during local PDP failure ==="
+
+sh echo ""
+sh echo "[0] Clean old cache and verify PDP"
+sh rm -f /mnt/shared/island_mode/compiled_policy_cache.json
+sh curl -s http://127.0.0.1:8088/health
+
+sh echo ""
+sh echo "[1] Validate responder identity"
+sh curl -s -X POST http://127.0.0.1:8088/identity/validate -H "Content-Type: application/json" -d '{"actor":"resp"}'
+
+sh echo ""
+sh echo "[2] Apply ISLANDED policy while PDP is available"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[3] Check that compiled policy cache exists"
+sh cat /mnt/shared/island_mode/compiled_policy_cache.json
+
+sh echo ""
+sh echo "[4] Stop PDP to simulate local PDP failure"
+sh /mnt/shared/local_pdp/stop_pdp.sh
+
+sh echo ""
+sh echo "[5] Apply ISLANDED policy with PDP down and cache available"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[6] Expected: responder still reaches critical service using cached policy"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[7] Expected: attacker is still blocked"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[8] Expected: non-critical service is still blocked"
+resp curl --connect-timeout 2 http://10.0.0.40:8000
+
+sh echo ""
+sh echo "[9] Remove cache while PDP is still down"
+sh rm -f /mnt/shared/island_mode/compiled_policy_cache.json
+
+sh echo ""
+sh echo "[10] Apply ISLANDED policy with PDP down and no cache"
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[11] Expected: fail-closed blocks critical service"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[12] Expected: fail-closed blocks attacker too"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[13] Expected: fail-closed blocks non-critical and external services"
+resp curl --connect-timeout 2 http://10.0.0.40:8000
+resp curl --connect-timeout 2 http://10.0.0.70:8000
+
+sh echo ""
+sh echo "[14] Recover PDP and rebuild policy cache"
+sh /mnt/shared/local_pdp/start_pdp.sh
+sh curl -s -X POST http://127.0.0.1:8088/identity/validate -H "Content-Type: application/json" -d '{"actor":"resp"}'
+sh /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[15] Expected: responder reaches critical service again"
+resp curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[16] Final OVS status"
+sh /mnt/shared/island_mode/edge_mode_controller.py status
+
+sh echo ""
+sh echo "=== End scenario ==="

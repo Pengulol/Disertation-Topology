@@ -1,0 +1,80 @@
+sh echo "=== Scenario: policy cache fallback with containerized PDP ==="
+
+sh echo ""
+sh echo "[0] Clean state and start container PDP"
+sh rm -f /mnt/shared/island_mode/compiled_policy_cache.json
+sh /mnt/shared/local_pdp/start_pdp.sh
+sh curl -s http://10.0.0.50:8088/health
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+
+sh echo ""
+sh echo "[1] Apply ISLANDED policy while PDP container is available"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[2] Verify compiled policy cache exists"
+sh ls -l /mnt/shared/island_mode/compiled_policy_cache.json
+sh cat /mnt/shared/island_mode/compiled_policy_cache.json | head -40
+
+sh echo ""
+sh echo "[3] Expected with live PDP: responder reaches critical"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[4] Expected with live PDP: attacker is blocked"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[5] Stop PDP container to simulate local PDP failure"
+sh /mnt/shared/local_pdp/stop_pdp.sh
+sh docker exec mn.pdp sh -c 'curl -s --connect-timeout 1 --max-time 2 http://127.0.0.1:8088/health || echo PDP_DOWN'
+
+sh echo ""
+sh echo "[6] Clear OVS policy and apply ISLANDED again with PDP down"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[7] Expected with cached policy: responder still reaches critical"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[8] Expected with cached policy: responder still reaches alert"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.31:8000
+
+sh echo ""
+sh echo "[9] Expected with cached policy: attacker is still blocked"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[10] Expected with cached policy: non-critical is blocked"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo ""
+sh echo "[11] Remove cache while PDP is still down"
+sh rm -f /mnt/shared/island_mode/compiled_policy_cache.json
+
+sh echo ""
+sh echo "[12] Apply ISLANDED with PDP down and no cache: fail closed"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo ""
+sh echo "[13] Expected fail-closed: responder critical blocked"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[14] Expected fail-closed: attacker critical blocked"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo ""
+sh echo "[15] Restore PDP and normal mode"
+sh /mnt/shared/local_pdp/start_pdp.sh
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+
+sh echo ""
+sh echo "[16] Final OVS status"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py status
+
+sh echo ""
+sh echo "=== End scenario ==="

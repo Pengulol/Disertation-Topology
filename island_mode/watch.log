@@ -1,0 +1,180 @@
+[watch] starting local resilience agent
+[watch] monitoring core link interface: s6-eth1
+[watch] press Ctrl+C to stop
+[watch] core link HEALTHY (1/2) mode=NORMAL
+[watch] core link HEALTHY (2/2) mode=NORMAL
+[watch] core link HEALTHY (3/2) mode=NORMAL
+[watch] core link HEALTHY (4/2) mode=NORMAL
+[watch] core link HEALTHY (5/2) mode=NORMAL
+[watch] core link HEALTHY (6/2) mode=NORMAL
+[watch] core link HEALTHY (7/2) mode=NORMAL
+[watch] core link HEALTHY (8/2) mode=NORMAL
+[watch] core link HEALTHY (9/2) mode=NORMAL
+[watch] core link HEALTHY (10/2) mode=NORMAL
+[watch] core link HEALTHY (11/2) mode=NORMAL
+[watch] core link HEALTHY (12/2) mode=NORMAL
+[watch] core link HEALTHY (13/2) mode=NORMAL
+[watch] core link HEALTHY (14/2) mode=NORMAL
+[watch] core link HEALTHY (15/2) mode=NORMAL
+[watch] core link HEALTHY (16/2) mode=NORMAL
+[watch] core link HEALTHY (17/2) mode=NORMAL
+[watch] core link DEGRADED (1/2) mode=NORMAL
+[watch] core link DEGRADED (2/2) mode=NORMAL
+[watch] degradation detected, entering DEGRADED
+[degraded] requesting compiled policy from local PDP
+[pdp] compiled policy received and cached for DEGRADED
+[degraded] installing PDP-driven enforcement on s6, s7
++ ovs-ofctl del-flows s6
++ ovs-ofctl add-flow s6 "priority=100,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=510,ip,nw_src=10.0.0.254,nw_dst=10.0.0.50,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=510,ip,nw_src=10.0.0.254,nw_dst=10.0.0.60,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=500,dl_src=02:00:00:00:01:01,ip,nw_src=10.0.0.101,nw_dst=10.0.0.30,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=500,dl_src=02:00:00:00:02:01,ip,nw_src=10.0.0.111,nw_dst=10.0.0.30,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=500,dl_src=02:00:00:00:01:01,ip,nw_src=10.0.0.101,nw_dst=10.0.0.31,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=500,dl_src=02:00:00:00:02:01,ip,nw_src=10.0.0.111,nw_dst=10.0.0.31,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:04,ip,nw_src=10.0.0.104,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:04,ip,nw_src=10.0.0.114,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:04,ip,nw_src=10.0.0.104,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:04,ip,nw_src=10.0.0.114,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:02,ip,nw_src=10.0.0.102,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:02,ip,nw_src=10.0.0.112,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:02,ip,nw_src=10.0.0.102,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:02,ip,nw_src=10.0.0.112,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:03,ip,nw_src=10.0.0.103,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:03,ip,nw_src=10.0.0.113,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:03,ip,nw_src=10.0.0.103,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:03,ip,nw_src=10.0.0.113,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.70,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.50,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.60,actions=drop"
+[degraded] installed 21 PDP rules on s6
++ ovs-ofctl del-flows s7
++ ovs-ofctl add-flow s7 "priority=100,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=510,ip,nw_src=10.0.0.254,nw_dst=10.0.0.50,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=510,ip,nw_src=10.0.0.254,nw_dst=10.0.0.60,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=500,dl_src=02:00:00:00:01:01,ip,nw_src=10.0.0.101,nw_dst=10.0.0.30,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=500,dl_src=02:00:00:00:02:01,ip,nw_src=10.0.0.111,nw_dst=10.0.0.30,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=500,dl_src=02:00:00:00:01:01,ip,nw_src=10.0.0.101,nw_dst=10.0.0.31,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=500,dl_src=02:00:00:00:02:01,ip,nw_src=10.0.0.111,nw_dst=10.0.0.31,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:04,ip,nw_src=10.0.0.104,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:04,ip,nw_src=10.0.0.114,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:04,ip,nw_src=10.0.0.104,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:04,ip,nw_src=10.0.0.114,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:02,ip,nw_src=10.0.0.102,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:02,ip,nw_src=10.0.0.112,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:02,ip,nw_src=10.0.0.102,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:02,ip,nw_src=10.0.0.112,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:03,ip,nw_src=10.0.0.103,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:03,ip,nw_src=10.0.0.113,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:03,ip,nw_src=10.0.0.103,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:03,ip,nw_src=10.0.0.113,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.70,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.50,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.60,actions=drop"
+[degraded] installed 21 PDP rules on s7
+[degraded] installed 42 total PDP rules into OVS
+[degraded] done
+[watch] core link DEGRADED (3/2) mode=DEGRADED
+[watch] core link DEGRADED (4/2) mode=DEGRADED
+[watch] core link DEGRADED (5/2) mode=DEGRADED
+[watch] core link DEGRADED (6/2) mode=DEGRADED
+[watch] core link DEGRADED (7/2) mode=DEGRADED
+[watch] core link DEGRADED (8/2) mode=DEGRADED
+[watch] core link DEGRADED (9/2) mode=DEGRADED
+[watch] core link DOWN (1/2) mode=DEGRADED
+[watch] core link DOWN (2/2) mode=DEGRADED
+[watch] core link lost, entering ISLANDED
+[islanded] requesting compiled policy from local PDP
+[pdp] compiled policy received and cached for ISLANDED
+[islanded] installing PDP-driven enforcement on s6, s7
++ ovs-ofctl del-flows s6
++ ovs-ofctl add-flow s6 "priority=100,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=510,ip,nw_src=10.0.0.254,nw_dst=10.0.0.50,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=510,ip,nw_src=10.0.0.254,nw_dst=10.0.0.60,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=500,dl_src=02:00:00:00:01:01,ip,nw_src=10.0.0.101,nw_dst=10.0.0.30,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=500,dl_src=02:00:00:00:02:01,ip,nw_src=10.0.0.111,nw_dst=10.0.0.30,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=500,dl_src=02:00:00:00:01:01,ip,nw_src=10.0.0.101,nw_dst=10.0.0.31,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=500,dl_src=02:00:00:00:02:01,ip,nw_src=10.0.0.111,nw_dst=10.0.0.31,actions=NORMAL"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.40,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.70,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.10,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.11,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:04,ip,nw_src=10.0.0.104,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:04,ip,nw_src=10.0.0.114,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:04,ip,nw_src=10.0.0.104,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:04,ip,nw_src=10.0.0.114,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:02,ip,nw_src=10.0.0.102,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:02,ip,nw_src=10.0.0.112,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:02,ip,nw_src=10.0.0.102,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:02,ip,nw_src=10.0.0.112,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:03,ip,nw_src=10.0.0.103,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:03,ip,nw_src=10.0.0.113,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:01:03,ip,nw_src=10.0.0.103,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=490,dl_src=02:00:00:00:02:03,ip,nw_src=10.0.0.113,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.50,actions=drop"
++ ovs-ofctl add-flow s6 "priority=480,ip,nw_dst=10.0.0.60,actions=drop"
+[islanded] installed 24 PDP rules on s6
++ ovs-ofctl del-flows s7
++ ovs-ofctl add-flow s7 "priority=100,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=510,ip,nw_src=10.0.0.254,nw_dst=10.0.0.50,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=510,ip,nw_src=10.0.0.254,nw_dst=10.0.0.60,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=500,dl_src=02:00:00:00:01:01,ip,nw_src=10.0.0.101,nw_dst=10.0.0.30,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=500,dl_src=02:00:00:00:02:01,ip,nw_src=10.0.0.111,nw_dst=10.0.0.30,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=500,dl_src=02:00:00:00:01:01,ip,nw_src=10.0.0.101,nw_dst=10.0.0.31,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=500,dl_src=02:00:00:00:02:01,ip,nw_src=10.0.0.111,nw_dst=10.0.0.31,actions=NORMAL"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.40,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.70,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.10,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.11,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:04,ip,nw_src=10.0.0.104,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:04,ip,nw_src=10.0.0.114,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:04,ip,nw_src=10.0.0.104,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:04,ip,nw_src=10.0.0.114,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:02,ip,nw_src=10.0.0.102,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:02,ip,nw_src=10.0.0.112,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:02,ip,nw_src=10.0.0.102,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:02,ip,nw_src=10.0.0.112,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:03,ip,nw_src=10.0.0.103,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:03,ip,nw_src=10.0.0.113,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:01:03,ip,nw_src=10.0.0.103,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=490,dl_src=02:00:00:00:02:03,ip,nw_src=10.0.0.113,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.30,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.31,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.50,actions=drop"
++ ovs-ofctl add-flow s7 "priority=480,ip,nw_dst=10.0.0.60,actions=drop"
+[islanded] installed 24 PDP rules on s7
+[islanded] installed 48 total PDP rules into OVS
+[islanded] done
+[watch] core link DOWN (3/2) mode=ISLANDED
+[watch] core link DOWN (4/2) mode=ISLANDED
+[watch] core link DOWN (5/2) mode=ISLANDED
+[watch] core link DOWN (6/2) mode=ISLANDED
+[watch] core link DOWN (7/2) mode=ISLANDED
+[watch] core link DOWN (8/2) mode=ISLANDED
+[watch] core link DOWN (9/2) mode=ISLANDED
+[watch] core link DOWN (10/2) mode=ISLANDED
+[watch] core link DOWN (11/2) mode=ISLANDED
+[watch] core link DOWN (12/2) mode=ISLANDED
+[watch] core link DOWN (13/2) mode=ISLANDED
+[watch] core link DOWN (14/2) mode=ISLANDED
+[watch] core link DOWN (15/2) mode=ISLANDED
+[watch] core link DOWN (16/2) mode=ISLANDED
+[watch] core link DOWN (17/2) mode=ISLANDED
+[watch] core link DOWN (18/2) mode=ISLANDED
+[watch] core link DOWN (19/2) mode=ISLANDED
+[watch] core link DOWN (20/2) mode=ISLANDED
+[watch] core link DOWN (21/2) mode=ISLANDED
+[watch] core link DOWN (22/2) mode=ISLANDED
+[watch] core link DOWN (23/2) mode=ISLANDED
+[watch] core link DOWN (24/2) mode=ISLANDED
+[watch] core link DOWN (25/2) mode=ISLANDED
+[watch] core link DOWN (26/2) mode=ISLANDED
+[watch] core link DOWN (27/2) mode=ISLANDED
+[watch] core link DOWN (28/2) mode=ISLANDED
+[watch] core link DOWN (29/2) mode=ISLANDED

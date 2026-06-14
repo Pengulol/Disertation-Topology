@@ -1,0 +1,39 @@
+sh echo "[scenario] MANET/AP mesh fallback only"
+
+sh echo "[step 0] clean mesh state"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo "[step 1] baseline: atk reaches critical service through direct ap5-s5 path"
+atk ip neigh flush all
+crit ip neigh flush all
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[step 2] cut direct access path ap5 <-> s5"
+sh ip link set s5-ap5 down
+sh ip link set ap5-s5 down
+
+atk ip neigh flush all
+crit ip neigh flush all
+
+sh echo "[check] without fallback, atk should fail"
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[step 3] ask SDN mesh controller to repair ap5"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py repair ap5
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh sleep 1
+
+atk ip neigh flush all
+crit ip neigh flush all
+
+sh echo "[check] with fallback ap5 -> ap4 -> s4 -> s6, atk should reach critical service"
+atk ping -c 3 10.0.0.30
+atk curl --connect-timeout 2 http://10.0.0.30:8000
+
+sh echo "[step 4] restore clean topology"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py status
+
+sh echo "[scenario] MANET/AP mesh fallback only done"

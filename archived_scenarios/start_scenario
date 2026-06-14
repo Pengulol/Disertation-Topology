@@ -1,0 +1,54 @@
+sh echo "=== START MANET SCENARIO ==="
+
+sh /mnt/shared/test/start_experiment.sh
+
+sh echo "[start] restore core link"
+sh ip link set s6-eth1 up
+
+sh echo "[start] restore AP direct city links"
+sh ip link set s2-ap2 up
+sh ip link set ap2-s2 up
+sh ip link set s3-ap3 up
+sh ip link set ap3-s3 up
+sh ip link set s4-ap4 up
+sh ip link set ap4-s4 up
+sh ip link set s5-ap5 up
+sh ip link set ap5-s5 up
+
+sh echo "[start] disable AP mesh fallback links"
+sh ip link set ap2-ap3 down
+sh ip link set ap3-ap2 down
+sh ip link set ap3-ap4 down
+sh ip link set ap4-ap3 down
+sh ip link set ap4-ap5 down
+sh ip link set ap5-ap4 down
+
+sh echo "[start] restore station positions"
+py resp.setPosition('20,40,0')
+py usr.setPosition('50,40,0')
+py sens.setPosition('80,40,0')
+py atk.setPosition('110,40,0')
+sh sleep 1
+
+sh echo "[start] restore stations to default APs"
+py resp.setAssociation(ap2, intf="resp-wlan0")
+py usr.setAssociation(ap3, intf="usr-wlan0")
+py sens.setAssociation(ap4, intf="sens-wlan0")
+py atk.setAssociation(ap5, intf="atk-wlan0")
+sh sleep 2
+
+sh echo "[start] flush neighbour tables"
+resp ip neigh flush all
+usr ip neigh flush all
+sens ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+pdp ip neigh flush all
+audit ip neigh flush all
+
+sh echo "[start] verify local PDP"
+sh curl -s --max-time 2 http://127.0.0.1:8088/health
+
+sh echo "=== START MANET SCENARIO DONE ==="

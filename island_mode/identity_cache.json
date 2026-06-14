@@ -1,0 +1,78 @@
+{
+  "resp": {
+    "ip": "10.0.0.101",
+    "mac": "02:00:00:00:01:01",
+    "role": "responder",
+    "status": "valid",
+    "zone": "ap2",
+    "risk": 10,
+    "quarantined": false
+  },
+  "usr": {
+    "ip": "10.0.0.102",
+    "mac": "02:00:00:00:01:02",
+    "role": "civilian",
+    "status": "limited",
+    "zone": "ap3",
+    "risk": 30,
+    "quarantined": false
+  },
+  "sens": {
+    "ip": "10.0.0.103",
+    "mac": "02:00:00:00:01:03",
+    "role": "sensor",
+    "status": "limited",
+    "zone": "ap4",
+    "risk": 20,
+    "quarantined": false
+  },
+  "atk": {
+    "ip": "10.0.0.104",
+    "mac": "02:00:00:00:01:04",
+    "role": "unknown",
+    "status": "untrusted",
+    "zone": "ap5",
+    "risk": 90,
+    "quarantined": true
+  },
+  "resp2": {
+    "ip": "10.0.0.111",
+    "mac": "02:00:00:00:02:01",
+    "role": "responder",
+    "status": "valid",
+    "zone": "ap6",
+    "trust_level": 90,
+    "risk": 10,
+    "quarantined": false
+  },
+  "usr2": {
+    "ip": "10.0.0.112",
+    "mac": "02:00:00:00:02:02",
+    "role": "civilian",
+    "status": "limited",
+    "zone": "ap6",
+    "trust_level": 50,
+    "risk": 35,
+    "quarantined": false
+  },
+  "sens2": {
+    "ip": "10.0.0.113",
+    "mac": "02:00:00:00:02:03",
+    "role": "sensor",
+    "status": "limited",
+    "zone": "ap6",
+    "trust_level": 60,
+    "risk": 25,
+    "quarantined": false
+  },
+  "atk2": {
+    "ip": "10.0.0.114",
+    "mac": "02:00:00:00:02:04",
+    "role": "unknown",
+    "status": "unknown",
+    "zone": "ap6",
+    "trust_level": 5,
+    "risk": 95,
+    "quarantined": true
+  }
+}

@@ -1,0 +1,81 @@
+sh echo "[scenario] Zero Trust island policy only"
+
+sh echo "[step 0] clean topology and normal forwarding"
+sh python3 /mnt/shared/island_mode/sdn_mesh_controller.py reset
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py status
+
+sh echo "[step 1] check local PDP health"
+sh curl -s http://127.0.0.1:8088/health
+sh echo ""
+
+sh echo "[step 2] normal mode baseline: attacker and responder can reach services before island policy"
+resp ip neigh flush all
+atk ip neigh flush all
+usr ip neigh flush all
+sens ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+
+sh echo "[normal] responder -> critical should work"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[normal] attacker -> critical should work before island policy"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[normal] responder -> non-critical should work before island policy"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo "[step 3] enter ISLANDED mode"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py island
+
+sh echo "[step 4] show installed island-mode flows"
+sh ovs-ofctl dump-flows s6
+sh ovs-ofctl dump-flows s7
+
+resp ip neigh flush all
+atk ip neigh flush all
+usr ip neigh flush all
+sens ip neigh flush all
+crit ip neigh flush all
+alert ip neigh flush all
+ncrit ip neigh flush all
+inet ip neigh flush all
+
+sh echo "[check] authorized responder -> critical should be ALLOWED"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[check] authorized responder -> critical alert should be ALLOWED"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.31:8000
+
+sh echo "[check] responder -> non-critical should be BLOCKED in island mode"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo "[check] attacker -> critical should be BLOCKED in island mode"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[check] civilian user -> critical should be BLOCKED in island mode"
+usr curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[check] sensor -> critical should be BLOCKED in island mode"
+sens curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[check] responder -> external/data network should be BLOCKED in island mode"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.70:8000
+
+sh echo "[step 5] reattach / restore NORMAL mode"
+sh python3 /mnt/shared/island_mode/edge_mode_controller.py normal
+
+resp ip neigh flush all
+atk ip neigh flush all
+crit ip neigh flush all
+ncrit ip neigh flush all
+
+sh echo "[normal restored] attacker -> critical should work again"
+atk curl --connect-timeout 2 --max-time 3 http://10.0.0.30:8000
+
+sh echo "[normal restored] responder -> non-critical should work again"
+resp curl --connect-timeout 2 --max-time 3 http://10.0.0.40:8000
+
+sh echo "[scenario] Zero Trust island policy only done"

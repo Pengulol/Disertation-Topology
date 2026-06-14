@@ -1,0 +1,149 @@
+12:55:43 === RANDOM DEMO RUN START ===
+12:55:43 DEMO_SEED=1781431040
+12:55:43 Reset network and policy state
+12:55:43 Start watch agent
+12:55:43 PHASE=NORMAL
+12:55:43 Urban baseline: normal city traffic before disruption
+12:55:43 MOVE resp -> ap3 (zone3-users)
+12:55:43 resp$ iw dev resp-wlan0 disconnect 2>/dev/null || true
+12:55:44 resp$ iw dev resp-wlan0 connect zone3-users 2>/dev/null || true
+12:55:44 resp$ iw dev resp-wlan0 link || true
+12:55:44 MOVE usr -> ap4 (zone4-iot)
+12:55:44 usr$ iw dev usr-wlan0 disconnect 2>/dev/null || true
+12:55:45 usr$ iw dev usr-wlan0 connect zone4-iot 2>/dev/null || true
+12:55:45 usr$ iw dev usr-wlan0 link || true
+12:55:45 MOVE sens -> ap4 (zone4-iot)
+12:55:45 sens$ iw dev sens-wlan0 disconnect 2>/dev/null || true
+12:55:46 sens$ iw dev sens-wlan0 connect zone4-iot 2>/dev/null || true
+12:55:47 sens$ iw dev sens-wlan0 link || true
+12:55:47 MOVE atk -> ap5 (zone5-other)
+12:55:47 atk$ iw dev atk-wlan0 disconnect 2>/dev/null || true
+12:55:47 atk$ iw dev atk-wlan0 connect zone5-other 2>/dev/null || true
+12:55:48 atk$ iw dev atk-wlan0 link || true
+12:55:48 Second-island nodes remain attached to ap6
+12:55:48 resp2$ iw dev resp2-wlan0 link || true
+12:55:48 usr2$ iw dev usr2-wlan0 link || true
+12:55:48 sens2$ iw dev sens2-wlan0 link || true
+12:55:48 atk2$ iw dev atk2-wlan0 link || true
+12:55:48 START_PRIMARY_ISLAND_PROBES
+12:55:48 START_PROBE node=resp actor=zt_responder service=svc_critical url=http://10.0.0.30:8000
+12:55:48 resp$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder --service svc_critical --url http://10.0.0.30:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_responder_svc_critical.log 2>&1 &
+12:55:48 START_PROBE node=resp actor=zt_responder service=svc_alert url=http://10.0.0.31:8000
+12:55:48 resp$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder --service svc_alert --url http://10.0.0.31:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_responder_svc_alert.log 2>&1 &
+12:55:48 START_PROBE node=resp actor=zt_responder service=svc_central_identity url=http://10.0.0.10:8000
+12:55:48 resp$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder --service svc_central_identity --url http://10.0.0.10:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_responder_svc_central_identity.log 2>&1 &
+12:55:48 START_PROBE node=resp actor=zt_responder service=svc_noncritical url=http://10.0.0.40:8000
+12:55:48 resp$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder --service svc_noncritical --url http://10.0.0.40:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_responder_svc_noncritical.log 2>&1 &
+12:55:48 START_PROBE node=resp actor=zt_responder service=svc_external url=http://10.0.0.70:8000
+12:55:48 resp$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder --service svc_external --url http://10.0.0.70:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_responder_svc_external.log 2>&1 &
+12:55:48 START_PROBE node=usr actor=zt_civilian_user service=svc_noncritical url=http://10.0.0.40:8000
+12:55:48 usr$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_civilian_user --service svc_noncritical --url http://10.0.0.40:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_civilian_user_svc_noncritical.log 2>&1 &
+12:55:48 START_PROBE node=usr actor=zt_civilian_user service=svc_external url=http://10.0.0.70:8000
+12:55:48 usr$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_civilian_user --service svc_external --url http://10.0.0.70:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_civilian_user_svc_external.log 2>&1 &
+12:55:48 START_PROBE node=usr actor=zt_civilian_user service=svc_central_identity url=http://10.0.0.10:8000
+12:55:48 usr$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_civilian_user --service svc_central_identity --url http://10.0.0.10:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_civilian_user_svc_central_identity.log 2>&1 &
+12:55:48 START_PROBE node=usr actor=zt_civilian_user service=svc_critical url=http://10.0.0.30:8000
+12:55:48 usr$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_civilian_user --service svc_critical --url http://10.0.0.30:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_civilian_user_svc_critical.log 2>&1 &
+12:55:48 START_PROBE node=sens actor=zt_sensor service=svc_alert url=http://10.0.0.31:8000
+12:55:48 sens$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_sensor --service svc_alert --url http://10.0.0.31:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_sensor_svc_alert.log 2>&1 &
+12:55:48 START_PROBE node=sens actor=zt_sensor service=svc_central_identity url=http://10.0.0.10:8000
+12:55:48 sens$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_sensor --service svc_central_identity --url http://10.0.0.10:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_sensor_svc_central_identity.log 2>&1 &
+12:55:48 START_PROBE node=sens actor=zt_sensor service=svc_external url=http://10.0.0.70:8000
+12:55:48 sens$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_sensor --service svc_external --url http://10.0.0.70:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_sensor_svc_external.log 2>&1 &
+12:55:48 START_PROBE node=atk actor=zt_attacker service=svc_critical url=http://10.0.0.30:8000
+12:55:48 atk$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_attacker --service svc_critical --url http://10.0.0.30:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_attacker_svc_critical.log 2>&1 &
+12:55:48 START_PROBE node=atk actor=zt_attacker service=svc_alert url=http://10.0.0.31:8000
+12:55:48 atk$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_attacker --service svc_alert --url http://10.0.0.31:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_attacker_svc_alert.log 2>&1 &
+12:55:48 START_PROBE node=atk actor=zt_attacker service=svc_external url=http://10.0.0.70:8000
+12:55:48 atk$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_attacker --service svc_external --url http://10.0.0.70:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_attacker_svc_external.log 2>&1 &
+12:55:48 MOVE resp -> ap5 (zone5-other)
+12:55:48 resp$ iw dev resp-wlan0 disconnect 2>/dev/null || true
+12:55:48 resp$ iw dev resp-wlan0 connect zone5-other 2>/dev/null || true
+12:55:49 resp$ iw dev resp-wlan0 link || true
+12:55:55 WAIT
+12:55:59 MOVE atk -> ap3 (zone3-users)
+12:55:59 atk$ iw dev atk-wlan0 disconnect 2>/dev/null || true
+12:55:59 atk$ iw dev atk-wlan0 connect zone3-users 2>/dev/null || true
+12:56:00 atk$ iw dev atk-wlan0 link || true
+12:56:04 WAIT
+12:56:09 MESH_COST_UPDATE ap2-ap3:40->29, ap3-ap4:18->45, ap4-ap5:10->28, ap3-ap5:80->23
+12:56:13 PHASE=DEGRADED
+12:56:13 Apply degraded core conditions
+12:56:13 WAIT
+12:56:17 MOVE atk -> ap3 (zone3-users)
+12:56:17 atk$ iw dev atk-wlan0 disconnect 2>/dev/null || true
+12:56:17 atk$ iw dev atk-wlan0 connect zone3-users 2>/dev/null || true
+12:56:18 atk$ iw dev atk-wlan0 link || true
+12:56:21 MOVE resp -> ap5 (zone5-other)
+12:56:21 resp$ iw dev resp-wlan0 disconnect 2>/dev/null || true
+12:56:21 resp$ iw dev resp-wlan0 connect zone5-other 2>/dev/null || true
+12:56:22 resp$ iw dev resp-wlan0 link || true
+12:56:25 WAIT
+12:56:28 MOVE resp -> ap5 (zone5-other)
+12:56:28 resp$ iw dev resp-wlan0 disconnect 2>/dev/null || true
+12:56:29 resp$ iw dev resp-wlan0 connect zone5-other 2>/dev/null || true
+12:56:29 resp$ iw dev resp-wlan0 link || true
+12:56:34 PHASE=ISLANDED
+12:56:34 Force full core outage
+12:56:42 MESH_COST_UPDATE ap2-ap3:29->43, ap3-ap4:45->44, ap4-ap5:28->21, ap3-ap5:23->52
+12:56:48 MOVE resp -> ap3 (zone3-users)
+12:56:48 resp$ iw dev resp-wlan0 disconnect 2>/dev/null || true
+12:56:49 resp$ iw dev resp-wlan0 connect zone3-users 2>/dev/null || true
+12:56:49 resp$ iw dev resp-wlan0 link || true
+12:56:54 PHASE=ISLANDED_MESH
+12:56:54 MESH_COST_UPDATE ap2-ap3:43->30, ap3-ap4:44->23, ap4-ap5:21->55, ap3-ap5:52->17
+12:56:54 FAIL_PRIMARY_PATH ap5
+12:56:54 FAIL_PRIMARY_PATH ap4
+12:56:54 REPAIR_REQUEST ap5
+12:56:55 MESH_COST_UPDATE ap2-ap3:30->45, ap3-ap4:23->17, ap4-ap5:55->51, ap3-ap5:17->43
+12:56:58 MOVE resp -> ap5 (zone5-other)
+12:56:58 resp$ iw dev resp-wlan0 disconnect 2>/dev/null || true
+12:56:58 resp$ iw dev resp-wlan0 connect zone5-other 2>/dev/null || true
+12:56:59 resp$ iw dev resp-wlan0 link || true
+12:57:04 MESH_COST_UPDATE ap2-ap3:45->30, ap3-ap4:17->22, ap4-ap5:51->54, ap3-ap5:43->44
+12:57:10 PHASE=TRUST_AWARE_MESH
+12:57:10 Trust-aware mesh routing: quarantine cheaper relay and force alternate path
+12:57:10 TRUST_AWARE_MESH_STEP start
+12:57:10 FAIL_PRIMARY_PATH ap5
+12:57:10 REPAIR_REQUEST ap5
+12:57:11 TRUST_AWARE_MESH_STEP end
+12:57:11 WAIT
+12:57:17 MOVE atk -> ap5 (zone5-other)
+12:57:17 atk$ iw dev atk-wlan0 disconnect 2>/dev/null || true
+12:57:17 atk$ iw dev atk-wlan0 connect zone5-other 2>/dev/null || true
+12:57:18 atk$ iw dev atk-wlan0 link || true
+12:57:23 PHASE=INTER_ISLAND_MESH
+12:57:23 Enable inter-island fallback and start second-island actors
+12:57:23 START_SECOND_ISLAND_PROBES
+12:57:23 START_PROBE node=resp2 actor=zt_responder_i2 service=svc_critical url=http://10.0.0.30:8000
+12:57:23 resp2$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder_i2 --service svc_critical --url http://10.0.0.30:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_responder_i2_svc_critical.log 2>&1 &
+12:57:23 START_PROBE node=resp2 actor=zt_responder_i2 service=svc_alert url=http://10.0.0.31:8000
+12:57:23 resp2$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder_i2 --service svc_alert --url http://10.0.0.31:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_responder_i2_svc_alert.log 2>&1 &
+12:57:23 START_PROBE node=resp2 actor=zt_responder_i2 service=svc_noncritical url=http://10.0.0.40:8000
+12:57:23 resp2$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder_i2 --service svc_noncritical --url http://10.0.0.40:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_responder_i2_svc_noncritical.log 2>&1 &
+12:57:23 START_PROBE node=resp2 actor=zt_responder_i2 service=svc_central_identity url=http://10.0.0.10:8000
+12:57:23 resp2$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_responder_i2 --service svc_central_identity --url http://10.0.0.10:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_responder_i2_svc_central_identity.log 2>&1 &
+12:57:23 START_PROBE node=usr2 actor=zt_civilian_user_i2 service=svc_critical url=http://10.0.0.30:8000
+12:57:23 usr2$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_civilian_user_i2 --service svc_critical --url http://10.0.0.30:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_civilian_user_i2_svc_critical.log 2>&1 &
+12:57:23 START_PROBE node=sens2 actor=zt_sensor_i2 service=svc_alert url=http://10.0.0.31:8000
+12:57:23 sens2$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_sensor_i2 --service svc_alert --url http://10.0.0.31:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_sensor_i2_svc_alert.log 2>&1 &
+12:57:23 START_PROBE node=atk2 actor=zt_attacker_i2 service=svc_critical url=http://10.0.0.30:8000
+12:57:23 atk2$ python3 /mnt/shared/island_mode/traffic_probe.py --actor zt_attacker_i2 --service svc_critical --url http://10.0.0.30:8000 --out /mnt/shared/results/demo_run/pass1/demo_metrics.csv --interval 1 --timeout 2 > /tmp/demo_probe_zt_attacker_i2_svc_critical.log 2>&1 &
+12:57:23 WAIT
+12:57:27 MOVE atk -> ap2 (zone2-responder)
+12:57:27 atk$ iw dev atk-wlan0 disconnect 2>/dev/null || true
+12:57:27 atk$ iw dev atk-wlan0 connect zone2-responder 2>/dev/null || true
+12:57:28 atk$ iw dev atk-wlan0 link || true
+12:57:33 MOVE usr -> ap2 (zone2-responder)
+12:57:33 usr$ iw dev usr-wlan0 disconnect 2>/dev/null || true
+12:57:33 usr$ iw dev usr-wlan0 connect zone2-responder 2>/dev/null || true
+12:57:34 usr$ iw dev usr-wlan0 link || true
+12:57:40 PHASE=REATTACH
+12:57:40 Restore core/backhaul
+12:58:05 PHASE=NORMAL_RESTORED
+12:58:05 MESH_COST_UPDATE ap2-ap3:30->25, ap3-ap4:22->41, ap4-ap5:54->35, ap3-ap5:44->24
+12:58:11 MESH_COST_UPDATE ap2-ap3:25->22, ap3-ap4:41->24, ap4-ap5:35->27, ap3-ap5:24->43
+12:58:17 Stopping probes and watch
+12:58:19 Restore mesh profile
+12:58:19 Restore clean network
+12:58:19 === RANDOM DEMO RUN END ===

@@ -1,0 +1,3 @@
+metric,value,percent,definition
+MLDI,0.8,80.0,mean layer-wise degeneracy ratio tau_l = |D_l| / |E_l|
+MLDI_star,0.7111,71.11,mean normalized layer entropy H(l) / log(m)
