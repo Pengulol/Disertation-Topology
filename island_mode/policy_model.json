@@ -15,20 +15,32 @@
     {
       "role": "civilian",
       "service_class": "critical",
-      "action": "deny",
-      "reason": "civilian users cannot access responder critical services during degraded operation"
+      "action": "limit",
+      "reason": "civilian users get rate-limited (not blocked) access to critical services during degraded operation, supporting graceful degradation"
     },
     {
       "role": "sensor",
       "service_class": "critical",
-      "action": "deny",
-      "reason": "sensor nodes cannot access responder critical services during degraded operation"
+      "action": "limit",
+      "reason": "sensor nodes get rate-limited (not blocked) access to critical services during degraded operation, supporting graceful degradation"
     },
     {
       "role": "*",
       "service_class": "external",
       "action": "deny",
       "reason": "external data network access is restricted during degraded operation"
+    },
+    {
+      "role": "*",
+      "service_class": "non-critical",
+      "action": "deny",
+      "reason": "non-critical services are restricted during degraded operation so limited capacity is preserved for critical traffic"
+    },
+    {
+      "role": "*",
+      "service_class": "central-control",
+      "action": "deny",
+      "reason": "central identity and policy services are treated as unavailable or unsafe during degraded operation; local cached policy must be used"
     },
     {
       "role": "*",
@@ -43,7 +55,6 @@
       "reason": "control-plane MEC services are internal and are not directly exposed to user devices during degraded operation"
     }
   ],
-
   "ISLANDED": [
     {
       "role": "responder",

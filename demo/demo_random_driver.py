@@ -26,6 +26,23 @@ AP_SSIDS = {
     "ap6": "zone6-second-island",
 }
 
+
+AP_FREQ = {
+    "ap2": "2412",
+    "ap3": "2437",
+    "ap4": "2462",
+    "ap5": "2412",
+    "ap6": "2437",
+}
+
+AP_BSSID = {
+    "ap2": "02:00:00:00:08:00",
+    "ap3": "02:00:00:00:09:00",
+    "ap4": "02:00:00:00:0a:00",
+    "ap5": "02:00:00:00:0b:00",
+    "ap6": "02:00:00:00:0c:00",
+}
+
 AP_PRIMARY_IFACES = {
     "ap2": ["s2-ap2", "ap2-s2"],
     "ap3": ["s3-ap3", "ap3-s3"],
@@ -65,13 +82,32 @@ def node_cmd(node: str, cmd: str) -> str:
 def move_station(node: str, ap: str) -> None:
     iface = f"{node}-wlan0"
     ssid = AP_SSIDS[ap]
+    freq = AP_FREQ.get(ap, "")
+    bssid = AP_BSSID.get(ap, "")
 
     log(f"MOVE {node} -> {ap} ({ssid})")
     node_cmd(node, f"iw dev {iface} disconnect 2>/dev/null || true")
     time.sleep(0.5)
-    node_cmd(node, f"iw dev {iface} connect {ssid} 2>/dev/null || true")
-    time.sleep(0.5)
-    node_cmd(node, f"iw dev {iface} link || true")
+
+    connect_cmd = f"iw dev {iface} connect {ssid}"
+    if freq:
+        connect_cmd += f" {freq}"
+    if bssid:
+        connect_cmd += f" {bssid}"
+    connect_cmd += " 2>/dev/null || true"
+
+    node_cmd(node, connect_cmd)
+    time.sleep(0.8)
+
+
+    link = node_cmd(node, f"iw dev {iface} link || true")
+    if "Connected" not in link:
+        log(f"RETRY associate {node} -> {ap}")
+        node_cmd(node, f"iw dev {iface} disconnect 2>/dev/null || true")
+        time.sleep(0.5)
+        node_cmd(node, connect_cmd)
+        time.sleep(1.0)
+        node_cmd(node, f"iw dev {iface} link || true")
 
 
 def random_mobility() -> None:
