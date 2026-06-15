@@ -78,6 +78,9 @@ def priority_for_rule(action: str, role: str, service_class: str) -> int:
     if action == "allow":
         return 500
 
+    if action == "limit":
+        return 495
+
     if role != "*" and service_class != "*":
         return 490
 
@@ -141,6 +144,27 @@ def compile_policy(mode: str) -> list[dict[str, Any]]:
                         "reason": deny_reason
                     })
                     continue
+
+                if action == "limit":
+                    status = actor_data.get("status")
+                    quarantined = actor_data.get("quarantined", False)
+                    risk = int(actor_data.get("risk", 100))
+
+                    if quarantined or risk > 50 or status not in ("limited", "valid"):
+                        compiled.append({
+                            "mode": mode,
+                            "actor": actor_name,
+                            "role": actor_data.get("role"),
+                            "src_ip": src_ip,
+                            "src_mac": src_mac,
+                            "service": service_name,
+                            "service_class": service_class,
+                            "dst_ip": dst_ip,
+                            "action": "deny",
+                            "priority": 490,
+                            "reason": "identity not eligible for limited access; denied",
+                        })
+                        continue
 
                 compiled.append({
                     "mode": mode,

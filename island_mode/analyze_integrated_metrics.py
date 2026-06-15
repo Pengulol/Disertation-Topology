@@ -12,20 +12,67 @@ ORDER = [
     "ISLANDED_MESH",
     "TRUST_AWARE_MESH",
     "INTER_ISLAND_MESH",
+    "INTER_ISLAND_FALLBACK",
     "REATTACH",
     "NORMAL_RESTORED",
 ]
 
 RESPONDER_ACTORS = {"zt_responder", "zt_responder_i2"}
 CIVILIAN_ACTORS = {"zt_civilian_user", "zt_civilian_user_i2"}
+SENSOR_ACTORS = {"zt_sensor", "zt_sensor_i2"}
 ATTACKER_ACTORS = {"zt_attacker", "zt_attacker_i2"}
-UNAUTHORIZED_ACTORS = CIVILIAN_ACTORS | ATTACKER_ACTORS
+
+DEGRADED_LIMITED_ACTORS = CIVILIAN_ACTORS | SENSOR_ACTORS
+ISLAND_UNAUTHORIZED_ACTORS = CIVILIAN_ACTORS | SENSOR_ACTORS | ATTACKER_ACTORS
+
+CRITICAL_SERVICES = {"svc_critical", "svc_alert"}
+RESTRICTED_SERVICES = {"svc_noncritical", "svc_external", "svc_central_identity"}
+
+ACTOR_ALIASES = {
+    "10.0.0.101": "zt_responder",
+    "10.0.0.102": "zt_civilian_user",
+    "10.0.0.103": "zt_sensor",
+    "10.0.0.104": "zt_attacker",
+    "10.0.0.111": "zt_responder_i2",
+    "10.0.0.112": "zt_civilian_user_i2",
+    "10.0.0.113": "zt_sensor_i2",
+    "10.0.0.114": "zt_attacker_i2",
+}
+
+SERVICE_ALIASES = {
+    "critical": "svc_critical",
+    "crit": "svc_critical",
+    "10.0.0.30": "svc_critical",
+    "alert": "svc_alert",
+    "10.0.0.31": "svc_alert",
+    "noncritical": "svc_noncritical",
+    "non-critical": "svc_noncritical",
+    "ncrit": "svc_noncritical",
+    "10.0.0.40": "svc_noncritical",
+    "central_identity": "svc_central_identity",
+    "central-control": "svc_central_identity",
+    "central_control": "svc_central_identity",
+    "10.0.0.10": "svc_central_identity",
+    "external": "svc_external",
+    "inet": "svc_external",
+    "10.0.0.70": "svc_external",
+}
+
+
+def normalize_actor(actor):
+    return ACTOR_ALIASES.get(actor, actor)
+
+
+def normalize_service(service):
+    return SERVICE_ALIASES.get(service, service)
+
 
 ISLAND_PHASES = {
     "ISLANDED",
     "ISLANDED_MESH",
     "TRUST_AWARE_MESH",
     "INTER_ISLAND_MESH",
+    "INTER_ISLAND_FALLBACK",
 }
 
 
@@ -46,49 +93,66 @@ def avg(values):
     return sum(values) / len(values) if values else 0.0
 
 
+def percentile(values, p):
+    if not values:
+        return 0.0
+    ordered = sorted(values)
+    if len(ordered) == 1:
+        return ordered[0]
+    rank = (len(ordered) - 1) * p
+    lower = int(rank)
+    upper = min(lower + 1, len(ordered) - 1)
+    frac = rank - lower
+    return ordered[lower] * (1 - frac) + ordered[upper] * frac
+
+
 def phase_sort_key(phase):
     if phase in ORDER:
         return ORDER.index(phase)
     return 999
 
 
-def expected_result(phase, actor, service):
+def expected_result_details(phase, actor, service):
+
+    phase = phase.upper()
+
     if phase in ("NORMAL", "NORMAL_RESTORED"):
-        return "success"
+        return "success", "normal"
 
     if phase == "DEGRADED":
-        if actor in RESPONDER_ACTORS and service in (
-            "svc_critical",
-            "svc_alert",
-            "svc_noncritical",
-            "svc_central_identity",
-        ):
-            return "success"
+        if service in RESTRICTED_SERVICES:
+            return "blocked", "deny"
 
-        if actor in RESPONDER_ACTORS and service == "svc_external":
-            return "blocked"
-
-        if actor in UNAUTHORIZED_ACTORS and service == "svc_critical":
-            return "blocked"
+        if service in CRITICAL_SERVICES:
+            if actor in RESPONDER_ACTORS:
+                return "success", "full"
+            if actor in DEGRADED_LIMITED_ACTORS:
+                return "success", "limited"
+            if actor in ATTACKER_ACTORS:
+                return "blocked", "deny"
 
     if phase in ISLAND_PHASES:
-        if actor in RESPONDER_ACTORS and service in ("svc_critical", "svc_alert"):
-            return "success"
+        if actor in RESPONDER_ACTORS and service in CRITICAL_SERVICES:
+            return "success", "full"
 
-        if actor in RESPONDER_ACTORS and service in (
-            "svc_noncritical",
-            "svc_external",
-            "svc_central_identity",
-        ):
-            return "blocked"
+        if actor in RESPONDER_ACTORS and service in RESTRICTED_SERVICES:
+            return "blocked", "deny"
 
-        if actor in UNAUTHORIZED_ACTORS and service == "svc_critical":
-            return "blocked"
+        if actor in ISLAND_UNAUTHORIZED_ACTORS and service in CRITICAL_SERVICES:
+            return "blocked", "deny"
 
     if phase == "REATTACH":
-        return "skip"
+        return "skip", "skip"
 
-    return "skip"
+    return "skip", "skip"
+
+
+def expected_result(phase, actor, service):
+    return expected_result_details(phase, actor, service)[0]
+
+
+def expected_tier(phase, actor, service):
+    return expected_result_details(phase, actor, service)[1]
 
 
 def write_csv(path, rows, fieldnames):
@@ -126,6 +190,11 @@ def avg_success_latency(rows):
     return avg(lat)
 
 
+def p95_success_latency(rows):
+    lat = [to_float(r["latency_ms"]) for r in rows if r["result"] == "success"]
+    return percentile(lat, 0.95)
+
+
 def max_latency(rows):
     vals = [to_float(r["latency_ms"]) for r in rows]
     return max(vals) if vals else 0.0
@@ -158,8 +227,13 @@ def main():
         rows = list(csv.DictReader(f))
 
     for r in rows:
+        r["actor_raw"] = r.get("actor", "")
+        r["service_raw"] = r.get("service", "")
+        r["actor"] = normalize_actor(r.get("actor", ""))
+        r["service"] = normalize_service(r.get("service", ""))
         r["t_rel_s"] = str(to_float(r.get("t_rel_s", "0")))
         r["latency_ms"] = str(to_float(r.get("latency_ms", "0")))
+        r["result"] = r.get("result", "") or "unknown"
 
     phase_groups = defaultdict(list)
     detail_groups = defaultdict(list)
@@ -167,7 +241,6 @@ def main():
     for r in rows:
         phase_groups[r["phase"]].append(r)
         detail_groups[(r["phase"], r["actor"], r["service"])].append(r)
-
 
     phase_summary = []
     for phase in sorted(phase_groups.keys(), key=phase_sort_key):
@@ -187,15 +260,16 @@ def main():
             "success_rate_pct": f"{success_rate(group):.2f}",
             "block_rate_pct": f"{block_rate(group):.2f}",
             "avg_success_latency_ms": f"{avg_success_latency(group):.2f}",
+            "p95_success_latency_ms": f"{p95_success_latency(group):.2f}",
             "max_latency_ms": f"{max_latency(group):.2f}",
         })
-
 
     expectation_summary = []
     for key in sorted(detail_groups.keys(), key=lambda k: (phase_sort_key(k[0]), k[1], k[2])):
         phase, actor, service = key
         group = detail_groups[key]
         expected = expected_result(phase, actor, service)
+        tier = expected_tier(phase, actor, service)
         pr, pc, scored = pass_rate(group)
 
         expectation_summary.append({
@@ -203,6 +277,7 @@ def main():
             "actor": actor,
             "service": service,
             "expected": expected,
+            "expected_tier": tier,
             "total_requests": len(group),
             "success_count": len(filter_rows(group, results={"success"})),
             "blocked_count": len(filter_rows(group, results={"blocked"})),
@@ -210,6 +285,39 @@ def main():
             "scored_requests": "" if expected == "skip" else scored,
             "pass_rate_pct": "" if expected == "skip" else f"{pr:.2f}",
             "avg_success_latency_ms": f"{avg_success_latency(group):.2f}",
+            "p95_success_latency_ms": f"{p95_success_latency(group):.2f}",
+            "max_latency_ms": f"{max_latency(group):.2f}",
+        })
+
+    degraded_limit_summary = []
+    degraded_keys = [
+        key for key in detail_groups.keys()
+        if key[0] == "DEGRADED" and expected_tier(key[0], key[1], key[2]) in {"full", "limited", "deny"}
+    ]
+    for key in sorted(degraded_keys, key=lambda k: (k[1], k[2])):
+        phase, actor, service = key
+        group = detail_groups[key]
+        expected = expected_result(phase, actor, service)
+        tier = expected_tier(phase, actor, service)
+        pr, pc, scored = pass_rate(group)
+
+        degraded_limit_summary.append({
+            "phase": phase,
+            "actor": actor,
+            "service": service,
+            "expected": expected,
+            "expected_tier": tier,
+            "meter_expected": "yes" if tier == "limited" else "no",
+            "total_requests": len(group),
+            "success_count": len(filter_rows(group, results={"success"})),
+            "blocked_count": len(filter_rows(group, results={"blocked"})),
+            "pass_count": "" if expected == "skip" else pc,
+            "scored_requests": "" if expected == "skip" else scored,
+            "pass_rate_pct": "" if expected == "skip" else f"{pr:.2f}",
+            "success_rate_pct": f"{success_rate(group):.2f}",
+            "block_rate_pct": f"{block_rate(group):.2f}",
+            "avg_success_latency_ms": f"{avg_success_latency(group):.2f}",
+            "p95_success_latency_ms": f"{p95_success_latency(group):.2f}",
             "max_latency_ms": f"{max_latency(group):.2f}",
         })
 
@@ -232,9 +340,10 @@ def main():
             "ISLANDED_MESH",
             "TRUST_AWARE_MESH",
             "INTER_ISLAND_MESH",
+            "INTER_ISLAND_FALLBACK",
         },
         actors=RESPONDER_ACTORS,
-        services={"svc_critical", "svc_alert"},
+        services=CRITICAL_SERVICES,
     )
     add_kpi(
         "critical_service_continuity",
@@ -244,21 +353,22 @@ def main():
         success_rate(critical_continuity_rows),
     )
 
-    unauthorized_rows = filter_rows(
+    degraded_attacker_rows = filter_rows(
         rows,
-        phases={
-            "DEGRADED",
-            "ISLANDED",
-            "ISLANDED_MESH",
-            "TRUST_AWARE_MESH",
-            "INTER_ISLAND_MESH",
-        },
-        actors=UNAUTHORIZED_ACTORS,
-        services={"svc_critical"},
+        phases={"DEGRADED"},
+        actors=ATTACKER_ACTORS,
+        services=CRITICAL_SERVICES,
     )
+    island_unauthorized_rows = filter_rows(
+        rows,
+        phases=ISLAND_PHASES,
+        actors=ISLAND_UNAUTHORIZED_ACTORS,
+        services=CRITICAL_SERVICES,
+    )
+    unauthorized_rows = degraded_attacker_rows + island_unauthorized_rows
     add_kpi(
         "unauthorized_access_blocking",
-        "Attacker and civilian requests to critical service must be blocked outside normal mode",
+        "Attackers remain blocked in degraded mode; all non-responders are blocked from critical/alert services in island mode",
         unauthorized_rows,
         "block_rate_pct",
         block_rate(unauthorized_rows),
@@ -266,14 +376,9 @@ def main():
 
     island_restriction_rows = filter_rows(
         rows,
-        phases={
-            "ISLANDED",
-            "ISLANDED_MESH",
-            "TRUST_AWARE_MESH",
-            "INTER_ISLAND_MESH",
-        },
+        phases=ISLAND_PHASES,
         actors=RESPONDER_ACTORS,
-        services={"svc_noncritical", "svc_external", "svc_central_identity"},
+        services=RESTRICTED_SERVICES,
     )
     add_kpi(
         "island_graceful_degradation",
@@ -287,7 +392,7 @@ def main():
         rows,
         phases={"TRUST_AWARE_MESH"},
         actors={"zt_responder"},
-        services={"svc_critical", "svc_alert"},
+        services=CRITICAL_SERVICES,
     )
     add_kpi(
         "trust_aware_mesh_continuity",
@@ -299,9 +404,9 @@ def main():
 
     inter_island_rows = filter_rows(
         rows,
-        phases={"INTER_ISLAND_MESH"},
+        phases={"INTER_ISLAND_MESH", "INTER_ISLAND_FALLBACK"},
         actors={"zt_responder_i2"},
-        services={"svc_critical", "svc_alert"},
+        services=CRITICAL_SERVICES,
     )
     add_kpi(
         "inter_island_fallback_continuity",
@@ -323,6 +428,72 @@ def main():
         success_rate(normal_restore_rows),
     )
 
+    degraded_full_rows = filter_rows(
+        rows,
+        phases={"DEGRADED"},
+        actors=RESPONDER_ACTORS,
+        services=CRITICAL_SERVICES,
+    )
+    add_kpi(
+        "degraded_full_access_continuity",
+        "Responder full-tier critical/alert access in degraded mode",
+        degraded_full_rows,
+        "success_rate_pct",
+        success_rate(degraded_full_rows),
+    )
+
+    degraded_limited_rows = filter_rows(
+        rows,
+        phases={"DEGRADED"},
+        actors=DEGRADED_LIMITED_ACTORS,
+        services=CRITICAL_SERVICES,
+    )
+    add_kpi(
+        "degraded_limited_access_availability",
+        "Civilian/sensor limited-tier critical/alert access in degraded mode; should succeed through rate-limited OVS meters",
+        degraded_limited_rows,
+        "success_rate_pct",
+        success_rate(degraded_limited_rows),
+    )
+    add_kpi(
+        "degraded_limited_access_latency_avg",
+        "Average latency for successful limited-tier degraded critical/alert requests",
+        degraded_limited_rows,
+        "avg_success_latency_ms",
+        avg_success_latency(degraded_limited_rows),
+    )
+
+    add_kpi(
+        "degraded_attacker_blocking",
+        "Attacker/unknown critical/alert access must remain blocked in degraded mode",
+        degraded_attacker_rows,
+        "block_rate_pct",
+        block_rate(degraded_attacker_rows),
+    )
+
+    degraded_restricted_rows = filter_rows(
+        rows,
+        phases={"DEGRADED"},
+        services=RESTRICTED_SERVICES,
+    )
+    add_kpi(
+        "degraded_restricted_service_blocking",
+        "Non-critical, external and central-control services are restricted during degraded mode",
+        degraded_restricted_rows,
+        "block_rate_pct",
+        block_rate(degraded_restricted_rows),
+    )
+
+    degraded_rows = filter_rows(rows, phases={"DEGRADED"})
+    degraded_pass_pct, degraded_pass_count, degraded_total = pass_rate(degraded_rows)
+    kpi_rows.append({
+        "kpi": "degraded_three_tier_policy_correctness",
+        "description": "Requests matching the three-tier degraded policy: full, limited and deny",
+        "requests": degraded_total,
+        "metric_type": "pass_rate_pct",
+        "value": f"{degraded_pass_pct:.2f}",
+    })
+
     scored_pass_pct, scored_pass_count, scored_total = pass_rate(rows)
     kpi_rows.append({
         "kpi": "overall_policy_correctness",
@@ -341,10 +512,11 @@ def main():
             "ISLANDED_MESH",
             "TRUST_AWARE_MESH",
             "INTER_ISLAND_MESH",
+            "INTER_ISLAND_FALLBACK",
             "NORMAL_RESTORED",
         },
         actors=RESPONDER_ACTORS,
-        services={"svc_critical", "svc_alert"},
+        services=CRITICAL_SERVICES,
     )
     add_kpi(
         "critical_success_latency_avg",
@@ -356,6 +528,7 @@ def main():
 
     phase_out = os.path.join(args.outdir, "integrated_phase_summary.csv")
     expectation_out = os.path.join(args.outdir, "integrated_expectation_summary.csv")
+    degraded_limit_out = os.path.join(args.outdir, "integrated_degraded_limit_summary.csv")
     kpi_out = os.path.join(args.outdir, "integrated_kpi_summary.csv")
 
     write_csv(phase_out, phase_summary, [
@@ -369,6 +542,7 @@ def main():
         "success_rate_pct",
         "block_rate_pct",
         "avg_success_latency_ms",
+        "p95_success_latency_ms",
         "max_latency_ms",
     ])
 
@@ -377,6 +551,7 @@ def main():
         "actor",
         "service",
         "expected",
+        "expected_tier",
         "total_requests",
         "success_count",
         "blocked_count",
@@ -384,6 +559,27 @@ def main():
         "scored_requests",
         "pass_rate_pct",
         "avg_success_latency_ms",
+        "p95_success_latency_ms",
+        "max_latency_ms",
+    ])
+
+    write_csv(degraded_limit_out, degraded_limit_summary, [
+        "phase",
+        "actor",
+        "service",
+        "expected",
+        "expected_tier",
+        "meter_expected",
+        "total_requests",
+        "success_count",
+        "blocked_count",
+        "pass_count",
+        "scored_requests",
+        "pass_rate_pct",
+        "success_rate_pct",
+        "block_rate_pct",
+        "avg_success_latency_ms",
+        "p95_success_latency_ms",
         "max_latency_ms",
     ])
 
@@ -399,19 +595,31 @@ def main():
     print("=== Phase summary ===")
     for r in phase_summary:
         print(
-            f"{r['phase']:18s} "
+            f"{r['phase']:22s} "
             f"n={r['total_requests']:4d} "
             f"success={r['success_rate_pct']:>6s}% "
             f"blocked={r['block_rate_pct']:>6s}% "
             f"avg_latency={r['avg_success_latency_ms']:>7s} ms "
+            f"p95={r['p95_success_latency_ms']:>7s} ms "
             f"duration={r['duration_s']:>7s}s"
+        )
+
+    print("")
+    print("=== Degraded three-tier summary ===")
+    for r in degraded_limit_summary:
+        print(
+            f"{r['actor']:24s} {r['service']:20s} "
+            f"tier={r['expected_tier']:8s} "
+            f"expected={r['expected']:7s} "
+            f"pass={str(r['pass_rate_pct']):>6s}% "
+            f"n={r['total_requests']}"
         )
 
     print("")
     print("=== KPI summary ===")
     for r in kpi_rows:
         print(
-            f"{r['kpi']:32s} "
+            f"{r['kpi']:42s} "
             f"{r['metric_type']:24s} "
             f"value={r['value']:>7s} "
             f"n={r['requests']}"
@@ -420,6 +628,7 @@ def main():
     print("")
     print("[saved]", phase_out)
     print("[saved]", expectation_out)
+    print("[saved]", degraded_limit_out)
     print("[saved]", kpi_out)
 
 

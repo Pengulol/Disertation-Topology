@@ -27,20 +27,19 @@ sh bash /mnt/shared/island_mode/restore_core_link.sh 2>/dev/null || true
 sh echo ""
 sh echo "[3] Force responder on ap2 and attacker on ap5"
 py resp.setPosition("20,40,0")
-sh sleep 1
 resp iw dev resp-wlan0 disconnect 2>/dev/null || true
 sh sleep 1
-resp iw dev resp-wlan0 connect zone2-responder 2437 02:00:00:00:08:00
+resp iw dev resp-wlan0 connect zone2-responder 2412 02:00:00:00:08:00
 sh sleep 2
 resp iw dev resp-wlan0 link
 
 py atk.setPosition("110,40,0")
-sh sleep 1
 atk iw dev atk-wlan0 disconnect 2>/dev/null || true
 sh sleep 1
-atk iw dev atk-wlan0 connect zone5-other 2437 02:00:00:00:0b:00
+atk iw dev atk-wlan0 connect zone5-other 2412 02:00:00:00:0b:00
 sh sleep 2
 atk iw dev atk-wlan0 link
+
 
 sh echo ""
 sh echo "[4] Start continuous traffic probes"
@@ -91,7 +90,7 @@ py resp.setPosition("110,40,0")
 sh sleep 1
 resp iw dev resp-wlan0 disconnect 2>/dev/null || true
 sh sleep 1
-resp iw dev resp-wlan0 connect zone5-other 2437 02:00:00:00:0b:00
+resp iw dev resp-wlan0 connect zone5-other 2412 02:00:00:00:0b:00
 sh sleep 2
 resp iw dev resp-wlan0 link
 
@@ -99,7 +98,7 @@ py atk.setPosition("110,40,0")
 sh sleep 1
 atk iw dev atk-wlan0 disconnect 2>/dev/null || true
 sh sleep 1
-atk iw dev atk-wlan0 connect zone5-other 2437 02:00:00:00:0b:00
+atk iw dev atk-wlan0 connect zone5-other 2412 02:00:00:00:0b:00
 sh sleep 2
 atk iw dev atk-wlan0 link
 
