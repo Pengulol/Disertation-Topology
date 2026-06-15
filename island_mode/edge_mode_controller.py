@@ -46,6 +46,10 @@ DEGRADED_DELAY_MS = 100.0
 DEGRADED_LOSS_PCT = 1.0
 DEGRADED_RATE_MBIT = 10.0
 
+LIMIT_METER_BASE_ID = int(os.environ.get("LIMIT_METER_BASE_ID", "1000"))
+LIMIT_RATE_KBPS = int(os.environ.get("LIMIT_RATE_KBPS", "2000"))
+LIMIT_BURST_KB = int(os.environ.get("LIMIT_BURST_KB", "200"))
+
 
 def run(cmd: str, check: bool = True) -> subprocess.CompletedProcess:
     print(f"+ {cmd}")
@@ -247,39 +251,110 @@ def install_normal_mode() -> None:
     print("[normal] done")
 
 
-def ovs_action(action: str) -> str:
+def ovs_action(action: str, meter_id: int | None = None) -> str:
     if action == "allow":
         return "NORMAL"
 
     if action == "deny":
         return "drop"
 
+    if action == "limit":
+        if meter_id is None:
+            return "drop"
+        return f"meter:{meter_id},NORMAL"
+
     raise ValueError(f"Unsupported action from PDP: {action}")
 
 
-def build_flow(pep_bridge: str, rule: dict) -> str:
+def limited_rule_key(rule: dict) -> tuple:
+    return (
+        rule.get("actor"),
+        rule.get("role"),
+        rule.get("src_ip"),
+        rule.get("src_mac"),
+        rule.get("service"),
+        rule.get("dst_ip"),
+    )
+
+
+def build_flow(pep_bridge: str, rule: dict, limit_meters: dict[tuple, int] | None = None) -> str:
     priority = rule["priority"]
     dst_ip = rule["dst_ip"]
     src_ip = rule.get("src_ip")
     src_mac = rule.get("src_mac")
-    ovs_act = ovs_action(rule["action"])
+    action = rule["action"]
+
+    limit_meters = limit_meters or {}
+    of_prefix = ""
+
+    if action == "limit":
+        meter_id = limit_meters.get(limited_rule_key(rule))
+        ovs_act = ovs_action("limit", meter_id=meter_id)
+        if meter_id is not None:
+            of_prefix = "-O OpenFlow13 "
+    else:
+        ovs_act = ovs_action(action)
 
     if src_ip is None:
         return (
-            f'ovs-ofctl add-flow {pep_bridge} '
+            f'ovs-ofctl {of_prefix}add-flow {pep_bridge} '
             f'"priority={priority},ip,nw_dst={dst_ip},actions={ovs_act}"'
         )
 
     if src_mac:
         return (
-            f'ovs-ofctl add-flow {pep_bridge} '
+            f'ovs-ofctl {of_prefix}add-flow {pep_bridge} '
             f'"priority={priority},dl_src={src_mac},ip,nw_src={src_ip},nw_dst={dst_ip},actions={ovs_act}"'
         )
 
     return (
-        f'ovs-ofctl add-flow {pep_bridge} '
+        f'ovs-ofctl {of_prefix}add-flow {pep_bridge} '
         f'"priority={priority},ip,nw_src={src_ip},nw_dst={dst_ip},actions={ovs_act}"'
     )
+
+
+def setup_limit_meters(bridge: str, rules: list[dict]) -> dict[tuple, int]:
+    limited_rules = [r for r in rules if r.get("action") == "limit"]
+    if not limited_rules:
+        return {}
+
+    run(f"ovs-vsctl set bridge {bridge} protocols=OpenFlow10,OpenFlow13", check=False)
+
+    meter_map: dict[tuple, int] = {}
+    for index, rule in enumerate(limited_rules, start=1):
+        meter_id = LIMIT_METER_BASE_ID + index
+        key = limited_rule_key(rule)
+
+        run(
+            f"ovs-ofctl -O OpenFlow13 del-meter {bridge} meter={meter_id}",
+            check=False,
+        )
+        result = run(
+            f"ovs-ofctl -O OpenFlow13 add-meter {bridge} "
+            f"\"meter={meter_id},kbps,band=type=drop,rate={LIMIT_RATE_KBPS}\"",
+            check=False,
+        )
+
+        if result.returncode == 0:
+            meter_map[key] = meter_id
+            audit(
+                f"LIMIT,meter-ready,bridge={bridge},meter={meter_id},"
+                f"actor={rule.get('actor')},service={rule.get('service')},"
+                f"rate_kbps={LIMIT_RATE_KBPS}"
+            )
+        else:
+            print(
+                f"[limit] meter setup failed on {bridge} for "
+                f"actor={rule.get('actor')} service={rule.get('service')}; "
+                "limited flow will fail closed to drop"
+            )
+            audit(
+                f"LIMIT,meter-failed,bridge={bridge},meter={meter_id},"
+                f"actor={rule.get('actor')},service={rule.get('service')},"
+                "fallback=drop"
+            )
+
+    return meter_map
 
 
 def install_policy_mode(mode: str) -> None:
@@ -303,10 +378,12 @@ def install_policy_mode(mode: str) -> None:
         run(f'ovs-ofctl add-flow {pep} "priority=100,actions=NORMAL"')
         install_control_plane_exceptions(pep)
 
+        limit_meters = setup_limit_meters(pep, compiled_rules)
+
         installed_on_pep = 0
 
         for rule in compiled_rules:
-            flow = build_flow(pep, rule)
+            flow = build_flow(pep, rule, limit_meters=limit_meters)
             run(flow)
             installed_on_pep += 1
             total_installed += 1
